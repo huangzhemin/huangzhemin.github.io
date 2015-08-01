@@ -4,7 +4,7 @@ title: 《Objective-C高级编程》笔记(日更)
 comments: true
 date: 2015-07-22 16:21:07
 categories: iOS
-tags: [高级编程]
+tags: [进阶, 笔记]
 ---
 《Objective-C高级编程——iOS与OS X多线程和内存管理》这本书，是两位叫*Kazuki Sakamoto*和*Tomohiko Furumoto*的日本人写的，之前是有问师兄借过，那个时候只是走马观花似的看了第三章关于GCD的介绍，觉得很一般，不知为何大家推荐这本书，时隔近一年，再次翻开，细细研读，才发现干货确实不少，下面就把阅读此书的笔记分享给大家。
 <!--more-->

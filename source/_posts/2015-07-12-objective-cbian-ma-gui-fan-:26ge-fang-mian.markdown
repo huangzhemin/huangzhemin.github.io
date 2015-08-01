@@ -3,7 +3,7 @@ layout: post
 title: "Objective-C编码规范：26个方面"
 date: 2015-07-12 17:59:37 +0800
 comments: true
-categories: iOS
+categories: 转载
 tags: [编码规范]
 ---
 上午看ios开发者的微信公众号，其中有一篇名为《如何成为一名好的ios程序员》的文章引起了我的注意，其中提到了一篇名为《Objective-C编码规范：26个方面解决iOS开发问题》的文章，我就翻来看看，首先想到的就是把这篇文章用自己的表达，用markdown编辑一下，发到自己的博客上。此处制定一个惯例，以后发文章，正文之前加一张图片作为序曲，哈哈～

@@ -4,7 +4,7 @@ title: Linux常用命令(持续更新中)
 comments: true
 date: 2015-07-19 16:19:15
 categories: Linux
-tags: [命令]
+tags: [命令, 日常]
 ---
 做自然语言处理实验，Linux系统肯定是不二的选择，这片文档主要记录一下自己用到过的命令，会持续更新下去。
 <img style="display:block;width:60%", src="/images/7.1_Linux_versions.png"/>

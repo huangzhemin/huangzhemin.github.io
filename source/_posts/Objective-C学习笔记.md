@@ -4,7 +4,7 @@ title: Objective-C基础学习笔记
 comments: true
 date: 2015-07-20 16:41:57
 categories: iOS
-tags: [基础]
+tags: [基础, 笔记]
 ---
 本文是阅读*Jesse Feiler*的《Sams Teach Yourself Objective-C in 24 Hours》的笔记。
 <!--more-->

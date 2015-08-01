@@ -3,8 +3,8 @@ layout: post
 title: "MakeDown写一篇关于octopress配置的文章"
 date: 2015-07-09 22:53:10 +0800
 comments: true
-categories: 工具使用
-tags: [安装]
+categories: 博客
+tags: [工具, 捣拾]
 ---
 一晚上的时间，终于用Octopress搭建起来了自己的博客，上传到自己的github上，希望这个博客能见证我这个菜鸟的进步。
 先尝试用MakeDown来写一篇今天配置Octopress的整个流程吧。

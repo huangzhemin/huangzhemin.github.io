@@ -1,4 +1,7 @@
+layout: post
+comments: true
 title: {{ title }}
 date: {{ date }}
-tags:
+categories: 
+tags: 
 ---

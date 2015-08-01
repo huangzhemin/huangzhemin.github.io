@@ -4,7 +4,7 @@ title: iOS开发常用三方库及Xcode插件集锦(转载)
 comments: true
 date: 2015-07-22 09:18:51
 categories: 转载
-tags: [第三方库]
+tags: [第三方库, 下载]
 ---
 2015.7.27 补充：
 [iOS开源库汇总](http://github.ibireme.com/github/list/ios/)
