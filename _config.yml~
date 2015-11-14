@@ -74,8 +74,8 @@ feed:
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: github
-  repo: https://github.com/huangzhemin/huangzhemin.github.io.git
+  type: git
+  repo: http://github.com/huangzhemin/huangzhemin.github.io.git
   branch: master
 
 #sitemap

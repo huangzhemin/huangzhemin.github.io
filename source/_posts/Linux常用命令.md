@@ -18,8 +18,15 @@ ls -lR | grep "^-" | wc -l
 du -sh
 ####将文件夹列表放入文件中
 ls > filelist
+####将多个文件合并到一个
+cat file1 file2 file3 > mergeFile
+####随机将某个文件中的N行复制到另外一个文件
+shuf -n N input > output
 ####统计文件
 wc - lcw file
 - c 统计字节数。
 - l 统计行数。
 - w 统计字数。
+
+####linux下Python默认版本的选择
+sudo ln -sf /usr/bin/python3.4 /usr/bin/python 
