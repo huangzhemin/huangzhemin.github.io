@@ -13,15 +13,15 @@ tags: [进阶, 笔记]
 2.Blocks
 3.Grand Central Dispatch
 下面就按这个顺序记录读书笔记。
-#自动引用计数
+# 自动引用计数
 章节开始是用办公室照明的例子来说明内存管理引用计数这一概念的，简单易懂，但这是每一个初学iOS都应该掌握的，直接略过。
-##内存管理的思考方式
+## 内存管理的思考方式
 - 自己生成的对象，自己持有。
 - 非自己生成的对象，自己也能持有。
 - 不再需要自己持有的对象时释放。
 - 非自己持有的对象无法释放。
 具体的例子程序这里就不详细写了，因为在任何一本书上都能看到，此书真正引起我的注意，是从下面这段内容开始的。
-##alloc/retain/release/dealloc实现
+## alloc/retain/release/dealloc实现
 OS X、iOS中的大部分作为开源软件公开在Apple Open Source上，但是遗憾的是，包含NSObject类的Foundation框架并没有公开。不过Foundation框架使用的Core Foundation框架的源代码，以及通过调用NSObject类进行内存部分的源代码是公开的。但是，没有NSObject类的源代码，就很难了解NSObject类的内部实现细节。所以作者使用了开源软件GNUStep来说明。
 对于一下代码。
 ```
