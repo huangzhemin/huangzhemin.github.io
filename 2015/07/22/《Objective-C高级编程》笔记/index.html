@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《Objective-C高级编程》笔记(日更) | 小蜗牛的壳</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="《Objective-C高级编程——iOS与OS X多线程和内存管理》这本书，是两位叫Kazuki Sakamoto和Tomohiko Furumoto的日本人写的，之前是有问师兄借过，那个时候只是走马观花似的看了第三章关于GCD的介绍，觉得很一般，不知为何大家推荐这本书，时隔近一年，再次翻开，细细研读，才发现干货确实不少，下面就把阅读此书的笔记分享给大家。">
+<meta name="keywords" content="笔记,进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Objective-C高级编程》笔记(日更)">
+<meta property="og:url" content="http://huangzhemin.github.io/2015/07/22/《Objective-C高级编程》笔记/index.html">
+<meta property="og:site_name" content="小蜗牛的壳">
+<meta property="og:description" content="《Objective-C高级编程——iOS与OS X多线程和内存管理》这本书，是两位叫Kazuki Sakamoto和Tomohiko Furumoto的日本人写的，之前是有问师兄借过，那个时候只是走马观花似的看了第三章关于GCD的介绍，觉得很一般，不知为何大家推荐这本书，时隔近一年，再次翻开，细细研读，才发现干货确实不少，下面就把阅读此书的笔记分享给大家。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-18T09:31:04.797Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Objective-C高级编程》笔记(日更)">
+<meta name="twitter:description" content="《Objective-C高级编程——iOS与OS X多线程和内存管理》这本书，是两位叫Kazuki Sakamoto和Tomohiko Furumoto的日本人写的，之前是有问师兄借过，那个时候只是走马观花似的看了第三章关于GCD的介绍，觉得很一般，不知为何大家推荐这本书，时隔近一年，再次翻开，细细研读，才发现干货确实不少，下面就把阅读此书的笔记分享给大家。">
+  
+    <link rel="alternative" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小蜗牛的壳</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">因为慢，所以能欣赏一路的风景</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://huangzhemin.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-《Objective-C高级编程》笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/22/《Objective-C高级编程》笔记/" class="article-date">
+  <time datetime="2015-07-22T08:21:07.000Z" itemprop="datePublished">2015-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《Objective-C高级编程》笔记(日更)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>《Objective-C高级编程——iOS与OS X多线程和内存管理》这本书，是两位叫<em>Kazuki Sakamoto</em>和<em>Tomohiko Furumoto</em>的日本人写的，之前是有问师兄借过，那个时候只是走马观花似的看了第三章关于GCD的介绍，觉得很一般，不知为何大家推荐这本书，时隔近一年，再次翻开，细细研读，才发现干货确实不少，下面就把阅读此书的笔记分享给大家。<br><a id="more"></a><br>全书分三个大章节，分别为：<br>1.自动引用计数<br>2.Blocks<br>3.Grand Central Dispatch<br>下面就按这个顺序记录读书笔记。</p>
+<p>#自动引用计数<br>章节开始是用办公室照明的例子来说明内存管理引用计数这一概念的，简单易懂，但这是每一个初学iOS都应该掌握的，直接略过。</p>
+<p>##内存管理的思考方式</p>
+<ul>
+<li>自己生成的对象，自己持有。</li>
+<li>非自己生成的对象，自己也能持有。</li>
+<li>不再需要自己持有的对象时释放。</li>
+<li>非自己持有的对象无法释放。<br>具体的例子程序这里就不详细写了，因为在任何一本书上都能看到，此书真正引起我的注意，是从下面这段内容开始的。<br>##alloc/retain/release/dealloc实现<br>OS X、iOS中的大部分作为开源软件公开在Apple Open Source上，但是遗憾的是，包含NSObject类的Foundation框架并没有公开。不过Foundation框架使用的Core Foundation框架的源代码，以及通过调用NSObject类进行内存部分的源代码是公开的。但是，没有NSObject类的源代码，就很难了解NSObject类的内部实现细节。所以作者使用了开源软件GNUStep来说明。<br>对于一下代码。<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">id obj</span> = [NSObject alloc];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>调用NSObject类的alloc类方法在NSObject.m源代码中的实现如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">id</span>)allc &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> allocWithZone: <span class="built_in">NSDefaultMallocZone</span>()];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">id</span>)allocWithZone:(<span class="built_in">NSZone</span> *)z &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">NSAllocateObject</span>(<span class="keyword">self</span>, <span class="number">0</span>, z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过allocWithZone：类方法调用NSAllocateObject函数分配了对象。下面我们来看看NSAllocateObject函数。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> obj_layout &#123;</span><br><span class="line">    <span class="built_in">NSUInteger</span> retained;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">id</span> <span class="built_in">NSAllocateObject</span>(Class aClass, <span class="built_in">NSUInteger</span> extraBytes, <span class="built_in">NSZone</span> *zone) &#123;</span><br><span class="line">    <span class="keyword">int</span> size = 计算容纳对象所需内存大小;</span><br><span class="line">    <span class="keyword">id</span> new = <span class="built_in">NSZoneMalloc</span>(zone, size);</span><br><span class="line">    memset(new, <span class="number">0</span>, size);</span><br><span class="line">    new = (<span class="keyword">id</span>) &amp; ((<span class="keyword">struct</span> obj_layout *)new) [<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>NSAllocateObject函数通过调用NSZoneMalloc函数来分配存放对象的内存空间，之后将该内存空间置0，最后返回作为对象而使用的指针。<br>此处特别提一下NSZone这个类，简单理解就是将小容量和大容量分开存储，使得内存高效利用而不会产生碎片化的这么一个概念。<br>但是现在运行时系统忽略了区域这一概念，对于内存的管理本身已经机具效率，这种使用区域来管理内存反而会引起内存使用效率低下以及源代码复杂化等问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huangzhemin.github.io/2015/07/22/《Objective-C高级编程》笔记/" data-id="cjik2kynw001biiv1r6tfenj3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/进阶/">进阶</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/22/git使用方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          git基本使用方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/22/iOS开发常用三方库及插件/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS开发常用三方库及Xcode插件集锦(转载)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 10px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/心得/" style="font-size: 13.33px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 20px;">捣拾</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/毕业/" style="font-size: 10px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a> <a href="/tags/进阶/" style="font-size: 16.67px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/08/21/小谈设计模式/">小谈设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/02/漫谈毕业论文/">漫谈毕业论文</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/28/《Effective-Objective-C-2-0》笔记/">《Effective Objective-C 2.0》笔记（更新中）</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/25/imac换固态硬盘/">imac换固态硬盘</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/24/《pro-Objective-C》笔记/">《pro Objective-C》笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Patrick Huang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>安装Synergy遇到的小麻烦 | 小蜗牛的壳</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在实验室的开发机，一边是Ubuntu系统，一边是Mac系统，开发起来需要两套键盘和鼠标，说实话，虽然不太方便，但是还是可以接受的。今天同实验室的同学推荐了一款叫Synergy的软件，可以连接屏幕，只用一套键鼠就可以操作两台电脑，心里还是有些小兴奋的，于是赶紧安装玩耍，感觉不错，所以分享一下。惯例贴图上正文：">
+<meta name="keywords" content="捣拾,心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装Synergy遇到的小麻烦">
+<meta property="og:url" content="http://huangzhemin.github.io/2015/07/14/安装Synergy遇到的小麻烦/index.html">
+<meta property="og:site_name" content="小蜗牛的壳">
+<meta property="og:description" content="在实验室的开发机，一边是Ubuntu系统，一边是Mac系统，开发起来需要两套键盘和鼠标，说实话，虽然不太方便，但是还是可以接受的。今天同实验室的同学推荐了一款叫Synergy的软件，可以连接屏幕，只用一套键鼠就可以操作两台电脑，心里还是有些小兴奋的，于是赶紧安装玩耍，感觉不错，所以分享一下。惯例贴图上正文：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://huangzhemin.github.io/images/5.1_apple_ubuntu_windows.jpg">
+<meta property="og:updated_time" content="2018-06-18T09:31:04.798Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装Synergy遇到的小麻烦">
+<meta name="twitter:description" content="在实验室的开发机，一边是Ubuntu系统，一边是Mac系统，开发起来需要两套键盘和鼠标，说实话，虽然不太方便，但是还是可以接受的。今天同实验室的同学推荐了一款叫Synergy的软件，可以连接屏幕，只用一套键鼠就可以操作两台电脑，心里还是有些小兴奋的，于是赶紧安装玩耍，感觉不错，所以分享一下。惯例贴图上正文：">
+<meta name="twitter:image" content="http://huangzhemin.github.io/images/5.1_apple_ubuntu_windows.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小蜗牛的壳</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">因为慢，所以能欣赏一路的风景</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://huangzhemin.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-安装Synergy遇到的小麻烦" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/14/安装Synergy遇到的小麻烦/" class="article-date">
+  <time datetime="2015-07-14T11:39:19.000Z" itemprop="datePublished">2015-07-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具使用/">工具使用</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      安装Synergy遇到的小麻烦
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在实验室的开发机，一边是Ubuntu系统，一边是Mac系统，开发起来需要两套键盘和鼠标，说实话，虽然不太方便，但是还是可以接受的。<br>今天同实验室的同学推荐了一款叫<strong>Synergy</strong>的软件，可以连接屏幕，只用一套键鼠就可以操作两台电脑，心里还是有些小兴奋的，于是赶紧安装玩耍，感觉不错，所以分享一下。惯例贴图上正文：<br><img src="/images/5.1_apple_ubuntu_windows.jpg" alt="apple_ubuntu_windows"><br><a id="more"></a><br>可以访问官网<a href="http://synergy-project.org" target="_blank" rel="noopener">http://synergy-project.org</a>下载，不过需要注册，同学推荐的网址是<a href="http://synergy-project.org/nightly" target="_blank" rel="noopener">http://synergy-project.org/nightly</a>，可以很容易的找到最新版本，现在的时候一定要注意<strong>版本号要一致</strong>。<br>在各自平台上安装好之后，现在要确定服务端和客户端，选定一台，结果悲剧的事情发生了，报出：failed to connect to server的错误，查找之后一种说法是将屏幕名改为不含’-‘或者是大写字母的，更改之后发现，启动之后报出代号为１的错误信息，最终方法来源于博客《<a href="http://blog.sina.com.cn/s/blog_5ae7a1de0100sbcp.html" target="_blank" rel="noopener">花了近4个小时装synergy</a>》。<br>选择使用已有的配置，创建<strong>/etc/synergy.conf</strong>，然后按照如下方法配置：</p>
+<blockquote>
+<p>section: screens<br>linux-name:<br>mac-name:<br>end<br>section: links<br>mac-name:<br>right = linux-name<br>linux-name:<br>left = mac-name<br>end</p>
+</blockquote>
+<p>连接完成，喜大普奔～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huangzhemin.github.io/2015/07/14/安装Synergy遇到的小麻烦/" data-id="cjik2kyo2001fiiv1jlwz0wrv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心得/">心得</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/捣拾/">捣拾</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/15/那些年的酱油代码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          那些年的酱油代码(更新中)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/13/ios常用快捷键/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ios常用快捷键</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 10px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/心得/" style="font-size: 13.33px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 20px;">捣拾</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/毕业/" style="font-size: 10px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a> <a href="/tags/进阶/" style="font-size: 16.67px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/08/21/小谈设计模式/">小谈设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/08/02/漫谈毕业论文/">漫谈毕业论文</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/28/《Effective-Objective-C-2-0》笔记/">《Effective Objective-C 2.0》笔记（更新中）</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/25/imac换固态硬盘/">imac换固态硬盘</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/24/《pro-Objective-C》笔记/">《pro Objective-C》笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Patrick Huang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
