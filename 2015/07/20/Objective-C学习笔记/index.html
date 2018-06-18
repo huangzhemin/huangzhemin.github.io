@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="小蜗牛的壳">
 <meta property="og:description" content="本文是阅读Jesse Feiler的《Sams Teach Yourself Objective-C in 24 Hours》的笔记。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-18T09:31:04.795Z">
+<meta property="og:updated_time" content="2018-06-18T09:59:20.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C基础学习笔记">
 <meta name="twitter:description" content="本文是阅读Jesse Feiler的《Sams Teach Yourself Objective-C in 24 Hours》的笔记。">
@@ -93,20 +93,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>本文是阅读<em>Jesse Feiler</em>的《Sams Teach Yourself Objective-C in 24 Hours》的笔记。<br><a id="more"></a></p>
-<p>###iOS层次划分</p>
-<ul>
+<h3 id="iOS层次划分"><a href="#iOS层次划分" class="headerlink" title="iOS层次划分"></a>iOS层次划分</h3><ul>
 <li>应用程序</li>
 <li>Cocoa Touch</li>
 <li>媒体</li>
 <li>核心服务</li>
-<li>OS核心<br>####重点两个框架<br>#####Mac OS X</li>
+<li>OS核心<h4 id="重点两个框架"><a href="#重点两个框架" class="headerlink" title="重点两个框架"></a>重点两个框架</h4><h5 id="Mac-OS-X"><a href="#Mac-OS-X" class="headerlink" title="Mac OS X"></a>Mac OS X</h5></li>
 <li>应用程序框架中的AppKit</li>
-<li>核心服务中的Core Foundation<br>#####iOS</li>
+<li>核心服务中的Core Foundation<h5 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h5></li>
 <li>Cocoa Touch中的UIKit</li>
 <li>核心服务中的Foundation</li>
 </ul>
-<p>###Objective-C继承</p>
-<ul>
+<h3 id="Objective-C继承"><a href="#Objective-C继承" class="headerlink" title="Objective-C继承"></a>Objective-C继承</h3><ul>
 <li><strong>调用</strong>——基类声明init,当子类上调用init时，实际调用的是基类的init方法</li>
 <li><strong>覆写</strong>——覆盖改写，在子类中也同样声明了init方法，那么当在子类中调用init方法的时候实际上是调用的子类的init方法</li>
 <li><p><strong>覆写并调用</strong>——在子类中覆写基类的方法时总是可以调用[super init]，这种方法其实在子类的的覆写当中经常见到</p>
@@ -122,24 +120,22 @@
 <li>为什么封装是重要的？<br>封装和数据抽象意味着对象是自包含的。类对外部世界暴露的属性和方法是类的所有实例共同拥有的属性和方法，这使得维护变得更加容易。  </li>
 </ul>
 </blockquote>
-<p>###声明方法</p>
-<p>####对象（实例）方法<br>在方法前面加－表示这个方法声明的类的实例都可以调用这个方法。</p>
-<p>####类方法<br>在方法前面加+表示这个方法调用只能是类本身。类方法最常见的用途是作为<strong>工厂方法</strong>使用。可能最常见的类方法就是alloc了。通过<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="name">id</span>)alloc<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="声明方法"><a href="#声明方法" class="headerlink" title="声明方法"></a>声明方法</h3><h4 id="对象（实例）方法"><a href="#对象（实例）方法" class="headerlink" title="对象（实例）方法"></a>对象（实例）方法</h4><p>在方法前面加－表示这个方法声明的类的实例都可以调用这个方法。</p>
+<h4 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h4><p>在方法前面加+表示这个方法调用只能是类本身。类方法最常见的用途是作为<strong>工厂方法</strong>使用。可能最常见的类方法就是alloc了。通过<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="name">id</span>)alloc<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
 <p>来返回类的一个实例。</p>
-<p>###强弱类型<br>其实这里所说的强弱类型就是对象的层次关系，弱类型就是父类，强类型就是子类，那NSArray就是NSMutableArray的弱类型，而弱类型是可以指向强类型的，这就是C语言中的父类指针指向子类对象，所以最弱的类型就是id</p>
+<h3 id="强弱类型"><a href="#强弱类型" class="headerlink" title="强弱类型"></a>强弱类型</h3><p>其实这里所说的强弱类型就是对象的层次关系，弱类型就是父类，强类型就是子类，那NSArray就是NSMutableArray的弱类型，而弱类型是可以指向强类型的，这就是C语言中的父类指针指向子类对象，所以最弱的类型就是id</p>
 <blockquote>
 <p>良好的编码习惯是将某一类型的方法放在一起，比如将所有的初始化器放在一起，然后加上#pragma mark - 标记  </p>
 </blockquote>
 <h3 id="include和-import之间有什么区别？"><a href="#include和-import之间有什么区别？" class="headerlink" title="#include和#import之间有什么区别？"></a>#include和#import之间有什么区别？</h3><p>对于#include在将指定文件包含进来的时候不会判断该文件是否在之前已经被包含过了。这样当一个文件被包含两次时会造成重复声明。#import只引用文件一次，并且会忽略后面对同一文件的#import指令。</p>
-<p>###创建方法<br>Apple在命名规则上给出的指南是类名应该以两个或者三个大写字母作为前缀，这个前缀通常用于说明其所属的框架。如果类不属于任何框架，那么可以用这个前缀说明类所属的项目。比如多瑞手写记事本的前缀为DRD DuoRuiDiary的简称。</p>
-<p>###前向引用<br>尽管引入文件是一种修正错误的方式，但这并不是解决前向引用未声明的类这个问题的最优雅的方式。相反，可以在类声明中使用@class指令在解决前向引用的问题。此外，还可能经常需要引用未声明的协议，OC提供了一个类似的语法解决了这个问题：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">protocol</span> MyProtocol;</span><br></pre></td></tr></table></figure></p>
-<p>###可写性</p>
-<ul>
+<h3 id="创建方法"><a href="#创建方法" class="headerlink" title="创建方法"></a>创建方法</h3><p>Apple在命名规则上给出的指南是类名应该以两个或者三个大写字母作为前缀，这个前缀通常用于说明其所属的框架。如果类不属于任何框架，那么可以用这个前缀说明类所属的项目。比如多瑞手写记事本的前缀为DRD DuoRuiDiary的简称。</p>
+<h3 id="前向引用"><a href="#前向引用" class="headerlink" title="前向引用"></a>前向引用</h3><p>尽管引入文件是一种修正错误的方式，但这并不是解决前向引用未声明的类这个问题的最优雅的方式。相反，可以在类声明中使用@class指令在解决前向引用的问题。此外，还可能经常需要引用未声明的协议，OC提供了一个类似的语法解决了这个问题：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">protocol</span> MyProtocol;</span><br></pre></td></tr></table></figure></p>
+<h3 id="可写性"><a href="#可写性" class="headerlink" title="可写性"></a>可写性</h3><ul>
 <li>readwrite(默认值)——@synthesize会同时生成一个getter和一个setter。</li>
-<li>readonly——@synthesize只会生成一个getter。所有使用点语法设置值的代码都不会通过编译。<br>###Setter语义</li>
+<li>readonly——@synthesize只会生成一个getter。所有使用点语法设置值的代码都不会通过编译。<h3 id="Setter语义"><a href="#Setter语义" class="headerlink" title="Setter语义"></a>Setter语义</h3></li>
 <li>assign（默认值）——就是传统意义的赋值操作。它仅仅将一个值赋给属性，并不会修改引用计数。</li>
 <li>retain——这会在属性的新值上调用retain，接着在属性的上一个值上调用release，从而会给引用计数减1。</li>
-<li>copy——这会复制被设置的对象，然后在前一个值上调用release。这意味着属性值对象在后面被修改或被释放了也不会影响属性值，因为已经将属性值设置成了该对象的一个副本。<br>###原子性<br>这个特性是用来管理线程行为的，值为nonatomic，如果没有特别指定该特性，编译器会采用atomic这个值，atomic特性能够在多线程环境下安全的使用属性，不过会影响效率。<br>###实现属性</li>
+<li>copy——这会复制被设置的对象，然后在前一个值上调用release。这意味着属性值对象在后面被修改或被释放了也不会影响属性值，因为已经将属性值设置成了该对象的一个副本。<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3>这个特性是用来管理线程行为的，值为nonatomic，如果没有特别指定该特性，编译器会采用atomic这个值，atomic特性能够在多线程环境下安全的使用属性，不过会影响效率。<h3 id="实现属性"><a href="#实现属性" class="headerlink" title="实现属性"></a>实现属性</h3></li>
 <li>@synthesize——最常用最强大的变体之一是将属性值设置为所属类中的一个实例值。<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@synthesize <span class="built_in">window</span> = _window;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -153,7 +149,7 @@
 </blockquote>
 </li>
 </ul>
-<p>###接口方法<br>不要隐藏方法任务，除非这些任务已经很明显地属于主任务的一部分了，最好是将执行多个任务的方法分解成几个相互协作的方法，即可以将前一个方法的返回值传入下一个方法。</p>
+<h3 id="接口方法"><a href="#接口方法" class="headerlink" title="接口方法"></a>接口方法</h3><p>不要隐藏方法任务，除非这些任务已经很明显地属于主任务的一部分了，最好是将执行多个任务的方法分解成几个相互协作的方法，即可以将前一个方法的返回值传入下一个方法。</p>
 <blockquote>
 <p>一个过程最简单以及最佳的实线方式，是那些其工作原理能够为维护这些过程的新开发人员所理解的实现方式。</p>
 <ul>
@@ -161,14 +157,14 @@
 <li>为什么在方法参数的末尾已经很少使用省略号了？<br>当所有参数都有名字时代码会变得更加清晰，可读性更好。如果需要灵活的指定参数的数量，那么可以考虑使用一个集合类，如NSArray、NSSet或NSDictionary。  </li>
 </ul>
 </blockquote>
-<p>###范式和设计模式<br>范式是一个单词，在很多领域有着很长的使用历史。设计模式是在20世纪70年代才被提出来并且在持续优化的一个概念，从一个更高层次上来讲，范式和设计模式都是规则，　它们并不会给语言或者框架添加任何约束，而只是限制框架和语言的使用方式。</p>
+<h3 id="范式和设计模式"><a href="#范式和设计模式" class="headerlink" title="范式和设计模式"></a>范式和设计模式</h3><p>范式是一个单词，在很多领域有着很长的使用历史。设计模式是在20世纪70年代才被提出来并且在持续优化的一个概念，从一个更高层次上来讲，范式和设计模式都是规则，　它们并不会给语言或者框架添加任何约束，而只是限制框架和语言的使用方式。</p>
 <blockquote>
 <ul>
 <li>动作和方法之间的差别是什么？<br>动作的语法是常规的方法语法的一个子集，这使得Xcode很容易就能够实现创建动作自动化工具，此外还使得在运行时分发各种动作变得更加容易。</li>
 <li>为何iOS动作能够同时拥有一个sender和一个event？<br>在Mac OS X中，控件上的用户事件主要是鼠标点击。而在Cocoa Touch框架中则支持各种点击和手势动作。通过event参数能够获知更多有关动作触发方式方面的信息。  </li>
 </ul>
 </blockquote>
-<p>###选择器路由消息<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myVariable</span> = [myObject init]<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="选择器路由消息"><a href="#选择器路由消息" class="headerlink" title="选择器路由消息"></a>选择器路由消息</h3><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myVariable</span> = [myObject init]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>上面写了一行代码来解释OC中’消息’这一概念。</p>
 <ul>
 <li>接收者（Receiver）是接收消息的对象（在本例中是myObject）。</li>
@@ -177,16 +173,16 @@
 </blockquote>
 </li>
 </ul>
-<p>####使用SEL和@selector()<br>面向对象程序关注内存管理的同时还需要关注的一点是性能。影响性能最关键的因素之一在于方法的选择和分发。OC语言及编译器的开发人员已经在这一方面投入了巨大的精力。程序的方法名是存储在一张表中，程序在执行的过程中可以查询这张表。每个方法在表中都有唯一的标识符与之对应，而在分发时则需要用到这个唯一的标识符。这种做法避免了在查找方法（方法名可能具备很强的描述性）是需要处理长字符串。<br>在编写代码的时候可以通过间接的方式房粉这些标识符，并且能借此优化自己的代码，同时给代码增加额外的动态性。为了达到这一目标，OC创建了一种特殊类型，即SEL。可以像int或float来定义标识符类型那样使用。</p>
-<p>####编译选择器与计算选择器<br>像编写<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myVariable</span> = [myObject init]<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="使用SEL和-selector"><a href="#使用SEL和-selector" class="headerlink" title="使用SEL和@selector()"></a>使用SEL和@selector()</h4><p>面向对象程序关注内存管理的同时还需要关注的一点是性能。影响性能最关键的因素之一在于方法的选择和分发。OC语言及编译器的开发人员已经在这一方面投入了巨大的精力。程序的方法名是存储在一张表中，程序在执行的过程中可以查询这张表。每个方法在表中都有唯一的标识符与之对应，而在分发时则需要用到这个唯一的标识符。这种做法避免了在查找方法（方法名可能具备很强的描述性）是需要处理长字符串。<br>在编写代码的时候可以通过间接的方式房粉这些标识符，并且能借此优化自己的代码，同时给代码增加额外的动态性。为了达到这一目标，OC创建了一种特殊类型，即SEL。可以像int或float来定义标识符类型那样使用。</p>
+<h4 id="编译选择器与计算选择器"><a href="#编译选择器与计算选择器" class="headerlink" title="编译选择器与计算选择器"></a>编译选择器与计算选择器</h4><p>像编写<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myVariable</span> = [myObject init]<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
 <p>需要指定接收者和选择器。与其他代码一样，编译器会生成可执行的代码。这里的选择器是指编译选择器。<br>另一方面，可以使用一个在运行是根据一个程序自动生成的字符串计算得出的选择器。这种选择器称为计算选择器。</p>
-<p>####使用@selector来创建选择器<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myVariable</span> = [myObject myAction]<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="使用-selector来创建选择器"><a href="#使用-selector来创建选择器" class="headerlink" title="使用@selector来创建选择器"></a>使用@selector来创建选择器</h4><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myVariable</span> = [myObject myAction]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>可以使用下面的方法来生成一个编译选择器。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SEL</span> mySelector;</span><br><span class="line"><span class="attribute">mySelector</span> = <span class="variable">@selector</span>(myAction);</span><br></pre></td></tr></table></figure></p>
 <p>如果所调用的方法包含参数，那么需要提供它们的关键词(不是值)。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mySelector = <span class="meta">@selector</span>(<span class="string">myAction:</span> <span class="string">forPurpose:</span>);</span><br></pre></td></tr></table></figure></p>
 <p>如果有两个参数，那么就需要同时提供两个关键词。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mySelector = <span class="meta">@selector</span>(<span class="string">myAction:</span> <span class="string">forPurpose:</span> <span class="string">withCondition:</span>);</span><br></pre></td></tr></table></figure></p>
-<p>####根据字符串来创建选择器<br>有时候可能并不想硬编码选择器，相反，需要能够在运行时根据一个字符串变量来设置选择器。（这就是计算选择器）通过一个实用函数来完成的。<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString * myString;</span><br><span class="line">SEL mySelector:</span><br><span class="line">mySelector = NSSelectorFormString(myString)</span><br></pre></td></tr></table></figure></p>
+<h4 id="根据字符串来创建选择器"><a href="#根据字符串来创建选择器" class="headerlink" title="根据字符串来创建选择器"></a>根据字符串来创建选择器</h4><p>有时候可能并不想硬编码选择器，相反，需要能够在运行时根据一个字符串变量来设置选择器。（这就是计算选择器）通过一个实用函数来完成的。<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString * myString;</span><br><span class="line">SEL mySelector:</span><br><span class="line">mySelector = NSSelectorFormString(myString)</span><br></pre></td></tr></table></figure></p>
 <p>如果需要存储一个选择器字符串以备后面的复用之需，那么可以将选择器转换为字符串。<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">myString</span> = NSStringFromSelector(myACtion: forPurpose);</span><br></pre></td></tr></table></figure></p>
-<p>####使用选择器<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(id)</span>performSelector:<span class="params">(SEL)</span>aSelector;</span><br><span class="line">- <span class="params">(id)</span>performSelector:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(id)</span>anObject;</span><br><span class="line">- <span class="params">(id)</span>performSelector:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(id)</span>anObject withObject:<span class="params">(id)</span>anotherObject;</span><br></pre></td></tr></table></figure></p>
+<h4 id="使用选择器"><a href="#使用选择器" class="headerlink" title="使用选择器"></a>使用选择器</h4><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(id)</span>performSelector:<span class="params">(SEL)</span>aSelector;</span><br><span class="line">- <span class="params">(id)</span>performSelector:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(id)</span>anObject;</span><br><span class="line">- <span class="params">(id)</span>performSelector:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(id)</span>anObject withObject:<span class="params">(id)</span>anotherObject;</span><br></pre></td></tr></table></figure>
 <p>消息中的选择器需要使用performSelector，如下所示：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[receiver performSelector:mySelector]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -197,14 +193,14 @@
 <li>NSInvocation会将一条OC消息转换成什么？<br>一个对象。</li>
 </ul>
 </blockquote>
-<p>###Foundation类<br>Foundation框架中包含很多类，应用程序可以使用这些类并且创建这些类的子类。在框架中有两个根类和其他各种各样的类，这些类被分成了几个组。</p>
-<p>####根类<br>之前NSObject类被认为是所有其他类的根类。实际上，它仅仅是两个根类中的一个，另外一个叫NSProxy，它通常与分布式对象一起使用。这个类表示一个远程对象（该对象可能还没有被创建）。<br>NSObject协议中包含的方法以前是NSObject类本身的一部分。通过将其中一些方法抽象到NSObject协议中之后所有的跟对象（目前就这两个）就能够共享这个协议的功能了。</p>
-<p>####Foundation范式与策略<br>Foundation框架的基础包括了对其他框架和读者自己编写的代码所实现的策略和范式的实现。这些范式和策略包括4个方面。</p>
+<h3 id="Foundation类"><a href="#Foundation类" class="headerlink" title="Foundation类"></a>Foundation类</h3><p>Foundation框架中包含很多类，应用程序可以使用这些类并且创建这些类的子类。在框架中有两个根类和其他各种各样的类，这些类被分成了几个组。</p>
+<h4 id="根类"><a href="#根类" class="headerlink" title="根类"></a>根类</h4><p>之前NSObject类被认为是所有其他类的根类。实际上，它仅仅是两个根类中的一个，另外一个叫NSProxy，它通常与分布式对象一起使用。这个类表示一个远程对象（该对象可能还没有被创建）。<br>NSObject协议中包含的方法以前是NSObject类本身的一部分。通过将其中一些方法抽象到NSObject协议中之后所有的跟对象（目前就这两个）就能够共享这个协议的功能了。</p>
+<h4 id="Foundation范式与策略"><a href="#Foundation范式与策略" class="headerlink" title="Foundation范式与策略"></a>Foundation范式与策略</h4><p>Foundation框架的基础包括了对其他框架和读者自己编写的代码所实现的策略和范式的实现。这些范式和策略包括4个方面。</p>
 <ul>
 <li>可变性</li>
 <li>类簇</li>
 <li>通知</li>
-<li>垃圾收集<br>下面分别讲解这四个方面。<br>#####可变性<br>很多Foundation类都拥有可变和不可变的版本，如NSArray、NSSet、NSString和NSData。一般来讲，可变的版本是不可变版本的子类，通过其名称来识别。例如NSMutableArray是NSArray的一个可变版本。这个名称上的可识别性使得编译器和运行时对可变版本进行性能优化变为可能。<br>如果将能够修改可变类的方法限制在一到两个方法之内的话（通常这是一种优秀的设计）就能够利用相应的不可变类在性能方面的优势了。例如，一般情况下可以使用一个不可变的数组或其他类，当需要修改数组的时候可以使用mutableCopy来创建一个可变的副本，写着修改该副本，最后使用copy将可变的副本转换为不可变的对象（这是copy方法的默认行为）。接着就可以继续使用这个不可变的副本了。<br>这种在可变和不可变的对象之间来回切换的做法是否值得依赖于所需修改的数据量和复制对象所需花费的时间。<br>#####类簇<br>Foundation利用了类簇在组织隐藏在抽象超类中的子类，开发人员通常会与这些子类打交道。见得最多的类簇应该就是NSNumber了。隐藏在抽象类NSNumber中的子类用于表示整数、长整数、字符等。这是一种在实现多个子类的同时不暴露出这些子类相互之间的独立性的极佳方式。<br>#####通知<br>通知提供了一种广播形式的通信。观察者进行注册以监控特定的事件，应用中的对象会发布通知。各个进程中的通知中心会处理这一过程。<br>通知是一种非常高效的底层通信形式，它用于在应用中传递信息。通知是NSNotification的子类，它有3个基础值，读者在需要的时候可以添加其他值。基础的NSNotification结构既简单有非常高效。每个通知都包括3个值。</li>
+<li>垃圾收集<br>下面分别讲解这四个方面。<h5 id="可变性"><a href="#可变性" class="headerlink" title="可变性"></a>可变性</h5>很多Foundation类都拥有可变和不可变的版本，如NSArray、NSSet、NSString和NSData。一般来讲，可变的版本是不可变版本的子类，通过其名称来识别。例如NSMutableArray是NSArray的一个可变版本。这个名称上的可识别性使得编译器和运行时对可变版本进行性能优化变为可能。<br>如果将能够修改可变类的方法限制在一到两个方法之内的话（通常这是一种优秀的设计）就能够利用相应的不可变类在性能方面的优势了。例如，一般情况下可以使用一个不可变的数组或其他类，当需要修改数组的时候可以使用mutableCopy来创建一个可变的副本，写着修改该副本，最后使用copy将可变的副本转换为不可变的对象（这是copy方法的默认行为）。接着就可以继续使用这个不可变的副本了。<br>这种在可变和不可变的对象之间来回切换的做法是否值得依赖于所需修改的数据量和复制对象所需花费的时间。<h5 id="类簇"><a href="#类簇" class="headerlink" title="类簇"></a>类簇</h5>Foundation利用了类簇在组织隐藏在抽象超类中的子类，开发人员通常会与这些子类打交道。见得最多的类簇应该就是NSNumber了。隐藏在抽象类NSNumber中的子类用于表示整数、长整数、字符等。这是一种在实现多个子类的同时不暴露出这些子类相互之间的独立性的极佳方式。<h5 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h5>通知提供了一种广播形式的通信。观察者进行注册以监控特定的事件，应用中的对象会发布通知。各个进程中的通知中心会处理这一过程。<br>通知是一种非常高效的底层通信形式，它用于在应用中传递信息。通知是NSNotification的子类，它有3个基础值，读者在需要的时候可以添加其他值。基础的NSNotification结构既简单有非常高效。每个通知都包括3个值。</li>
 <li>Name。在应用发出的通知中这个名称应该是唯一的。观察者需要知道这个名称。这样才能够注册接收这种类型的通知。名称是一个NSString。</li>
 <li>Object。一般来讲，这是发出通知的对象，但不是必需的。它甚至可以是nil，其实很多时候都是nil，类型是id。</li>
 <li>userInfo。这是一个字典，包含与该通知相关的数据。开发人员需要负责定义该字典并加入传递给观察者的数据。它的类型是NSDictionary。<br>1.发布通知<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">id</span>)notificationWithName:(<span class="built_in">NSString</span> *)aName object:(<span class="keyword">id</span>)anObject;</span><br><span class="line">+ (<span class="keyword">id</span>)notificationWithName:(<span class="built_in">NSString</span> *)aName object:(<span class="keyword">id</span>)anObject userInfo:(<span class="built_in">NSDictionary</span> *)userInfo;</span><br></pre></td></tr></table></figure>
@@ -226,15 +222,14 @@
 <blockquote>
 <p>为什么思考和反思方法头中的关键词和方法名是重要的？<br>因为这两者能够很清晰的表明方法的功能以及容易让人理解。其实重点是让代码更容易读懂，方法开发者之间的交流，就像我们要练习如何把话说明白一样。</p>
 </blockquote>
-<p>###管理内存和运行时对象</p>
-<blockquote>
+<h3 id="管理内存和运行时对象"><a href="#管理内存和运行时对象" class="headerlink" title="管理内存和运行时对象"></a>管理内存和运行时对象</h3><blockquote>
 <p>ARC不会给应用的运行时增加负担，因为它是在编辑器和优化器这一层实现的，依赖与Cocoa的命名规则来生成代码，其实就是代替了之前需要开发人员手动管理内存的工作。</p>
 <ul>
 <li>在ARC环境中Cocoa编码规则为何是重要的？<br>方法名中的第一个动词（alloc、init、new或copy）会触发ARC保持一个对象。</li>
 <li>垃圾收集和引用计数之间的差别是什么？<br>垃圾收集是运行时运行的一个过程。引用计数是在编写代码和编译代码的时候实现的，但其作用需要在运行时才能看得出来。</li>
 </ul>
 </blockquote>
-<p>###协议<br>协议中无任何前置指令的类也是必须存在的类，之所以这样做的原因因为在协议中加入可选方法@optional之前，协议中的所有方法都是必须存在的@required。为了避免破坏既有代码，编译器会默认按照这种方式来处理，但最好是在鞋一种指定哪些方法是可选的，哪些方法是必须的。</p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>协议中无任何前置指令的类也是必须存在的类，之所以这样做的原因因为在协议中加入可选方法@optional之前，协议中的所有方法都是必须存在的@required。为了避免破坏既有代码，编译器会默认按照这种方式来处理，但最好是在鞋一种指定哪些方法是可选的，哪些方法是必须的。</p>
 <blockquote>
 <ul>
 <li>如何使用协议向类添加属性和变量？<br>无法直接完成这个任务，但是可以在协议中指定访问器。这样采用该协议的类就会实现这些访问器，而这些访问器则可以访问采用该协议的变量和属性。</li>
@@ -244,8 +239,8 @@
 <li>一个类能够采用几个协议？<br>没有限制。  </li>
 </ul>
 </blockquote>
-<p>###快速枚举<br>简单的说快速枚举提供了一个枚举循环，这样就无须编写控制结构了，代码会变得更加清晰，避免一些潜在的错误，如果在快速枚举过程中底层结合发生变更的话会抛出一个异常，这样开发人员就可以处理异常了。</p>
-<p>###使用块<br>块利用了20世纪最基本的一个计算机原理：计算机存储和操作数字数据。这个关键的原理是说数字数据标识数字或文本的难易程度与它标识计算机指令的难易程度是一样的。所有这些都是数字，管理这些数字的方法基本上是一致的。<br>块与回调函数在某些方面是类似的，在C和OC以及其他程序设计语言中。回调函数已经使用了很长时间了。回调函数通常用于实时处理，因此可以在Core Audio以及类似的Cocoa框架中找到使用回调函数的地方。一个回调函数通常会作为参数传递到一段代码中用来管理可能发生（以及经常重复发生）的事件。<br>回调函数要比周期性检查过程是否结束并在结束时执行结束例程的做法更加优雅和高效。<br>块在OC中的实现与毁掉函数相比存在3个重要的区别。</p>
+<h3 id="快速枚举"><a href="#快速枚举" class="headerlink" title="快速枚举"></a>快速枚举</h3><p>简单的说快速枚举提供了一个枚举循环，这样就无须编写控制结构了，代码会变得更加清晰，避免一些潜在的错误，如果在快速枚举过程中底层结合发生变更的话会抛出一个异常，这样开发人员就可以处理异常了。</p>
+<h3 id="使用块"><a href="#使用块" class="headerlink" title="使用块"></a>使用块</h3><p>块利用了20世纪最基本的一个计算机原理：计算机存储和操作数字数据。这个关键的原理是说数字数据标识数字或文本的难易程度与它标识计算机指令的难易程度是一样的。所有这些都是数字，管理这些数字的方法基本上是一致的。<br>块与回调函数在某些方面是类似的，在C和OC以及其他程序设计语言中。回调函数已经使用了很长时间了。回调函数通常用于实时处理，因此可以在Core Audio以及类似的Cocoa框架中找到使用回调函数的地方。一个回调函数通常会作为参数传递到一段代码中用来管理可能发生（以及经常重复发生）的事件。<br>回调函数要比周期性检查过程是否结束并在结束时执行结束例程的做法更加优雅和高效。<br>块在OC中的实现与毁掉函数相比存在3个重要的区别。</p>
 <ul>
 <li>OC中块是运行时对象。</li>
 <li>块能够访问其被定义时所属的作用域中的数据。这意味着当一个块被调用时，它能够访问其被定义时所属的作用域中的可用数据，即使这些数据已经不能再用了，当然对这些数据的访问是只读的。</li>
@@ -268,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/20/Objective-C学习笔记/" data-id="cjik2kymz0007iiv1427zv2lq" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/20/Objective-C学习笔记/" data-id="cjik397n80009xyv19gzbvm67" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
@@ -307,7 +302,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -316,7 +311,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -325,7 +320,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 10px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/心得/" style="font-size: 13.33px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 20px;">捣拾</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/毕业/" style="font-size: 10px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a> <a href="/tags/进阶/" style="font-size: 16.67px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 13.33px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/心得/" style="font-size: 13.33px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 20px;">捣拾</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/毕业/" style="font-size: 10px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a> <a href="/tags/进阶/" style="font-size: 16.67px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
   </div>
 
@@ -334,7 +329,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -344,6 +339,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/05/再次回到这个世界/">时隔三年的回归</a>
+          </li>
         
           <li>
             <a href="/2015/08/21/小谈设计模式/">小谈设计模式</a>
@@ -359,10 +358,6 @@
         
           <li>
             <a href="/2015/07/25/imac换固态硬盘/">imac换固态硬盘</a>
-          </li>
-        
-          <li>
-            <a href="/2015/07/24/《pro-Objective-C》笔记/">《pro Objective-C》笔记</a>
           </li>
         
       </ul>

@@ -14,7 +14,7 @@
 <meta property="og:description" content="2015.7.27 补充：iOS开源库汇总iOS GitHub Top 100 简介其实在看唐巧写的《iOS开发进阶》这本书的时候，就像把iOS常用到的第三方库和Xcode插件总结一下，写一篇文章，恰巧在iOS开发微信公众号上看到了这篇文章，原文如下。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://huangzhemin.github.io/images/9.1_apple_logo.jpg">
-<meta property="og:updated_time" content="2018-06-18T09:31:04.796Z">
+<meta property="og:updated_time" content="2018-06-18T09:59:20.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发常用三方库及Xcode插件集锦(转载)">
 <meta name="twitter:description" content="2015.7.27 补充：iOS开源库汇总iOS GitHub Top 100 简介其实在看唐巧写的《iOS开发进阶》这本书的时候，就像把iOS常用到的第三方库和Xcode插件总结一下，写一篇文章，恰巧在iOS开发微信公众号上看到了这篇文章，原文如下。">
@@ -95,44 +95,41 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>2015.7.27 补充：<br><a href="http://github.ibireme.com/github/list/ios/" target="_blank" rel="noopener">iOS开源库汇总</a><br><a href="https://github.com/Aufree/trip-to-iOS/blob/master/Top-100.md" target="_blank" rel="noopener">iOS GitHub Top 100 简介</a><br>其实在看<strong>唐巧</strong>写的《iOS开发进阶》这本书的时候，就像把iOS常用到的第三方库和Xcode插件总结一下，写一篇文章，恰巧在<em>iOS开发</em>微信公众号上看到了这篇文章，原文如下。<br><img src="/images/9.1_apple_logo.jpg" alt="apple_logo"><br><a id="more"></a></p>
-<p>#前言<br>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的使用到第三方库<br>Github上Star&gt;100的开源库数量如下</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的使用到第三方库<br>Github上Star&gt;100的开源库数量如下</p>
 <p>可以看到JS以绝对的优势排名第一 一定程度上也说明了JS在这几年为什么发展得这么迅速 不会点JS都不好意思说自己是码农 不过现在JS圈的造轮子浪潮也是愈演愈烈了 自己不写个框架都不好意思打招呼</p>
 <p>OC排名第四 相信这个排名还会上升 Swift暂时还挤不进前十 不过超过OC 也是指日可待(毕竟亲儿子)</p>
 <p>Xcode基本是Mac/iOS程序员的必备工具(AppCode我没用过 不知道有多少人用?) 但是能说有多好用..这就仁者见仁了(跟Visual Studio是没得比了) 不过在用了插件以后 倒也能让生产力提升一大截</p>
 <p>接下来我会介绍一些我本人常用的第三方库和插件 也许不多 但是一定是久经考验 用了一定不会错</p>
-<p>#介绍</p>
-<p>##第三方库</p>
-<p>###CocoaPod<br>CocoaPod并不是iOS上的第三方库 而是大名鼎鼎的第三方库的管理工具<br>在CocoaPod没有出现之前 第三方库的管理是非常痛苦的 尤其是一些大型的库(比如nimbus) 每次对库进行更新 都可能会非常的痛苦<br>CocoaPod的出现解决了这些问题 以Framework的方式引入第三方库 极大的节约了集成的时间 而且通吃Objective-C和Swift(Swift上的Cathatage我没有实际用过 但是它的那种集成方式还是比CocoaPod麻烦点)</p>
-<p>###iCarousel<br>在iOS 4.x的时代(我也是从4.0开始接触iOS开发的) Coverflow的效果可谓是风靡一时 初出茅庐的我当年对如何实现几乎是束手无策(当年所有的电影资讯类的APP 如布丁爱生活等 都需要实现Coverflow选片的效果 碰巧我也要做一个) iCarousel的出现替我解决了一个大的难题<br>从此iCarousel成为了我每个项目的必备良药(也是我最喜欢的库) 不管是Coverflow还是轮播广告 都能轻描淡写的搞定 其内置的十来种显示类型 基本可以解决90%的UI需求 而其强大的自定义功能 则可以解决剩余的10% :)<br>不熟悉的朋友可以尝试一下其精美的demo(pod try iCarousel) 所有的功能都在demo中一览无余<br>作者nicklockwood也是一个高产的大神 同时维护着数量众多且优质的开源库(比如iVersion iRate) 大家不妨去看一看 淘一淘</p>
-<p>###AFNetworking/Alamofire<br>HTTP框架的龙头老大 当年在与ASIHTTPRequest的竞争中笑到了最后(当然也是因为ASIHTTPRequest的作者不维护了 不过国内很多公司 因为历史原因都在自行维护) 由于及时维护和拥抱语言的新特性 迅速被大家所接受和喜爱<br>相信每个人都用过 这里就不赘述了</p>
-<p>###MKNetworkKit<br>如果说AFNetworking是老大 那么MKNetworkKit可以说是小弟了 不过也因为比AFNetworking轻量的原因 也获得了许多开发者的青睐<br>当年因为ASIHTTPRequest停止维护了 在机缘巧合之下 我在AFNetworking和MKNetworkKit之间选择了后者 并在很多项目中进行了使用<br>不过也许是因为AFNetworking发展得更快更迅速 而作者本人是单兵作战的原因 作者也基本放弃了更新(版本号在停留在0.8x) 十分可惜</p>
-<p>###SDWebImage<br>图片异步下载和缓存管理的集大成者 UITableView的黄金搭档 其代码被开发者研究分享过无数次喵大的Kingfisher(可以说是Swift版的SDWebImage)也是深受其影响<br>异步下载AFNetworking和MKNetworkKit都有实现 数据缓存也有FastImageCache与TMCache等 但是将其融会贯通的 唯有SDWebImage了<br>除了简单的使用sd_setImageWithURL之外 SDImageCache也是可以独立使用的 功能也相当之强大</p>
-<p>###ZXingObjC<br>zxing是Google出品的二维码扫描组件 原本是Java编写的 现在也有了各种语言的移植版 而ZXingObjC就是其中之一<br>zxing支持各种主流的一维码二维码扫描 简单易用 小厂如果要实现二维码扫描这个功能 基本都会选择zxing<br>不过iOS7已内置了二维码摄像头扫描 而iOS8也已内置了二维码静态图扫描 以后可能再也不需要用到ZXing了 :(</p>
-<p>###MBProgressHUD<br>简单易用且稳定的HUD组件 半透明黑底白字的风格也经久不衰 loading提示的最佳选择</p>
-<p>###Masonry/SnapKit<br>最好用的Autolayout手写库(Cartography也不错啦 但是还是用不惯) 帮助我轻易的跨越了Autolayout这道坎<br>我也曾多次在文章中提到过关于Masonry的使用方法 如果还没有用过的朋友 不妨看一看</p>
-<p>###pop<br>Facebook的工程师一直是神一般的存在 对开源社区的贡献也是巨大的 极大的推动了各种变成语言的发展 比如HipHop之于PHP react之于JavaScript pop之于Objective-C等等<br>不管是HipHop react Facebook的工程师总是抱着颠覆的态度来开源 pop也不例外 这点之前我也简单介绍过 而以pop为基础的paper一发布就震惊整个APP届 在这点上pop也是厥功甚伟<br>pop对自定义动画也支持得很好 我也以pop的自定义动画为基础写过MMTweanAnimation</p>
-<p>###ReactiveCocoa<br>说起来惭愧 大名鼎鼎的RAC 我只使用了点皮毛(只拿来做输入验证了)<br>暂时还没有进行深层次的使用 对RAC的理解也停留在表面阶段 不过这篇文章介绍得非常详细 值得一看</p>
-<p>###GPUImage<br>如果你要做图像(照片或者视频)的相关处理 或者只是简单的想做个像Camera360一样的拍照滤镜 那么你一定要研究一下GPUImage<br>如它的名字所述 GPUImage是基于GPU的图像处理框架 我们都知道 GPU是提升性能的关键 这也就是GPUImage如此重要 如此受欢迎的原因</p>
-<p>###Lumberjack<br>log系统是每个项目都应该有的东西 而Lumberjack是log系统中的翘楚<br>你可以简单的把它当成NSLog的替代品(简单来说 Lumberjack比NSLog速度更快) 或者根据你的需要来打造一个更强大的日志系统</p>
-<p>###NSLogger<br>从名字可以看出 NSLogger也是一个log系统 其特点是附带了一个功能强大的Desktop Viewer 可以让你方便的查看APP产生的日志(支持分级筛选等等 甚至可以直接log一张图片)</p>
-<p>###AwesomeMenu<br>当年横空出世的Path 其优美的设计 精彩的动画 不知让多少人嘴巴都合不拢 而最赞的 就是它的弹出菜单 一时成为了每个APP争相模仿的对象<br>有了AwesomeMenu 你可以轻易的实现它</p>
-<p>###MMDrawerController<br>普通的侧滑菜单 用MMDrawerController就搞定了</p>
-<p>###realm<br>作为数据存储的一等公民 CoreData的地位不言而喻 不过也因为使用起来不够方便 才会出现MagicalRecord这种辅助类 甚至fmdb这种基于纯sqlite的库<br>而realm以挑战者的身份闪亮登场 不仅读取性能更快(据说数倍于CoraData) 接口简单易用(以对象的形式使用数据 这点和leancloud的思路很相似) 并且还跨平台(iOS/Android均可使用 OC/Swift/Java都支持)<br>如果你习惯使用Mantle之类的Modal转换的话Realm-JSON肯定能讨你欢心<br>作为YCombinator的孵化项目 其质量还是能得以保证的 至少我试用下来 确实给我以很大的惊喜 不管是API的设计 还是数据对象的定义 就连数据库的版本升级 都非常的方便)</p>
-<p>##Xcode插件</p>
-<p>###Alcatraz<br>与CocoaPod类似 Alcatraz是Xcode的插件管理器 能够让你方便的管理Xcode的插件(不仅可以管理插件 还可以管理主题等等)</p>
-<p>###FuzzyAutocomplete<br>如果只让我选一个插件留下 那必须是FuzzyAutocomplete 强大的模糊匹配输入 让你写代码的时候再也不用费脑子去记住名字那么长的对象或者函数名了 好用到让你想哭</p>
-<p>###XAlign<br>作为有洁癖的码农 看到不对齐的代码一定是不能忍的 XAlign可以轻松解决你的烦恼</p>
-<p>###VVDocumenter-Xcode<br>喵大的又一力作 能够识别当前函数的参数和返回类型 帮助你快速编写符合规范的注释(目前是以Javadoc为标准)</p>
-<p>###deriveddata-exterminator<br>如果你老是遇到Xcode抽风 提示你要因为某个原因要删除某个目录下的文件 否则编译不过 那你一定会被这个插件感动 因为说明了遇到这个事的人不只你一个</p>
-<p>###Xcode-Quick-Localization<br>多语言在iOS开发中一直不是很方便 有了它 你可以省不少事</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h2><h3 id="CocoaPod"><a href="#CocoaPod" class="headerlink" title="CocoaPod"></a>CocoaPod</h3><p>CocoaPod并不是iOS上的第三方库 而是大名鼎鼎的第三方库的管理工具<br>在CocoaPod没有出现之前 第三方库的管理是非常痛苦的 尤其是一些大型的库(比如nimbus) 每次对库进行更新 都可能会非常的痛苦<br>CocoaPod的出现解决了这些问题 以Framework的方式引入第三方库 极大的节约了集成的时间 而且通吃Objective-C和Swift(Swift上的Cathatage我没有实际用过 但是它的那种集成方式还是比CocoaPod麻烦点)</p>
+<h3 id="iCarousel"><a href="#iCarousel" class="headerlink" title="iCarousel"></a>iCarousel</h3><p>在iOS 4.x的时代(我也是从4.0开始接触iOS开发的) Coverflow的效果可谓是风靡一时 初出茅庐的我当年对如何实现几乎是束手无策(当年所有的电影资讯类的APP 如布丁爱生活等 都需要实现Coverflow选片的效果 碰巧我也要做一个) iCarousel的出现替我解决了一个大的难题<br>从此iCarousel成为了我每个项目的必备良药(也是我最喜欢的库) 不管是Coverflow还是轮播广告 都能轻描淡写的搞定 其内置的十来种显示类型 基本可以解决90%的UI需求 而其强大的自定义功能 则可以解决剩余的10% :)<br>不熟悉的朋友可以尝试一下其精美的demo(pod try iCarousel) 所有的功能都在demo中一览无余<br>作者nicklockwood也是一个高产的大神 同时维护着数量众多且优质的开源库(比如iVersion iRate) 大家不妨去看一看 淘一淘</p>
+<h3 id="AFNetworking-Alamofire"><a href="#AFNetworking-Alamofire" class="headerlink" title="AFNetworking/Alamofire"></a>AFNetworking/Alamofire</h3><p>HTTP框架的龙头老大 当年在与ASIHTTPRequest的竞争中笑到了最后(当然也是因为ASIHTTPRequest的作者不维护了 不过国内很多公司 因为历史原因都在自行维护) 由于及时维护和拥抱语言的新特性 迅速被大家所接受和喜爱<br>相信每个人都用过 这里就不赘述了</p>
+<h3 id="MKNetworkKit"><a href="#MKNetworkKit" class="headerlink" title="MKNetworkKit"></a>MKNetworkKit</h3><p>如果说AFNetworking是老大 那么MKNetworkKit可以说是小弟了 不过也因为比AFNetworking轻量的原因 也获得了许多开发者的青睐<br>当年因为ASIHTTPRequest停止维护了 在机缘巧合之下 我在AFNetworking和MKNetworkKit之间选择了后者 并在很多项目中进行了使用<br>不过也许是因为AFNetworking发展得更快更迅速 而作者本人是单兵作战的原因 作者也基本放弃了更新(版本号在停留在0.8x) 十分可惜</p>
+<h3 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h3><p>图片异步下载和缓存管理的集大成者 UITableView的黄金搭档 其代码被开发者研究分享过无数次喵大的Kingfisher(可以说是Swift版的SDWebImage)也是深受其影响<br>异步下载AFNetworking和MKNetworkKit都有实现 数据缓存也有FastImageCache与TMCache等 但是将其融会贯通的 唯有SDWebImage了<br>除了简单的使用sd_setImageWithURL之外 SDImageCache也是可以独立使用的 功能也相当之强大</p>
+<h3 id="ZXingObjC"><a href="#ZXingObjC" class="headerlink" title="ZXingObjC"></a>ZXingObjC</h3><p>zxing是Google出品的二维码扫描组件 原本是Java编写的 现在也有了各种语言的移植版 而ZXingObjC就是其中之一<br>zxing支持各种主流的一维码二维码扫描 简单易用 小厂如果要实现二维码扫描这个功能 基本都会选择zxing<br>不过iOS7已内置了二维码摄像头扫描 而iOS8也已内置了二维码静态图扫描 以后可能再也不需要用到ZXing了 :(</p>
+<h3 id="MBProgressHUD"><a href="#MBProgressHUD" class="headerlink" title="MBProgressHUD"></a>MBProgressHUD</h3><p>简单易用且稳定的HUD组件 半透明黑底白字的风格也经久不衰 loading提示的最佳选择</p>
+<h3 id="Masonry-SnapKit"><a href="#Masonry-SnapKit" class="headerlink" title="Masonry/SnapKit"></a>Masonry/SnapKit</h3><p>最好用的Autolayout手写库(Cartography也不错啦 但是还是用不惯) 帮助我轻易的跨越了Autolayout这道坎<br>我也曾多次在文章中提到过关于Masonry的使用方法 如果还没有用过的朋友 不妨看一看</p>
+<h3 id="pop"><a href="#pop" class="headerlink" title="pop"></a>pop</h3><p>Facebook的工程师一直是神一般的存在 对开源社区的贡献也是巨大的 极大的推动了各种变成语言的发展 比如HipHop之于PHP react之于JavaScript pop之于Objective-C等等<br>不管是HipHop react Facebook的工程师总是抱着颠覆的态度来开源 pop也不例外 这点之前我也简单介绍过 而以pop为基础的paper一发布就震惊整个APP届 在这点上pop也是厥功甚伟<br>pop对自定义动画也支持得很好 我也以pop的自定义动画为基础写过MMTweanAnimation</p>
+<h3 id="ReactiveCocoa"><a href="#ReactiveCocoa" class="headerlink" title="ReactiveCocoa"></a>ReactiveCocoa</h3><p>说起来惭愧 大名鼎鼎的RAC 我只使用了点皮毛(只拿来做输入验证了)<br>暂时还没有进行深层次的使用 对RAC的理解也停留在表面阶段 不过这篇文章介绍得非常详细 值得一看</p>
+<h3 id="GPUImage"><a href="#GPUImage" class="headerlink" title="GPUImage"></a>GPUImage</h3><p>如果你要做图像(照片或者视频)的相关处理 或者只是简单的想做个像Camera360一样的拍照滤镜 那么你一定要研究一下GPUImage<br>如它的名字所述 GPUImage是基于GPU的图像处理框架 我们都知道 GPU是提升性能的关键 这也就是GPUImage如此重要 如此受欢迎的原因</p>
+<h3 id="Lumberjack"><a href="#Lumberjack" class="headerlink" title="Lumberjack"></a>Lumberjack</h3><p>log系统是每个项目都应该有的东西 而Lumberjack是log系统中的翘楚<br>你可以简单的把它当成NSLog的替代品(简单来说 Lumberjack比NSLog速度更快) 或者根据你的需要来打造一个更强大的日志系统</p>
+<h3 id="NSLogger"><a href="#NSLogger" class="headerlink" title="NSLogger"></a>NSLogger</h3><p>从名字可以看出 NSLogger也是一个log系统 其特点是附带了一个功能强大的Desktop Viewer 可以让你方便的查看APP产生的日志(支持分级筛选等等 甚至可以直接log一张图片)</p>
+<h3 id="AwesomeMenu"><a href="#AwesomeMenu" class="headerlink" title="AwesomeMenu"></a>AwesomeMenu</h3><p>当年横空出世的Path 其优美的设计 精彩的动画 不知让多少人嘴巴都合不拢 而最赞的 就是它的弹出菜单 一时成为了每个APP争相模仿的对象<br>有了AwesomeMenu 你可以轻易的实现它</p>
+<h3 id="MMDrawerController"><a href="#MMDrawerController" class="headerlink" title="MMDrawerController"></a>MMDrawerController</h3><p>普通的侧滑菜单 用MMDrawerController就搞定了</p>
+<h3 id="realm"><a href="#realm" class="headerlink" title="realm"></a>realm</h3><p>作为数据存储的一等公民 CoreData的地位不言而喻 不过也因为使用起来不够方便 才会出现MagicalRecord这种辅助类 甚至fmdb这种基于纯sqlite的库<br>而realm以挑战者的身份闪亮登场 不仅读取性能更快(据说数倍于CoraData) 接口简单易用(以对象的形式使用数据 这点和leancloud的思路很相似) 并且还跨平台(iOS/Android均可使用 OC/Swift/Java都支持)<br>如果你习惯使用Mantle之类的Modal转换的话Realm-JSON肯定能讨你欢心<br>作为YCombinator的孵化项目 其质量还是能得以保证的 至少我试用下来 确实给我以很大的惊喜 不管是API的设计 还是数据对象的定义 就连数据库的版本升级 都非常的方便)</p>
+<h2 id="Xcode插件"><a href="#Xcode插件" class="headerlink" title="Xcode插件"></a>Xcode插件</h2><h3 id="Alcatraz"><a href="#Alcatraz" class="headerlink" title="Alcatraz"></a>Alcatraz</h3><p>与CocoaPod类似 Alcatraz是Xcode的插件管理器 能够让你方便的管理Xcode的插件(不仅可以管理插件 还可以管理主题等等)</p>
+<h3 id="FuzzyAutocomplete"><a href="#FuzzyAutocomplete" class="headerlink" title="FuzzyAutocomplete"></a>FuzzyAutocomplete</h3><p>如果只让我选一个插件留下 那必须是FuzzyAutocomplete 强大的模糊匹配输入 让你写代码的时候再也不用费脑子去记住名字那么长的对象或者函数名了 好用到让你想哭</p>
+<h3 id="XAlign"><a href="#XAlign" class="headerlink" title="XAlign"></a>XAlign</h3><p>作为有洁癖的码农 看到不对齐的代码一定是不能忍的 XAlign可以轻松解决你的烦恼</p>
+<h3 id="VVDocumenter-Xcode"><a href="#VVDocumenter-Xcode" class="headerlink" title="VVDocumenter-Xcode"></a>VVDocumenter-Xcode</h3><p>喵大的又一力作 能够识别当前函数的参数和返回类型 帮助你快速编写符合规范的注释(目前是以Javadoc为标准)</p>
+<h3 id="deriveddata-exterminator"><a href="#deriveddata-exterminator" class="headerlink" title="deriveddata-exterminator"></a>deriveddata-exterminator</h3><p>如果你老是遇到Xcode抽风 提示你要因为某个原因要删除某个目录下的文件 否则编译不过 那你一定会被这个插件感动 因为说明了遇到这个事的人不只你一个</p>
+<h3 id="Xcode-Quick-Localization"><a href="#Xcode-Quick-Localization" class="headerlink" title="Xcode-Quick-Localization"></a>Xcode-Quick-Localization</h3><p>多语言在iOS开发中一直不是很方便 有了它 你可以省不少事</p>
 <p>###Backlight-for-XCode<br>就如果Xcode默认的80个字的分页提示一样 高亮当前正在编辑的一行 也是一种友好的提示 喜不喜欢也就因人而异了</p>
-<p>#小结<br>以上的介绍 都是从我自身的使用经验触发的 可能大部分大家都用过了 而我也将会持续的更新这份列表 只要有优秀使用的东东 我都会添加进来</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>以上的介绍 都是从我自身的使用经验触发的 可能大部分大家都用过了 而我也将会持续的更新这份列表 只要有优秀使用的东东 我都会添加进来</p>
 <p>来源：里脊串的开发随笔</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/22/iOS开发常用三方库及插件/" data-id="cjik2kynm0012iiv1vzjffk9a" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/22/iOS开发常用三方库及插件/" data-id="cjik397ne000exyv1gk2y55jl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/下载/">下载</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/第三方库/">第三方库</a></li></ul>
@@ -171,7 +168,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -180,7 +177,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -189,7 +186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 10px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/心得/" style="font-size: 13.33px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 20px;">捣拾</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/毕业/" style="font-size: 10px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a> <a href="/tags/进阶/" style="font-size: 16.67px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 13.33px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/心得/" style="font-size: 13.33px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 20px;">捣拾</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/毕业/" style="font-size: 10px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a> <a href="/tags/进阶/" style="font-size: 16.67px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     </div>
   </div>
 
@@ -198,7 +195,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -208,6 +205,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/05/再次回到这个世界/">时隔三年的回归</a>
+          </li>
         
           <li>
             <a href="/2015/08/21/小谈设计模式/">小谈设计模式</a>
@@ -223,10 +224,6 @@
         
           <li>
             <a href="/2015/07/25/imac换固态硬盘/">imac换固态硬盘</a>
-          </li>
-        
-          <li>
-            <a href="/2015/07/24/《pro-Objective-C》笔记/">《pro Objective-C》笔记</a>
           </li>
         
       </ul>
