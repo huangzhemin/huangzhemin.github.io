@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: 工具使用 | 小蜗牛的壳</title>
+  <title>lint的基本概念 | 小蜗牛的壳</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录自己作为程序员的每一点进步">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小蜗牛的壳">
-<meta property="og:url" content="http://huangzhemin.github.io/categories/工具使用/index.html">
+  <meta name="description" content="最近在捣拾组件化的一些工作，把工程项目的三方引用和模块，通过cocoapods管理起来 用到了这么一行命令 pod spec lint 或者 pod lib lint 就很好奇命令的含义，简单查阅，这是pod命令，对于podspec文件的一种静态代码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lint的基本概念">
+<meta property="og:url" content="http://huangzhemin.github.io/2018/06/22/lint的基本概念/index.html">
 <meta property="og:site_name" content="小蜗牛的壳">
-<meta property="og:description" content="记录自己作为程序员的每一点进步">
+<meta property="og:description" content="最近在捣拾组件化的一些工作，把工程项目的三方引用和模块，通过cocoapods管理起来 用到了这么一行命令 pod spec lint 或者 pod lib lint 就很好奇命令的含义，简单查阅，这是pod命令，对于podspec文件的一种静态代码分析">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-21T17:45:03.852Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小蜗牛的壳">
-<meta name="twitter:description" content="记录自己作为程序员的每一点进步">
+<meta name="twitter:title" content="lint的基本概念">
+<meta name="twitter:description" content="最近在捣拾组件化的一些工作，把工程项目的三方引用和模块，通过cocoapods管理起来 用到了这么一行命令 pod spec lint 或者 pod lib lint 就很好奇命令的含义，简单查阅，这是pod命令，对于podspec文件的一种静态代码分析">
   
     <link rel="alternative" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
   
@@ -64,39 +65,80 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/07/14/安装Synergy遇到的小麻烦/" class="archive-article-date">
-  <time datetime="2015-07-14T11:39:19.000Z" itemprop="datePublished">7月 14</time>
+        <section id="main"><article id="post-lint的基本概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/22/lint的基本概念/" class="article-date">
+  <time datetime="2018-06-21T17:29:31.000Z" itemprop="datePublished">2018-06-22</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/14/安装Synergy遇到的小麻烦/">安装Synergy遇到的小麻烦</a>
+    <h1 class="article-title" itemprop="name">
+      lint的基本概念
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在捣拾组件化的一些工作，把工程项目的三方引用和模块，通过cocoapods管理起来</p>
+<p>用到了这么一行命令 pod spec lint 或者 pod lib lint</p>
+<p>就很好奇命令的含义，简单查阅，这是pod命令，对于podspec文件的一种静态代码分析</p>
+<a id="more"></a>
+<p>lint是最著名的C语言工具之一，是由贝尔实验室SteveJohnson于1979在PCC(PortableC Compiler)基础上开发的静态代码分析，一般由UNIX系统提供。</p>
+<p>lint检查C程序中潜在的错误，包括（但不限于）可疑的类型组合、未使用的变量、不可达的代码以及不可移植的代码。lint会产生一系列程序员有必要从头到尾仔细阅读的诊断信息。使用lint的好处是：</p>
+<blockquote>
+</blockquote>
+<p>1.它可以检查出被编译器漏掉的错误; </p>
+<blockquote>
+</blockquote>
+<p>2.可以关联很多文件进行错误的检查和代码分析,具有较强大灵活性.</p>
+<p>lint可以检查的错误类型大体如下:</p>
+<ul>
+<li>可能的空指针</li>
+<li>在释放内存后使用了指向该内存的指针</li>
+<li>赋值次序问题</li>
+<li>拼写错误</li>
+<li>被0除</li>
+<li>失败的case语句(遗漏了break语句)</li>
+<li>不可移植的代码(依赖了特定的机器实现)</li>
+<li>宏参数没有使用圆括号</li>
+<li>符号的丢失</li>
+<li>异常的表达式</li>
+<li>变量没有初始化</li>
+<li>可疑的判断语句(例如,if(x=0))</li>
+<li>printf/scanf的格式检查</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huangzhemin.github.io/2018/06/22/lint的基本概念/" data-id="cjiotn7se000fbdv1yg5tidtx" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/18/iOS设备的CPU架构/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS设备的CPU架构</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 </section>
         
           <aside id="sidebar">
