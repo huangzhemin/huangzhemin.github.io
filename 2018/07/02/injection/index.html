@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: 博客 | 小蜗牛的壳</title>
+  <title>injection | 小蜗牛的壳</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录自己作为程序员的每一点进步">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小蜗牛的壳">
-<meta property="og:url" content="http://huangzhemin.github.io/categories/博客/index.html">
+  <meta name="description" content="injection 注入方式 12345678- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &amp;#123;#if DEBUG    [[NSBundle bundleWithPath:@&quot;/Applications/Injecti">
+<meta name="keywords" content="毕业,随笔,记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="injection">
+<meta property="og:url" content="http://huangzhemin.github.io/2018/07/02/injection/index.html">
 <meta property="og:site_name" content="小蜗牛的壳">
-<meta property="og:description" content="记录自己作为程序员的每一点进步">
+<meta property="og:description" content="injection 注入方式 12345678- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &amp;#123;#if DEBUG    [[NSBundle bundleWithPath:@&quot;/Applications/Injecti">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-14T05:36:59.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小蜗牛的壳">
-<meta name="twitter:description" content="记录自己作为程序员的每一点进步">
+<meta name="twitter:title" content="injection">
+<meta name="twitter:description" content="injection 注入方式 12345678- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &amp;#123;#if DEBUG    [[NSBundle bundleWithPath:@&quot;/Applications/Injecti">
   
     <link rel="alternative" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
   
@@ -64,87 +66,62 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/03/05/再次回到这个世界/" class="archive-article-date">
-  <time datetime="2018-03-05T03:50:39.000Z" itemprop="datePublished">3月 5</time>
+        <section id="main"><article id="post-injection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/02/injection/" class="article-date">
+  <time datetime="2018-07-02T11:44:17.000Z" itemprop="datePublished">2018-07-02</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工作/">工作</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/05/再次回到这个世界/">时隔三年的回归</a>
+    <h1 class="article-title" itemprop="name">
+      injection
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/07/09/2015-07-12-how-to-create-octopress-blog/" class="archive-article-date">
-  <time datetime="2015-07-09T14:53:10.000Z" itemprop="datePublished">7月 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/09/2015-07-12-how-to-create-octopress-blog/">MakeDown写一篇关于octopress配置的文章</a>
-    </h1>
-  
+        <p>injection 注入方式</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line"><span class="meta">#if DEBUG</span></span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"</span>] load];</span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@"/Applications/InjectionIII.app/Contents/Resources/tvOSInjection.bundle"</span>] load];</span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@"/Applications/InjectionIII.app/Contents/Resources/macOSInjection.bundle"</span>] load];</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在需要调整的类中实现injected方法</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)injected &#123;</span><br><span class="line">    [<span class="meta">self setNeedsLayout</span>];</span><br><span class="line">    [<span class="meta">self layoutIfNeeded</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/07/09/2015-07-09-gen-shi-jie-say-hi/" class="archive-article-date">
-  <time datetime="2015-07-09T12:40:39.000Z" itemprop="datePublished">7月 9</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/09/2015-07-09-gen-shi-jie-say-hi/">跟世界say hi</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huangzhemin.github.io/2018/07/02/injection/" data-id="cjjkz9svu000ky8v16ohfp0ow" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/毕业/">毕业</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/记录/">记录</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/22/lint的基本概念/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">lint的基本概念</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 </section>
         
           <aside id="sidebar">
