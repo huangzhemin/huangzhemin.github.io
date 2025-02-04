@@ -23,5 +23,5 @@ CN:黄哲敏(HuangZheMin) | EN:patrick
 <span class="icon-github"> [Patrick Huang](https://github.com/huangzhemin)
 <span class="icon-email"> [huang_zhe_min@163.com](http://huang_zhe_min@163.com)
 <span class="icon-email"> [huangzhemin.patrick@gmail.com](http://huangzhemin.patrick@gmail.com)
-<span class="icon-twitter"> [@patrickDuang](https://twitter.com/patrickDuang)
+<span class="icon-twitter"> [@patrickDuang](https://twitter.com/patrickHuang)
 <span class="icon-facebook">  [@Patrick Huang](https://www.facebook.com/patrick.huang.1460)
