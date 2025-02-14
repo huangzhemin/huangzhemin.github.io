@@ -6,17 +6,18 @@
   <title>git基本使用方法 | 小蜗牛的壳</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号">
-<meta name="keywords" content="工具,闲扯">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git基本使用方法">
-<meta property="og:url" content="http://huangzhemin.github.io/2015/07/22/git使用方法/index.html">
+<meta property="og:url" content="http://huangzhemin.github.io/2015/07/22/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="小蜗牛的壳">
 <meta property="og:description" content="早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-18T09:59:20.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-07-22T15:19:57.000Z">
+<meta property="article:modified_time" content="2018-06-18T09:59:20.000Z">
+<meta property="article:author" content="Patrick Huang">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="闲扯">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git基本使用方法">
-<meta name="twitter:description" content="早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号">
   
     <link rel="alternative" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
   
@@ -24,10 +25,12 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -38,10 +41,6 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">小蜗牛的壳</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">因为慢，所以能欣赏一路的风景</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -68,12 +67,12 @@
       <div class="outer">
         <section id="main"><article id="post-git使用方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/07/22/git使用方法/" class="article-date">
+    <a href="/2015/07/22/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
   <time datetime="2015-07-22T15:19:57.000Z" itemprop="datePublished">2015-07-22</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/通用技术/">通用技术</a>
+    <a class="article-category-link" href="/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/">通用技术</a>
   </div>
 
   </div>
@@ -92,27 +91,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号，可空有程序员的架势，却怀着一颗文艺的心，直到近些日子再次捡起，才倍感酸爽，早些时候咨询同实验室的一位大神朋友<a href="https://github.com/ictxiangxin" target="_blank" rel="noopener">ictxiangxin</a>如何用正确的姿势使用git，大神的回答很简单，说看过git的官方文档，不可否认，官方的才是第一手资料，能有最真切的体会，不过确实是太多，就放弃了，年初时师兄推荐的一个简单的介绍git的网页颇为好用，原链接地址<a href="http://www.bootcss.com/p/git-guide/" target="_blank" rel="noopener">git使用简易指南</a>。这里简单写写git的使用方法，算是回顾一下。<br><a id="more"></a><br>最初使用git是去下载github上的一些开源的OC代码，使用<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username<span class="variable">@host</span><span class="symbol">:/path/to/repository</span></span><br></pre></td></tr></table></figure></p>
-<p>这样的命令，但后来自己创建的项目如何push给remote repository就成了问题，才知道原来git和项目本来就是分开的，如果需要将其绑定在一块，需要一个重要的命令<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git init</span></span><br></pre></td></tr></table></figure></p>
-<p>直接在工程目录中git init，这样的话算是把git和项目进行了绑定，而在oh-my-zsh当中，直接用特别可爱的绿色将已经绑定的Path写了出来，而且还指名了具体的分支。<br>理解了git基本的分布式原理之后，才明白，原来这无非是本地和远程的副本而已，所有的修改操作，直接使用命令<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">add</span><span class="bash"> .</span></span><br></pre></td></tr></table></figure></p>
-<p>将修改推入缓存区域，临时保存改动，然后使用命令<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git</span> commit -m <span class="string">'lalala'</span></span><br></pre></td></tr></table></figure></p>
-<p>来提交修改，但是这样的修改只是局限在本地仓库，如果要将改动提交到远端仓库就要使用命令<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure></p>
-<p>这里可以把master换成任何想要推送的分支，比如master:branch，这个时候发现，自己还没有创建远程仓库，这个就是github的由来了，这里直接在github上创建自己账户下的repository，然后使用命令<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="keyword">add</span><span class="bash"> origin &lt;server&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>将本地的改动推送到所添加的服务器上去。这里光自己开发不够，如何让别人也加入自己的项目，或者自己加入别人的项目，这里就要用到<strong>分支</strong>这个概念。master是默认分支。简单介绍一下分支的操作。<br>创建一个叫做“feature_x”的分支，并切换过去：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -<span class="selector-tag">b</span> feature_x</span><br></pre></td></tr></table></figure></p>
-<p>切换回主分支：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure></p>
-<p>再把新建的分支删掉：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> <span class="keyword">branch </span>-d feature_x</span><br></pre></td></tr></table></figure></p>
-<p>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
-<p>更新本地仓库至最新改动，执行：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git pull</span></span><br></pre></td></tr></table></figure></p>
-<p>pull等价与在自己的工作目录下面fetch并merge远端的改动，要合并其他的分支到当前的分支，执行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge <span class="tag">&lt;<span class="name">branch</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>如果此处碰到conflicts，需要手动修改冲突文件，然后手动<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">add</span><span class="bash"> &lt;filename&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>将他们标记为合并成功。在合并改动之前，可以使用命令<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff <span class="tag">&lt;<span class="name">source_branch</span>&gt;</span> <span class="tag">&lt;<span class="name">target_branch</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>来查看两个文件。如果要进行版本回退，就是代码没写好，想重写，又不想慢慢删，使用命令<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="comment">-- &lt;filename&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>就能很方便的把HEAD中的最近一次提交的filename文件替换当前的文件，其他的添加到缓存区的以及新的文件都不会受到影响。<br>下面的命令将会重置本地目录。<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch <span class="built_in">origin</span></span><br><span class="line">git <span class="built_in">reset</span> --hard <span class="built_in">origin</span>/master</span><br></pre></td></tr></table></figure></p>
-<p>如果这些你觉得开枯燥的话，前些日子我在知乎上看到的一哥的回答，目前得到1539个赞，一定会提起你的兴趣。<br><a href="http://www.zhihu.com/question/20070065/answer/30521531" target="_blank" rel="noopener">原文链接</a><br><strong>此处应有分割线</strong></p>
+        <p>早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号，可空有程序员的架势，却怀着一颗文艺的心，直到近些日子再次捡起，才倍感酸爽，早些时候咨询同实验室的一位大神朋友<a href="https://github.com/ictxiangxin">ictxiangxin</a>如何用正确的姿势使用git，大神的回答很简单，说看过git的官方文档，不可否认，官方的才是第一手资料，能有最真切的体会，不过确实是太多，就放弃了，年初时师兄推荐的一个简单的介绍git的网页颇为好用，原链接地址<a href="http://www.bootcss.com/p/git-guide/">git使用简易指南</a>。这里简单写写git的使用方法，算是回顾一下。<br><span id="more"></span><br>最初使用git是去下载github上的一些开源的OC代码，使用<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username<span class="variable">@host</span><span class="symbol">:/path/to/repository</span></span><br></pre></td></tr></table></figure><br>这样的命令，但后来自己创建的项目如何push给remote repository就成了问题，才知道原来git和项目本来就是分开的，如果需要将其绑定在一块，需要一个重要的命令<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">init</span></span><br></pre></td></tr></table></figure><br>直接在工程目录中git init，这样的话算是把git和项目进行了绑定，而在oh-my-zsh当中，直接用特别可爱的绿色将已经绑定的Path写了出来，而且还指名了具体的分支。<br>理解了git基本的分布式原理之后，才明白，原来这无非是本地和远程的副本而已，所有的修改操作，直接使用命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">add</span> .</span><br></pre></td></tr></table></figure><br>将修改推入缓存区域，临时保存改动，然后使用命令<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git</span> commit -m <span class="string">&#x27;lalala&#x27;</span></span><br></pre></td></tr></table></figure><br>来提交修改，但是这样的修改只是局限在本地仓库，如果要将改动提交到远端仓库就要使用命令<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure><br>这里可以把master换成任何想要推送的分支，比如master:branch，这个时候发现，自己还没有创建远程仓库，这个就是github的由来了，这里直接在github上创建自己账户下的repository，然后使用命令<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="keyword">add </span><span class="keyword">origin </span>&lt;server&gt;</span><br></pre></td></tr></table></figure><br>将本地的改动推送到所添加的服务器上去。这里光自己开发不够，如何让别人也加入自己的项目，或者自己加入别人的项目，这里就要用到<strong>分支</strong>这个概念。master是默认分支。简单介绍一下分支的操作。<br>创建一个叫做“feature_x”的分支，并切换过去：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> feature_x</span><br></pre></td></tr></table></figure><br>切换回主分支：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure><br>再把新建的分支删掉：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git branch -d feature_x</span></span><br></pre></td></tr></table></figure><br>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> &lt;branch&gt;</span><br></pre></td></tr></table></figure><br>更新本地仓库至最新改动，执行：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git pull</span></span><br></pre></td></tr></table></figure><br>pull等价与在自己的工作目录下面fetch并merge远端的改动，要合并其他的分支到当前的分支，执行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge <span class="tag">&lt;<span class="name">branch</span>&gt;</span></span><br></pre></td></tr></table></figure><br>如果此处碰到conflicts，需要手动修改冲突文件，然后手动<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">add</span> &lt;filename&gt;</span><br></pre></td></tr></table></figure><br>将他们标记为合并成功。在合并改动之前，可以使用命令<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff <span class="tag">&lt;<span class="name">source_branch</span>&gt;</span> <span class="tag">&lt;<span class="name">target_branch</span>&gt;</span></span><br></pre></td></tr></table></figure><br>来查看两个文件。如果要进行版本回退，就是代码没写好，想重写，又不想慢慢删，使用命令<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="comment">-- &lt;filename&gt;</span></span><br></pre></td></tr></table></figure><br>就能很方便的把HEAD中的最近一次提交的filename文件替换当前的文件，其他的添加到缓存区的以及新的文件都不会受到影响。<br>下面的命令将会重置本地目录。<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch <span class="built_in">origin</span></span><br><span class="line">git <span class="built_in">reset</span> --hard <span class="built_in">origin</span>/master</span><br></pre></td></tr></table></figure><br>如果这些你觉得开枯燥的话，前些日子我在知乎上看到的一哥的回答，目前得到1539个赞，一定会提起你的兴趣。<br><a href="http://www.zhihu.com/question/20070065/answer/30521531">原文链接</a><br><strong>此处应有分割线</strong></p>
 <p><hr><br>Github的基本功能：</p>
 <ul>
 <li>Repository：你和我一起做“知乎首页”，“知乎首页”就是Repository，即项目或者”未来武器T2级425mm磁轨炮“之类，怎么叫随你，你只需知道Repository是个放项目的地方就行。有时候会出现Repositories，是多个Repository的意思。</li>
-<li>Fork：我们把制作“知乎首页“的工作分开，你负责美工，我负责前端开发，但我们还需要数据服务器高手。你找来了一位php大牛，这位大牛很快搞定了服务器端，闲来无事，就看了看我的前端代码，一看，“我靠，这怎么一点也不语义化呢？全是尼玛的清一色的<div>啊，将来做交互js还搞不搞dom了……”于是这大牛在Repository中找到了我写的“zhi.html”，Fork了一份，也就是授权拷贝。</div></li>
+<li>Fork：我们把制作“知乎首页“的工作分开，你负责美工，我负责前端开发，但我们还需要数据服务器高手。你找来了一位php大牛，这位大牛很快搞定了服务器端，闲来无事，就看了看我的前端代码，一看，“我靠，这怎么一点也不语义化呢？全是尼玛的清一色的<div>啊，将来做交互js还搞不搞dom了……”于是这大牛在Repository中找到了我写的“zhi.html”，Fork了一份，也就是授权拷贝。</li>
 <li>Branch：Fork之后，在大牛的Github上出现了一个同样叫做“知乎首页”的Repository，但是这个Repository是复制品，只归他，这就是他的Branch，也就是分支。</li>
 <li>Pull Request：大牛做完了一份全新的高端zhi.html，点了Pull Request，也就是推送请求。我接受了，看了一眼，顿时惊讶爆表，“中国足球——高，实在是高！”</li>
 <li>现在你懂了，Github的结构是Repository-Branch-(获取/推送)文件。你又发现Github可以比较两个文件的异同，新增的部分用绿色标记，删除的部分用红色标记。Pull Request还可以控制，甚至可以合并Branch，这就是团队合作利器啊，真乃高大上也，手痒了吧？心动了吧？</li>
@@ -138,10 +121,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/22/git使用方法/" data-id="cm6taf9ht000rwgv24urgedul" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/22/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" data-id="cm7467xow000jipv25n041plx" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/闲扯/">闲扯</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%97%B2%E6%89%AF/" rel="tag">闲扯</a></li></ul>
 
     </footer>
   </div>
@@ -149,7 +132,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/24/《pro-Objective-C》笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -159,7 +142,7 @@
     </a>
   
   
-    <a href="/2015/07/22/《Objective-C高级编程》笔记/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/07/22/%E3%80%8AObjective-C%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">《Objective-C高级编程》笔记(日更)</div>
     </a>
@@ -177,7 +160,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具使用/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/通用技术/">通用技术</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/">通用技术</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -186,7 +169,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/">milestone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/下载/">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令/">命令</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础/">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心得/">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快捷键/">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捣拾/">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业/">毕业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码规范/">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进阶/">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲扯/">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matt-Galloway/" rel="tag">Matt Galloway</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/milestone/" rel="tag">milestone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8B%E8%BD%BD/" rel="tag">下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag">命令</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E5%BE%97/" rel="tag">心得</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" rel="tag">快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8D%A3%E6%8B%BE/" rel="tag">捣拾</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AF%95%E4%B8%9A/" rel="tag">毕业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" rel="tag">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" rel="tag">编码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag">记录</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6/" rel="tag">进阶</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%B2%E6%89%AF/" rel="tag">闲扯</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -195,7 +178,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 12.5px;">milestone</a> <a href="/tags/下载/" style="font-size: 10px;">下载</a> <a href="/tags/命令/" style="font-size: 12.5px;">命令</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/工具/" style="font-size: 12.5px;">工具</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/心得/" style="font-size: 12.5px;">心得</a> <a href="/tags/快捷键/" style="font-size: 10px;">快捷键</a> <a href="/tags/捣拾/" style="font-size: 17.5px;">捣拾</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/毕业/" style="font-size: 12.5px;">毕业</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a> <a href="/tags/编码规范/" style="font-size: 10px;">编码规范</a> <a href="/tags/记录/" style="font-size: 12.5px;">记录</a> <a href="/tags/进阶/" style="font-size: 15px;">进阶</a> <a href="/tags/闲扯/" style="font-size: 10px;">闲扯</a> <a href="/tags/随笔/" style="font-size: 12.5px;">随笔</a>
+      <a href="/tags/Matt-Galloway/" style="font-size: 10px;">Matt Galloway</a> <a href="/tags/milestone/" style="font-size: 12.5px;">milestone</a> <a href="/tags/%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">下载</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 12.5px;">命令</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">基础</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 12.5px;">工具</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 15px;">开发</a> <a href="/tags/%E5%BF%83%E5%BE%97/" style="font-size: 12.5px;">心得</a> <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 10px;">快捷键</a> <a href="/tags/%E6%8D%A3%E6%8B%BE/" style="font-size: 17.5px;">捣拾</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 12.5px;">日常</a> <a href="/tags/%E6%AF%95%E4%B8%9A/" style="font-size: 12.5px;">毕业</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 10px;">硬件</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">笔记</a> <a href="/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" style="font-size: 10px;">第三方库</a> <a href="/tags/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" style="font-size: 10px;">编码规范</a> <a href="/tags/%E8%AE%B0%E5%BD%95/" style="font-size: 12.5px;">记录</a> <a href="/tags/%E8%BF%9B%E9%98%B6/" style="font-size: 15px;">进阶</a> <a href="/tags/%E9%97%B2%E6%89%AF/" style="font-size: 10px;">闲扯</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 12.5px;">随笔</a>
     </div>
   </div>
 
@@ -204,7 +187,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -216,23 +199,23 @@
       <ul>
         
           <li>
-            <a href="/2025/02/06/iOS runtime 基础理论/">iOS runtime 基础理论</a>
+            <a href="/2025/02/14/%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%20github%20%E7%9A%84%E9%97%AE%E9%A2%98/">命令行无法连接 github 的问题</a>
           </li>
         
           <li>
-            <a href="/2025/02/04/iOS 复习/">iOS 复习思维导图</a>
+            <a href="/2025/02/06/iOS%20runtime%20%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">iOS runtime 基础理论</a>
           </li>
         
           <li>
-            <a href="/2025/02/04/PLC基础知识/">PLC 基础知识</a>
+            <a href="/2025/02/04/iOS%20%E5%A4%8D%E4%B9%A0/">iOS 复习思维导图</a>
           </li>
         
           <li>
-            <a href="/2025/02/02/学习cursor/">(no title)</a>
+            <a href="/2025/02/04/PLC%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">PLC 基础知识</a>
           </li>
         
           <li>
-            <a href="/2018/07/16/http协议返回码/">http协议返回码</a>
+            <a href="/2025/02/02/%E5%AD%A6%E4%B9%A0cursor/">(no title)</a>
           </li>
         
       </ul>
@@ -265,11 +248,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
   </div>
 </body>
