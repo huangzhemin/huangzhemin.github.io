@@ -8,12 +8,12 @@
   <meta name="description" content="早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git基本使用方法">
-<meta property="og:url" content="http://huangzhemin.github.io/2015/07/22/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:url" content="http://huangzhemin.github.io/2025/05/15/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="小蜗牛的壳">
 <meta property="og:description" content="早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2015-07-22T15:19:57.000Z">
-<meta property="article:modified_time" content="2018-06-18T09:59:20.000Z">
+<meta property="article:published_time" content="2025-05-15T02:39:57.000Z">
+<meta property="article:modified_time" content="2025-05-15T02:40:49.554Z">
 <meta property="article:author" content="Patrick Huang">
 <meta property="article:tag" content="工具">
 <meta property="article:tag" content="闲扯">
@@ -67,8 +67,8 @@
       <div class="outer">
         <section id="main"><article id="post-git使用方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/07/22/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
-  <time datetime="2015-07-22T15:19:57.000Z" itemprop="datePublished">2015-07-22</time>
+    <a href="/2025/05/15/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2025-05-15T02:39:57.000Z" itemprop="datePublished">2025-05-15</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +91,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号，可空有程序员的架势，却怀着一颗文艺的心，直到近些日子再次捡起，才倍感酸爽，早些时候咨询同实验室的一位大神朋友<a href="https://github.com/ictxiangxin">ictxiangxin</a>如何用正确的姿势使用git，大神的回答很简单，说看过git的官方文档，不可否认，官方的才是第一手资料，能有最真切的体会，不过确实是太多，就放弃了，年初时师兄推荐的一个简单的介绍git的网页颇为好用，原链接地址<a href="http://www.bootcss.com/p/git-guide/">git使用简易指南</a>。这里简单写写git的使用方法，算是回顾一下。<br><span id="more"></span><br>最初使用git是去下载github上的一些开源的OC代码，使用<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username<span class="variable">@host</span><span class="symbol">:/path/to/repository</span></span><br></pre></td></tr></table></figure><br>这样的命令，但后来自己创建的项目如何push给remote repository就成了问题，才知道原来git和项目本来就是分开的，如果需要将其绑定在一块，需要一个重要的命令<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">init</span></span><br></pre></td></tr></table></figure><br>直接在工程目录中git init，这样的话算是把git和项目进行了绑定，而在oh-my-zsh当中，直接用特别可爱的绿色将已经绑定的Path写了出来，而且还指名了具体的分支。<br>理解了git基本的分布式原理之后，才明白，原来这无非是本地和远程的副本而已，所有的修改操作，直接使用命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">add</span> .</span><br></pre></td></tr></table></figure><br>将修改推入缓存区域，临时保存改动，然后使用命令<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git</span> commit -m <span class="string">&#x27;lalala&#x27;</span></span><br></pre></td></tr></table></figure><br>来提交修改，但是这样的修改只是局限在本地仓库，如果要将改动提交到远端仓库就要使用命令<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure><br>这里可以把master换成任何想要推送的分支，比如master:branch，这个时候发现，自己还没有创建远程仓库，这个就是github的由来了，这里直接在github上创建自己账户下的repository，然后使用命令<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="keyword">add </span><span class="keyword">origin </span>&lt;server&gt;</span><br></pre></td></tr></table></figure><br>将本地的改动推送到所添加的服务器上去。这里光自己开发不够，如何让别人也加入自己的项目，或者自己加入别人的项目，这里就要用到<strong>分支</strong>这个概念。master是默认分支。简单介绍一下分支的操作。<br>创建一个叫做“feature_x”的分支，并切换过去：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> feature_x</span><br></pre></td></tr></table></figure><br>切换回主分支：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure><br>再把新建的分支删掉：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git branch -d feature_x</span></span><br></pre></td></tr></table></figure><br>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> &lt;branch&gt;</span><br></pre></td></tr></table></figure><br>更新本地仓库至最新改动，执行：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git pull</span></span><br></pre></td></tr></table></figure><br>pull等价与在自己的工作目录下面fetch并merge远端的改动，要合并其他的分支到当前的分支，执行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge <span class="tag">&lt;<span class="name">branch</span>&gt;</span></span><br></pre></td></tr></table></figure><br>如果此处碰到conflicts，需要手动修改冲突文件，然后手动<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">add</span> &lt;filename&gt;</span><br></pre></td></tr></table></figure><br>将他们标记为合并成功。在合并改动之前，可以使用命令<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff <span class="tag">&lt;<span class="name">source_branch</span>&gt;</span> <span class="tag">&lt;<span class="name">target_branch</span>&gt;</span></span><br></pre></td></tr></table></figure><br>来查看两个文件。如果要进行版本回退，就是代码没写好，想重写，又不想慢慢删，使用命令<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="comment">-- &lt;filename&gt;</span></span><br></pre></td></tr></table></figure><br>就能很方便的把HEAD中的最近一次提交的filename文件替换当前的文件，其他的添加到缓存区的以及新的文件都不会受到影响。<br>下面的命令将会重置本地目录。<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch <span class="built_in">origin</span></span><br><span class="line">git <span class="built_in">reset</span> --hard <span class="built_in">origin</span>/master</span><br></pre></td></tr></table></figure><br>如果这些你觉得开枯燥的话，前些日子我在知乎上看到的一哥的回答，目前得到1539个赞，一定会提起你的兴趣。<br><a href="http://www.zhihu.com/question/20070065/answer/30521531">原文链接</a><br><strong>此处应有分割线</strong></p>
+        <p>早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号，可空有程序员的架势，却怀着一颗文艺的心，直到近些日子再次捡起，才倍感酸爽，早些时候咨询同实验室的一位大神朋友<a href="https://github.com/ictxiangxin">ictxiangxin</a>如何用正确的姿势使用git，大神的回答很简单，说看过git的官方文档，不可否认，官方的才是第一手资料，能有最真切的体会，不过确实是太多，就放弃了，年初时师兄推荐的一个简单的介绍git的网页颇为好用，原链接地址<a href="http://www.bootcss.com/p/git-guide/">git使用简易指南</a>。这里简单写写git的使用方法，算是回顾一下。<br><span id="more"></span></p>
+<p>2025 年修改<br>commit 中的描述</p>
+<ul>
+<li>feat : 新增功能</li>
+<li>fix : 修复 bug</li>
+<li>docs : 文档更新</li>
+<li>style : 代码风格或格式修改（不影响代码运行的变动）</li>
+<li>refactor : 代码重构（既不是新增功能，也不是修复 bug）</li>
+<li>perf : 性能优化</li>
+<li>test : 增加测试</li>
+<li>chore : 构建过程或辅助工具的变动</li>
+<li>ci : 持续集成相关的改动</li>
+</ul>
+<p>2015 年<br>最初使用git是去下载github上的一些开源的OC代码，使用<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username<span class="variable">@host</span><span class="symbol">:/path/to/repository</span></span><br></pre></td></tr></table></figure><br>这样的命令，但后来自己创建的项目如何push给remote repository就成了问题，才知道原来git和项目本来就是分开的，如果需要将其绑定在一块，需要一个重要的命令<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">init</span></span><br></pre></td></tr></table></figure><br>直接在工程目录中git init，这样的话算是把git和项目进行了绑定，而在oh-my-zsh当中，直接用特别可爱的绿色将已经绑定的Path写了出来，而且还指名了具体的分支。<br>理解了git基本的分布式原理之后，才明白，原来这无非是本地和远程的副本而已，所有的修改操作，直接使用命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">add</span> .</span><br></pre></td></tr></table></figure><br>将修改推入缓存区域，临时保存改动，然后使用命令<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git</span> commit -m <span class="string">&#x27;lalala&#x27;</span></span><br></pre></td></tr></table></figure><br>来提交修改，但是这样的修改只是局限在本地仓库，如果要将改动提交到远端仓库就要使用命令<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure><br>这里可以把master换成任何想要推送的分支，比如master:branch，这个时候发现，自己还没有创建远程仓库，这个就是github的由来了，这里直接在github上创建自己账户下的repository，然后使用命令<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="keyword">add </span><span class="keyword">origin </span>&lt;server&gt;</span><br></pre></td></tr></table></figure><br>将本地的改动推送到所添加的服务器上去。这里光自己开发不够，如何让别人也加入自己的项目，或者自己加入别人的项目，这里就要用到<strong>分支</strong>这个概念。master是默认分支。简单介绍一下分支的操作。<br>创建一个叫做“feature_x”的分支，并切换过去：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> checkout -<span class="keyword">b</span> feature_x</span><br></pre></td></tr></table></figure><br>切换回主分支：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="literal">master</span></span><br></pre></td></tr></table></figure><br>再把新建的分支删掉：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git branch -d feature_x</span></span><br></pre></td></tr></table></figure><br>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> &lt;branch&gt;</span><br></pre></td></tr></table></figure><br>更新本地仓库至最新改动，执行：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git pull</span></span><br></pre></td></tr></table></figure><br>pull等价与在自己的工作目录下面fetch并merge远端的改动，要合并其他的分支到当前的分支，执行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge <span class="tag">&lt;<span class="name">branch</span>&gt;</span></span><br></pre></td></tr></table></figure><br>如果此处碰到conflicts，需要手动修改冲突文件，然后手动<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">add</span> &lt;filename&gt;</span><br></pre></td></tr></table></figure><br>将他们标记为合并成功。在合并改动之前，可以使用命令<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff <span class="tag">&lt;<span class="name">source_branch</span>&gt;</span> <span class="tag">&lt;<span class="name">target_branch</span>&gt;</span></span><br></pre></td></tr></table></figure><br>来查看两个文件。如果要进行版本回退，就是代码没写好，想重写，又不想慢慢删，使用命令<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="comment">-- &lt;filename&gt;</span></span><br></pre></td></tr></table></figure><br>就能很方便的把HEAD中的最近一次提交的filename文件替换当前的文件，其他的添加到缓存区的以及新的文件都不会受到影响。<br>下面的命令将会重置本地目录。<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch <span class="built_in">origin</span></span><br><span class="line">git <span class="built_in">reset</span> --hard <span class="built_in">origin</span>/master</span><br></pre></td></tr></table></figure><br>如果这些你觉得开枯燥的话，前些日子我在知乎上看到的一哥的回答，目前得到1539个赞，一定会提起你的兴趣。<br><a href="http://www.zhihu.com/question/20070065/answer/30521531">原文链接</a><br><strong>此处应有分割线</strong></p>
 <p><hr><br>Github的基本功能：</p>
 <ul>
 <li>Repository：你和我一起做“知乎首页”，“知乎首页”就是Repository，即项目或者”未来武器T2级425mm磁轨炮“之类，怎么叫随你，你只需知道Repository是个放项目的地方就行。有时候会出现Repositories，是多个Repository的意思。</li>
@@ -121,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/22/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" data-id="cm7467xow000jipv25n041plx" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2025/05/15/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" data-id="cm7467xow000jipv25n041plx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%97%B2%E6%89%AF/" rel="tag">闲扯</a></li></ul>
@@ -132,19 +145,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          《pro Objective-C》笔记
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/07/22/%E3%80%8AObjective-C%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2025/04/19/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《Objective-C高级编程》笔记(日更)</div>
+      <div class="article-nav-title">科学上网</div>
     </a>
   
 </nav>
@@ -187,7 +191,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">14</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -197,6 +201,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/05/15/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">git基本使用方法</a>
+          </li>
         
           <li>
             <a href="/2025/04/19/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">科学上网</a>
@@ -212,10 +220,6 @@
         
           <li>
             <a href="/2025/02/04/iOS%20%E5%A4%8D%E4%B9%A0/">iOS 复习思维导图</a>
-          </li>
-        
-          <li>
-            <a href="/2025/02/04/PLC%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">PLC 基础知识</a>
           </li>
         
       </ul>
