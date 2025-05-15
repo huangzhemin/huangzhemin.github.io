@@ -2,12 +2,27 @@
 layout: post
 title: git基本使用方法
 comments: true
-date: 2015-07-22 23:19:57
+date: 2025-05-15 10:39:57
 categories: 通用技术
 tags: [闲扯, 工具]
 ---
 早在2011年的暑假就曾接触过git这个版本控制工具，当时的主流版本控制还是CVS,SVN之类的，那时候跟着俄亥俄州立大学的一个软件工程老师学习开发iOS程序，他搭建了git server，用的稀里糊涂的，因为那时候对Linux是一窍不通，命令什么的都还只是停留在电影画面里，后来github火起来了，用git的人也就自然而然的多了起来，2013年刚刚开始研究僧的生活，那个时候创建了github账号，可空有程序员的架势，却怀着一颗文艺的心，直到近些日子再次捡起，才倍感酸爽，早些时候咨询同实验室的一位大神朋友[ictxiangxin](https://github.com/ictxiangxin)如何用正确的姿势使用git，大神的回答很简单，说看过git的官方文档，不可否认，官方的才是第一手资料，能有最真切的体会，不过确实是太多，就放弃了，年初时师兄推荐的一个简单的介绍git的网页颇为好用，原链接地址[git使用简易指南](http://www.bootcss.com/p/git-guide/)。这里简单写写git的使用方法，算是回顾一下。
 <!--more-->
+
+2025 年修改
+commit 中的描述
+
+- feat : 新增功能
+- fix : 修复 bug
+- docs : 文档更新
+- style : 代码风格或格式修改（不影响代码运行的变动）
+- refactor : 代码重构（既不是新增功能，也不是修复 bug）
+- perf : 性能优化
+- test : 增加测试
+- chore : 构建过程或辅助工具的变动
+- ci : 持续集成相关的改动
+
+2015 年
 最初使用git是去下载github上的一些开源的OC代码，使用
 ```
 git clone username@host:/path/to/repository
