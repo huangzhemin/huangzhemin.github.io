@@ -146,15 +146,6 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/2015/07/12/2015-07-12-objective-cbian-ma-gui-fan-:26ge-fang-mian/</loc>
-    
-    <lastmod>2018-06-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://huangzhemin.github.io/2015/07/09/2015-07-12-how-to-create-octopress-blog/</loc>
     
     <lastmod>2018-06-18</lastmod>
@@ -165,6 +156,15 @@
   
   <url>
     <loc>http://huangzhemin.github.io/2015/07/19/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2018-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/2015/07/12/2015-07-12-objective-cbian-ma-gui-fan-:26ge-fang-mian/</loc>
     
     <lastmod>2018-06-18</lastmod>
     
@@ -209,15 +209,6 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/2015/07/28/%E3%80%8AEffective-Objective-C-2-0%E3%80%8B%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2018-06-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://huangzhemin.github.io/2015/07/22/%E3%80%8AObjective-C%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2018-06-18</lastmod>
@@ -228,24 +219,6 @@
   
   <url>
     <loc>http://huangzhemin.github.io/2018/03/05/%E5%86%8D%E6%AC%A1%E5%9B%9E%E5%88%B0%E8%BF%99%E4%B8%AA%E4%B8%96%E7%95%8C/</loc>
-    
-    <lastmod>2018-06-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://huangzhemin.github.io/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2018-06-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://huangzhemin.github.io/2015/07/14/%E5%AE%89%E8%A3%85Synergy%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%BA%BB%E7%83%A6/</loc>
     
     <lastmod>2018-06-18</lastmod>
     
@@ -272,6 +245,33 @@
   </url>
   
   <url>
+    <loc>http://huangzhemin.github.io/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2018-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/2015/07/28/%E3%80%8AEffective-Objective-C-2-0%E3%80%8B%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2018-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/2015/07/14/%E5%AE%89%E8%A3%85Synergy%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%BA%BB%E7%83%A6/</loc>
+    
+    <lastmod>2018-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://huangzhemin.github.io/2015/07/15/%E9%82%A3%E4%BA%9B%E5%B9%B4%E7%9A%84%E9%85%B1%E6%B2%B9%E4%BB%A3%E7%A0%81/</loc>
     
     <lastmod>2018-06-18</lastmod>
@@ -290,7 +290,7 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/tags/index.html</loc>
+    <loc>http://huangzhemin.github.io/message-board/index.html</loc>
     
     <lastmod>2018-06-18</lastmod>
     
@@ -299,7 +299,7 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/message-board/index.html</loc>
+    <loc>http://huangzhemin.github.io/tags/index.html</loc>
     
     <lastmod>2018-06-18</lastmod>
     
@@ -324,20 +324,6 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/tags/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://huangzhemin.github.io/tags/%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://huangzhemin.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -352,20 +338,6 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/tags/AI/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://huangzhemin.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://huangzhemin.github.io/tags/%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -374,6 +346,20 @@
   
   <url>
     <loc>http://huangzhemin.github.io/tags/%E6%97%A5%E5%B8%B8/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/tags/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/tags/%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -415,6 +401,27 @@
   </url>
   
   <url>
+    <loc>http://huangzhemin.github.io/tags/AI/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://huangzhemin.github.io/tags/%E6%AF%95%E4%B8%9A/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -423,13 +430,6 @@
   
   <url>
     <loc>http://huangzhemin.github.io/tags/%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://huangzhemin.github.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -450,14 +450,14 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/tags/Matt-Galloway/</loc>
+    <loc>http://huangzhemin.github.io/tags/%E5%BF%83%E5%BE%97/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/tags/%E5%BF%83%E5%BE%97/</loc>
+    <loc>http://huangzhemin.github.io/tags/Matt-Galloway/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -467,6 +467,13 @@
   
   <url>
     <loc>http://huangzhemin.github.io/categories/%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/categories/Linux/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -487,20 +494,6 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://huangzhemin.github.io/categories/Linux/</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://huangzhemin.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -508,7 +501,7 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/categories/%E5%B7%A5%E4%BD%9C/</loc>
+    <loc>http://huangzhemin.github.io/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -522,7 +515,7 @@
   </url>
   
   <url>
-    <loc>http://huangzhemin.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://huangzhemin.github.io/categories/%E5%B7%A5%E4%BD%9C/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -530,6 +523,13 @@
   
   <url>
     <loc>http://huangzhemin.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://huangzhemin.github.io/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
