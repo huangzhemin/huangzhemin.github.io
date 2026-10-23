@@ -16,8 +16,8 @@
 <meta property="article:published_time" content="2015-07-14T11:39:19.000Z">
 <meta property="article:modified_time" content="2018-06-18T09:59:20.000Z">
 <meta property="article:author" content="Patrick Huang">
-<meta property="article:tag" content="捣拾">
 <meta property="article:tag" content="心得">
+<meta property="article:tag" content="捣拾">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://huangzhemin.github.io/images/5.1_apple_ubuntu_windows.jpg">
   
@@ -32,7 +32,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -93,16 +93,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在实验室的开发机，一边是Ubuntu系统，一边是Mac系统，开发起来需要两套键盘和鼠标，说实话，虽然不太方便，但是还是可以接受的。<br>今天同实验室的同学推荐了一款叫<strong>Synergy</strong>的软件，可以连接屏幕，只用一套键鼠就可以操作两台电脑，心里还是有些小兴奋的，于是赶紧安装玩耍，感觉不错，所以分享一下。惯例贴图上正文：<br><img src="/images/5.1_apple_ubuntu_windows.jpg" alt="apple_ubuntu_windows"><br><span id="more"></span><br>可以访问官网<a href="http://synergy-project.org">http://synergy-project.org</a>下载，不过需要注册，同学推荐的网址是<a href="http://synergy-project.org/nightly">http://synergy-project.org/nightly</a>，可以很容易的找到最新版本，现在的时候一定要注意<strong>版本号要一致</strong>。<br>在各自平台上安装好之后，现在要确定服务端和客户端，选定一台，结果悲剧的事情发生了，报出：failed to connect to server的错误，查找之后一种说法是将屏幕名改为不含’-‘或者是大写字母的，更改之后发现，启动之后报出代号为１的错误信息，最终方法来源于博客《<a href="http://blog.sina.com.cn/s/blog_5ae7a1de0100sbcp.html">花了近4个小时装synergy</a>》。<br>选择使用已有的配置，创建<strong>/etc/synergy.conf</strong>，然后按照如下方法配置：</p>
+        <p>在实验室的开发机，一边是Ubuntu系统，一边是Mac系统，开发起来需要两套键盘和鼠标，说实话，虽然不太方便，但是还是可以接受的。<br>今天同实验室的同学推荐了一款叫<strong>Synergy</strong>的软件，可以连接屏幕，只用一套键鼠就可以操作两台电脑，心里还是有些小兴奋的，于是赶紧安装玩耍，感觉不错，所以分享一下。惯例贴图上正文：<br><img src="/images/5.1_apple_ubuntu_windows.jpg" alt="apple_ubuntu_windows"></p>
+<span id="more"></span>
+<p>可以访问官网<a target="_blank" rel="noopener" href="http://synergy-project.org/">http://synergy-project.org</a>下载，不过需要注册，同学推荐的网址是<a target="_blank" rel="noopener" href="http://synergy-project.org/nightly">http://synergy-project.org/nightly</a>，可以很容易的找到最新版本，现在的时候一定要注意<strong>版本号要一致</strong>。<br>在各自平台上安装好之后，现在要确定服务端和客户端，选定一台，结果悲剧的事情发生了，报出：failed to connect to server的错误，查找之后一种说法是将屏幕名改为不含’-‘或者是大写字母的，更改之后发现，启动之后报出代号为１的错误信息，最终方法来源于博客《<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_5ae7a1de0100sbcp.html">花了近4个小时装synergy</a>》。<br>选择使用已有的配置，创建**&#x2F;etc&#x2F;synergy.conf**，然后按照如下方法配置：</p>
 <blockquote>
-<p>section: screens<br>linux-name:<br>mac-name:<br>end<br>section: links<br>mac-name:<br>right = linux-name<br>linux-name:<br>left = mac-name<br>end</p>
+<p>section: screens<br>linux-name:<br>mac-name:<br>end<br>section: links<br>mac-name:<br>right &#x3D; linux-name<br>linux-name:<br>left &#x3D; mac-name<br>end</p>
 </blockquote>
 <p>连接完成，喜大普奔～</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/14/%E5%AE%89%E8%A3%85Synergy%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%BA%BB%E7%83%A6/" data-id="cmvkxtw5w0021cn1yh00yd6cq" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/14/%E5%AE%89%E8%A3%85Synergy%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%BA%BB%E7%83%A6/" data-id="cuidQboG9CxQU7tbKXg_dYOWY" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BF%83%E5%BE%97/" rel="tag">心得</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8D%A3%E6%8B%BE/" rel="tag">捣拾</a></li></ul>

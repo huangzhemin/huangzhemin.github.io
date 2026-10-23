@@ -29,7 +29,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -92,66 +92,86 @@
       
         <p>markdown的使用很重要，但也不是天天都用，总是使用的时候遇到各种忘，记录在这，方便后续查阅</p>
 <span id="more"></span>
+
 <h1 id="Titles"><a href="#Titles" class="headerlink" title="Titles"></a>Titles</h1><p>As we started writing a markdown document, we need to add a title and some sub-headers.</p>
 <p>Markdown supports two styles of headers, Setext and atx.</p>
 <p>Setext-style headers are “underlined” using equal signs (for first-level headers) and dashes (for second-level headers). For example:</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">This is an H1</span></span><br><span class="line"><span class="section">=============</span></span><br><span class="line"></span><br><span class="line"><span class="section">This is an H2</span></span><br><span class="line"><span class="section">-------------</span></span><br></pre></td></tr></table></figure>
-<p>Any number of underlining =’s or -’s will work.</p>
+
+<p>Any number of underlining &#x3D;’s or -’s will work.</p>
 <p>Atx-style headers use 1-6 hash characters at the start of the line, corresponding to header levels 1-6. For example:</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># This is an H1</span><br><span class="line"></span><br><span class="line">## This is an H2</span><br><span class="line"></span><br><span class="line">###### This is an H6</span><br></pre></td></tr></table></figure>
+
 <p>Optionally, you may “close” atx-style headers. This is purely cosmetic — you can use this if you think it looks better. The closing hashes don’t even need to match the number of hashes used to open the header. (The number of opening hashes determines the header level.) :</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># This is an H1 #</span><br><span class="line"></span><br><span class="line">## This is an H2 ##</span><br><span class="line"></span><br><span class="line">### This is an H3 ######</span><br></pre></td></tr></table></figure>
+
+
 <hr>
 <p>Here’s a quiz about markdown titles.</p>
 <p>Select the valid headers:</p>
 <ul>
-<li>[x] <code># hello</code></li>
-<li>[ ] <code>#hello</code></li>
+<li><input checked="" disabled="" type="checkbox"> <code># hello</code></li>
+<li><input disabled="" type="checkbox"> <code>#hello</code></li>
 </ul>
 <blockquote>
 <p>Headers need space between the hash characters and the text.</p>
 </blockquote>
 <p>Select the valid headers:</p>
 <ul>
-<li>[ ]  <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">test</span></span><br><span class="line"><span class="keyword"></span>########</span><br></pre></td></tr></table></figure></li>
-<li>[x]   <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">test</span></span><br><span class="line"><span class="section">=======</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><input disabled="" type="checkbox"> </li>
 </ul>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">test</span></span><br><span class="line"><span class="keyword"></span>########</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> </li>
+</ul>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">test</span></span><br><span class="line"><span class="section">=======</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>Only ‘=’ and ‘-‘ are accepted for underlining an header.</p>
+<p>Only ‘&#x3D;’ and ‘-‘ are accepted for underlining an header.</p>
 </blockquote>
 <hr>
 <h1 id="Code-Blocks"><a href="#Code-Blocks" class="headerlink" title="Code Blocks"></a>Code Blocks</h1><p>Pre-formatted code blocks are used for writing about programming or markup source code. Rather than forming normal paragraphs, the lines of a code block are interpreted literally.</p>
 <p>Here is an example:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is <span class="selector-tag">a</span> <span class="selector-tag">code</span> block</span><br></pre></td></tr></table></figure>
+
 <p>To produce a code block in Markdown, simply indent every line of the block by at least 4 spaces or 1 tab.</p>
 <p>For example:</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This is <span class="keyword">a</span> <span class="keyword">normal</span> <span class="keyword">paragraph</span>:</span><br><span class="line"></span><br><span class="line">    This is <span class="keyword">a</span> code block.</span><br></pre></td></tr></table></figure>
+
 <p>You can also create code block separated by:</p>
 <pre><code><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### Inline <span class="keyword">code</span> blocks</span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">code</span> blocks can be written using: `</span><br><span class="line"></span><br><span class="line">For example:</span><br><span class="line"></span><br><span class="line">	This is a `<span class="keyword">inline</span> <span class="keyword">code</span> block`</span><br><span class="line"></span><br><span class="line">### Syntax highlighting</span><br><span class="line"></span><br><span class="line">You can define the language to be used for syntax highlighting by adding the name on the opening tag. Example:</span><br><span class="line"></span><br><span class="line">    ```js</span><br><span class="line">    var a = &#123;&#125;;</span><br></pre></td></tr></table></figure>
-</code></pre><h1 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h1><p>Markdown supports two styles of links: inline and reference.</p>
+</code></pre>
+<h1 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h1><p>Markdown supports two styles of links: inline and reference.</p>
 <p>In both styles, the link text is delimited by [square brackets].</p>
-<p>To create an inline link, use a set of regular parentheses immediately after the link text’s closing square bracket. Inside the parentheses, put the URL where you want the link to point, along with an optional title for the link, surrounded in quotes. For example:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">I&#x27;m an inline-style link</span>](<span class="link">https://www.google.com</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m an inline-style link with title</span>](<span class="link">https://www.google.com &quot;Google&#x27;s Homepage&quot;</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m a reference-style link</span>][<span class="symbol">Arbitrary case-insensitive reference text</span>]</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m a relative reference to a repository file</span>](<span class="link">../blob/master/LICENSE</span>)</span><br></pre></td></tr></table></figure></p>
-<p>Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is [<span class="string">an example</span>][<span class="symbol">id</span>] reference-style link.</span><br></pre></td></tr></table></figure></p>
-<p>You can optionally use a space to separate the sets of brackets:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is [an example] [id] reference-style link.</span><br></pre></td></tr></table></figure></p>
-<p>Then, anywhere in the document, you define your link label like this, on a line by itself:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">id</span>]: <span class="link">http://example.com/  &quot;Optional Title Here&quot;</span></span><br></pre></td></tr></table></figure></p>
+<p>To create an inline link, use a set of regular parentheses immediately after the link text’s closing square bracket. Inside the parentheses, put the URL where you want the link to point, along with an optional title for the link, surrounded in quotes. For example:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">I&#x27;m an inline-style link</span>](<span class="link">https://www.google.com</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m an inline-style link with title</span>](<span class="link">https://www.google.com &quot;Google&#x27;s Homepage&quot;</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m a reference-style link</span>][<span class="symbol">Arbitrary case-insensitive reference text</span>]</span><br><span class="line"></span><br><span class="line">[<span class="string">I&#x27;m a relative reference to a repository file</span>](<span class="link">../blob/master/LICENSE</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is [<span class="string">an example</span>][<span class="symbol">id</span>] reference-style link.</span><br></pre></td></tr></table></figure>
+
+<p>You can optionally use a space to separate the sets of brackets:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is [an example] [id] reference-style link.</span><br></pre></td></tr></table></figure>
+
+<p>Then, anywhere in the document, you define your link label like this, on a line by itself:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">id</span>]: <span class="link">http://example.com/  &quot;Optional Title Here&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>GitHub</strong> and <strong>GitBook</strong> supports URL autolinking. They will autolink standard URLs, so if you want to link to a URL (instead of setting link text), you can simply enter the URL and it will be turned into a link to that URL.</p>
 <hr>
 <p>Here’s a quiz about markdown links.</p>
 <p>Select the valid links:</p>
 <ul>
-<li>[x] <code>[a link](http://google.fr)</code></li>
-<li>[ ] <code>(a link)[http://google.fr]</code></li>
+<li><input checked="" disabled="" type="checkbox"> <code>[a link](http://google.fr)</code></li>
+<li><input disabled="" type="checkbox"> <code>(a link)[http://google.fr]</code></li>
 </ul>
 <blockquote>
 <p>The link text is delimited by [square brackets].</p>
 </blockquote>
-<p>What are the correct informations from this link: <a href="http://google.fr" title="google">a link</a></p>
+<p>What are the correct informations from this link: <a target="_blank" rel="noopener" href="http://google.fr/" title="google">a link</a></p>
 <ul>
-<li>[ ] the link is <a href="https://google.fr">https://google.fr</a></li>
-<li>[x] the title of the link is “google”</li>
-<li>[ ] it’ll show the text “google”</li>
-<li>[x] it’ll show the text “a link”</li>
+<li><input disabled="" type="checkbox"> the link is <a target="_blank" rel="noopener" href="https://google.fr/">https://google.fr</a></li>
+<li><input checked="" disabled="" type="checkbox"> the title of the link is “google”</li>
+<li><input disabled="" type="checkbox"> it’ll show the text “google”</li>
+<li><input checked="" disabled="" type="checkbox"> it’ll show the text “a link”</li>
 </ul>
 <blockquote>
 <p>Links can have 3 parts: the text, the url and a title.</p>
@@ -167,18 +187,18 @@
 <p>Here’s a quiz about markdown images.</p>
 <p>Select the valid images:</p>
 <ul>
-<li>[ ] <code>[Google logo](https://www.google.ru/logo.png)</code></li>
-<li>[x] <code>![](https://www.google.ru/logo.png)</code></li>
+<li><input disabled="" type="checkbox"> <code>[Google logo](https://www.google.ru/logo.png)</code></li>
+<li><input checked="" disabled="" type="checkbox"> <code>![](https://www.google.ru/logo.png)</code></li>
 </ul>
 <blockquote>
 <p>Images must be prefixed with an exclamation mark.<br>The alternative text and a title are optional.</p>
 </blockquote>
 <p>What is true about the following line: <code>![Funny cat](http://cats.ru/funny.png &quot;Share this&quot;)</code></p>
 <ul>
-<li>[x] if the url is 404, “Funny cat” will be displayed</li>
-<li>[ ] exclamation mark can be omitted in this case</li>
-<li>[ ] if the url is 404, “Share this” will be displayed</li>
-<li>[x] on mouse over the image “Share this” will be displayed</li>
+<li><input checked="" disabled="" type="checkbox"> if the url is 404, “Funny cat” will be displayed</li>
+<li><input disabled="" type="checkbox"> exclamation mark can be omitted in this case</li>
+<li><input disabled="" type="checkbox"> if the url is 404, “Share this” will be displayed</li>
+<li><input checked="" disabled="" type="checkbox"> on mouse over the image “Share this” will be displayed</li>
 </ul>
 <blockquote>
 <p>Similarly to links, images can have 3 parts: the alternative text, the url and a title. An exclamation mark is nesessary.</p>
@@ -191,32 +211,31 @@
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
-</code></pre><table>
+</code></pre>
+<table>
 <thead>
 <tr>
 <th>Tables</th>
-<th style="text-align:center">Are</th>
-<th style="text-align:right">Cool</th>
+<th align="center">Are</th>
+<th align="right">Cool</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>col 3 is</td>
-<td style="text-align:center">right-aligned</td>
-<td style="text-align:right">$1600</td>
+<td align="center">right-aligned</td>
+<td align="right">$1600</td>
 </tr>
 <tr>
 <td>col 2 is</td>
-<td style="text-align:center">centered</td>
-<td style="text-align:right">$12</td>
+<td align="center">centered</td>
+<td align="right">$12</td>
 </tr>
 <tr>
 <td>zebra stripes</td>
-<td style="text-align:center">are neat</td>
-<td style="text-align:right">$1</td>
+<td align="center">are neat</td>
+<td align="right">$1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>Colons can be used to align columns.</p>
 <p>The outer pipes (|) are optional, and you don’t need to make the raw Markdown line up prettily. You can also use inline Markdown.</p>
 <p>Example:</p>
@@ -225,10 +244,11 @@
 *Still* | `renders` | **nicely**
 1 | 2 | 3
 </code></pre>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/07/14/markdown%E8%AF%AD%E6%B3%95/" data-id="cmvkxtw5u001gcn1y8k547qno" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/07/14/markdown%E8%AF%AD%E6%B3%95/" data-id="cuid4rQolsfSeT8fiFj_0LDjV" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>

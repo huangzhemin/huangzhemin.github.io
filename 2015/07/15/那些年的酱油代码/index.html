@@ -12,13 +12,11 @@
 <meta property="og:site_name" content="小蜗牛的壳">
 <meta property="og:description" content="现在脑子里就一个方向，“找工作”，本专业是计算机，方向是自然语言处理，研究生阶段做的最多的却是ios开发，想着找工作要回归老本行，做做自然语言处理，机器学习相关的工作，于是兴高采烈的报了个内推offer，准备不充分，不过也确实是这方面的实验跑的太少，结果可想而知，不由开始思考找工作的具体方向，思前想后觉得自己在机器学习方面的投入太少，短时间内达到被录用的标准难度是可想而知的，而且自己对ios开发还">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://huangzhemin.github.io/images/6.1_soy%20sauce.jpg">
 <meta property="article:published_time" content="2015-07-15T02:37:45.000Z">
 <meta property="article:modified_time" content="2018-06-18T09:59:20.000Z">
 <meta property="article:author" content="Patrick Huang">
 <meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://huangzhemin.github.io/images/6.1_soy%20sauce.jpg">
   
     <link rel="alternative" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
   
@@ -31,7 +29,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -92,12 +90,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>现在脑子里就一个方向，“找工作”，本专业是计算机，方向是自然语言处理，研究生阶段做的最多的却是ios开发，想着找工作要回归老本行，做做自然语言处理，机器学习相关的工作，于是兴高采烈的报了个内推offer，准备不充分，不过也确实是这方面的实验跑的太少，结果可想而知，不由开始思考找工作的具体方向，思前想后觉得自己在机器学习方面的投入太少，短时间内达到被录用的标准难度是可想而知的，而且自己对ios开发还是很感兴趣的，和同实验室的一位Geek同学<a href="http://youcanlove.me">xohozu</a>长谈数小时，终于决定还是选择ios开发岗。<br>方向确定了，就要做准备了，虽说在实验室打了两年酱油，不过打酱油的姿势还是比较优雅的。先来回顾一下那些年打过的酱油吧。<br>按照惯例还是先上一张图：<br><img src="/images/6.1_soy sauce.jpg" alt="soy_sauce"><br><span id="more"></span><br><strong>酱油一：多瑞手写记事本</strong><br>进实验室接触的第一个ios程序是前几届师兄师姐留下的efinger手写记事本，功能在2012年前应该还是很完备的，在App Store上可以下载，给我的第一眼感觉便是代码量大，而且作为初学者读起来还是有些难懂的，面向过程的理念用了太多，使得代码的冗余度很大，我的直系师兄也是这么觉得，所以着手开发多瑞手写记事本，师兄的代码简单明了，逻辑清晰，这一点要感谢师兄<a href="https://github.com/daryl5">daryl5</a>。<br>言归正传，写写实现方法，首先得谈谈ios的MVC框架。<br><strong><em>MVC框架</em></strong><br>MVC框架虽然不是最为基本的模式框架，但是这是贯穿整个ios开发始终的设计理念，至少我是这么认为的，开发多瑞手写记事本，在从概念变化为实际代码的第一步便是抽象出层次关系，比如界面显示在view层实现，控制逻辑在controller层，具体的持久化存储是在model层，这里举一个实际代码中的例子，记事本软件应该有很多记事本，每个记事本又可以含有很多小的记事篇章，每篇文章可以有多页，每页的渲染是统一纪录点坐标，然后一次性完成渲染，（其实这样的设计减少了存储空间，不过每次操作都要渲染一张完整的图片，书写过半的时候速度有明显的下降，这一点还需要优化），对于每个文字，是由笔画构成，每笔又是由点坐标构成，这么一层层的逻辑下来，就构成了笔记本的model层的基本类型，组成关系，当然记事本还有一些其他的部件，比如说画笔颜色类型，天气，心情等等。而view层就是凡是我们能看到的，统统在view层，通过继承UIView类来进行界面绘制，但是有一点不太一样，就是关于手写笔迹渲染这块，考虑到速度因素，所以使用了OpenGL。</p>
+        <p>现在脑子里就一个方向，“找工作”，本专业是计算机，方向是自然语言处理，研究生阶段做的最多的却是ios开发，想着找工作要回归老本行，做做自然语言处理，机器学习相关的工作，于是兴高采烈的报了个内推offer，准备不充分，不过也确实是这方面的实验跑的太少，结果可想而知，不由开始思考找工作的具体方向，思前想后觉得自己在机器学习方面的投入太少，短时间内达到被录用的标准难度是可想而知的，而且自己对ios开发还是很感兴趣的，和同实验室的一位Geek同学<a target="_blank" rel="noopener" href="http://youcanlove.me/">xohozu</a>长谈数小时，终于决定还是选择ios开发岗。<br>方向确定了，就要做准备了，虽说在实验室打了两年酱油，不过打酱油的姿势还是比较优雅的。先来回顾一下那些年打过的酱油吧。<br>按照惯例还是先上一张图：<br>![soy_sauce](&#x2F;images&#x2F;6.1_soy sauce.jpg)  </p>
+<span id="more"></span>
+<p><strong>酱油一：多瑞手写记事本</strong><br>进实验室接触的第一个ios程序是前几届师兄师姐留下的efinger手写记事本，功能在2012年前应该还是很完备的，在App Store上可以下载，给我的第一眼感觉便是代码量大，而且作为初学者读起来还是有些难懂的，面向过程的理念用了太多，使得代码的冗余度很大，我的直系师兄也是这么觉得，所以着手开发多瑞手写记事本，师兄的代码简单明了，逻辑清晰，这一点要感谢师兄<a target="_blank" rel="noopener" href="https://github.com/daryl5">daryl5</a>。<br>言归正传，写写实现方法，首先得谈谈ios的MVC框架。<br><em><strong>MVC框架</strong></em><br>MVC框架虽然不是最为基本的模式框架，但是这是贯穿整个ios开发始终的设计理念，至少我是这么认为的，开发多瑞手写记事本，在从概念变化为实际代码的第一步便是抽象出层次关系，比如界面显示在view层实现，控制逻辑在controller层，具体的持久化存储是在model层，这里举一个实际代码中的例子，记事本软件应该有很多记事本，每个记事本又可以含有很多小的记事篇章，每篇文章可以有多页，每页的渲染是统一纪录点坐标，然后一次性完成渲染，（其实这样的设计减少了存储空间，不过每次操作都要渲染一张完整的图片，书写过半的时候速度有明显的下降，这一点还需要优化），对于每个文字，是由笔画构成，每笔又是由点坐标构成，这么一层层的逻辑下来，就构成了笔记本的model层的基本类型，组成关系，当然记事本还有一些其他的部件，比如说画笔颜色类型，天气，心情等等。而view层就是凡是我们能看到的，统统在view层，通过继承UIView类来进行界面绘制，但是有一点不太一样，就是关于手写笔迹渲染这块，考虑到速度因素，所以使用了OpenGL。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/15/%E9%82%A3%E4%BA%9B%E5%B9%B4%E7%9A%84%E9%85%B1%E6%B2%B9%E4%BB%A3%E7%A0%81/" data-id="cmvkxtw5y0043cn1ya6cc98ud" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/15/%E9%82%A3%E4%BA%9B%E5%B9%B4%E7%9A%84%E9%85%B1%E6%B2%B9%E4%BB%A3%E7%A0%81/" data-id="cuidfCOpiXD725xJqic9NX7aW" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li></ul>

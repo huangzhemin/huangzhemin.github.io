@@ -5,12 +5,12 @@
   
   <title>@synthesize和@dynamic | 小蜗牛的壳</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="发现自己对property中synthesize和dynamic的用法这么陌生，找到一篇挺不错的博客 原文链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;c883687c6405 @property有两个对应的词 一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var &#x3D; _var;">
+  <meta name="description" content="发现自己对property中synthesize和dynamic的用法这么陌生，找到一篇挺不错的博客 原文链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;c883687c6405 @property有两个对应的词 一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var &#x3D; _">
 <meta property="og:type" content="article">
 <meta property="og:title" content="@synthesize和@dynamic">
 <meta property="og:url" content="http://huangzhemin.github.io/2018/07/14/@synthesize%E5%92%8C@dynamic/index.html">
 <meta property="og:site_name" content="小蜗牛的壳">
-<meta property="og:description" content="发现自己对property中synthesize和dynamic的用法这么陌生，找到一篇挺不错的博客 原文链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;c883687c6405 @property有两个对应的词 一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var &#x3D; _var;">
+<meta property="og:description" content="发现自己对property中synthesize和dynamic的用法这么陌生，找到一篇挺不错的博客 原文链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;c883687c6405 @property有两个对应的词 一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var &#x3D; _">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-07-14T05:40:51.000Z">
 <meta property="article:modified_time" content="2018-07-14T06:13:05.000Z">
@@ -29,7 +29,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -91,16 +91,19 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>发现自己对property中synthesize和dynamic的用法这么陌生，找到一篇挺不错的博客</p>
-<p>原文链接：<a href="https://www.jianshu.com/p/c883687c6405">https://www.jianshu.com/p/c883687c6405</a></p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c883687c6405">https://www.jianshu.com/p/c883687c6405</a></p>
 <p>@property有两个对应的词</p>
-<p>一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var = _var;</p>
+<p>一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var &#x3D; _var;</p>
 <h3 id="synthesize"><a href="#synthesize" class="headerlink" title="@synthesize"></a>@synthesize</h3><p>@synthesize表示如果属性没有手动实现setter和getter方法，编译器会自动加上这两个方法。</p>
-<h3 id="dynamic"><a href="#dynamic" class="headerlink" title="@dynamic"></a>@dynamic</h3><p>@dynamic 告诉编译器：属性的 setter 与 getter 方法由用户自己实现，不自动生成。假如一个属性被声明为 @dynamic var，而且你没有提供 @setter方法和 @getter 方法，编译的时候没问题，但是当程序运行到 instance.var = someVar，由于缺 setter 方法会导致程序崩溃；或者当运行到 someVar = var 时，由于缺 getter 方法同样会导致崩溃。编译时没问题，运行时才执行相应的方法，这就是所谓的动态绑定。</p>
+<h3 id="dynamic"><a href="#dynamic" class="headerlink" title="@dynamic"></a>@dynamic</h3><p>@dynamic 告诉编译器：属性的 setter 与 getter 方法由用户自己实现，不自动生成。假如一个属性被声明为 @dynamic var，而且你没有提供 @setter方法和 @getter 方法，编译的时候没问题，但是当程序运行到 instance.var &#x3D; someVar，由于缺 setter 方法会导致程序崩溃；或者当运行到 someVar &#x3D; var 时，由于缺 getter 方法同样会导致崩溃。编译时没问题，运行时才执行相应的方法，这就是所谓的动态绑定。</p>
 <p>例如：</p>
 <span id="more"></span>
+
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">People</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;People.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">People</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@dynamic</span> name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
 <p>当执行到：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">People *p= [People <span class="built_in">new</span>];</span><br><span class="line">p.name = @&quot;Peter&quot;;</span><br></pre></td></tr></table></figure>
+
 <p>程序就会crash，原因是</p>
 <p>“[People setName:]: unrecognized selector sent to instance”。</p>
 <p>解决这种奔溃的方法有三种：</p>
@@ -110,6 +113,7 @@
 </blockquote>
 <h3 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h3><p>手动添加，由于@dynamic不能像@synthesize那样向实现文件(.m)提供实例变量，所以我们需要在类中显式提供实例变量。<br>自己编写setter getter方法</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">People</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;People.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">People</span> ()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *_name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">People</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@dynamic</span> name;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line"></span><br><span class="line">    _name = [name <span class="keyword">copy</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>通过runtime机制在运行时添加属性的存取方法。</p>
 <blockquote>
 <p>在C函数中不能直接使用实例变量，需要将Objc对象self转成C中的结构体，因此在Person类同样需要显式声明实例变量而且访问级别是@public</p>
@@ -118,7 +122,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/07/14/@synthesize%E5%92%8C@dynamic/" data-id="cmvkxtw5q0009cn1yazow37m5" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/07/14/@synthesize%E5%92%8C@dynamic/" data-id="cuidARttO1SD2pAvA5C_1dGp9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li></ul>

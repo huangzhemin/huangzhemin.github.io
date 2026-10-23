@@ -30,7 +30,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -91,26 +91,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>做自然语言处理实验，Linux系统肯定是不二的选择，这片文档主要记录一下自己用到过的命令，会持续更新下去。<br>&lt;img style=”display:block;width:60%”, src=”/images/7.1_Linux_versions.png”/&gt;<br><span id="more"></span></p>
-<p><hr></p>
-<p>####查看文件夹下的文件数<br>ls -l | grep “^-“ | wc -l</p>
-<p>####查看文件夹下的文件数，包括子文件夹里的<br>ls -lR | grep “^-“ | wc -l</p>
-<p>####查看文件夹大小<br>du -sh</p>
-<p>####将文件夹列表放入文件中<br>ls &gt; filelist</p>
-<p>####将多个文件合并到一个<br>cat file1 file2 file3 &gt; mergeFile</p>
-<p>####随机将某个文件中的N行复制到另外一个文件<br>shuf -n N input &gt; output</p>
-<p>####统计文件<br>wc - lcw file</p>
-<ul>
-<li>c 统计字节数。</li>
-<li>l 统计行数。</li>
-<li>w 统计字数。</li>
-</ul>
-<p>####linux下Python默认版本的选择<br>sudo ln -sf /usr/bin/python3.4 /usr/bin/python </p>
+        <p>做自然语言处理实验，Linux系统肯定是不二的选择，这片文档主要记录一下自己用到过的命令，会持续更新下去。<br>&lt;img style&#x3D;”display:block;width:60%”, src&#x3D;”&#x2F;images&#x2F;7.1_Linux_versions.png”&#x2F;&gt;</p>
+<span id="more"></span>
+<hr>
+####查看文件夹下的文件数
+ls -l | grep "^-" | wc -l
+####查看文件夹下的文件数，包括子文件夹里的
+ls -lR | grep "^-" | wc -l
+####查看文件夹大小
+du -sh
+####将文件夹列表放入文件中
+ls > filelist
+####将多个文件合并到一个
+cat file1 file2 file3 > mergeFile
+####随机将某个文件中的N行复制到另外一个文件
+shuf -n N input > output
+####统计文件
+wc - lcw file
+- c 统计字节数。
+- l 统计行数。
+- w 统计字数。
+
+<p>####linux下Python默认版本的选择<br>sudo ln -sf &#x2F;usr&#x2F;bin&#x2F;python3.4 &#x2F;usr&#x2F;bin&#x2F;python </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/19/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-id="cmvkxtw5r000ecn1ycnbyh9ps" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/19/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-id="cuidGhFlsf360I0t_rmeGmAJi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag">命令</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li></ul>

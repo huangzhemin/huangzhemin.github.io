@@ -26,7 +26,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 <body>
   <div id="container">
     <div id="wrap">
@@ -90,11 +90,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>发现自己对property中synthesize和dynamic的用法这么陌生，找到一篇挺不错的博客</p>
-<p>原文链接：<a href="https://www.jianshu.com/p/c883687c6405">https://www.jianshu.com/p/c883687c6405</a></p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c883687c6405">https://www.jianshu.com/p/c883687c6405</a></p>
 <p>@property有两个对应的词</p>
-<p>一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var = _var;</p>
+<p>一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var &#x3D; _var;</p>
 <h3 id="synthesize"><a href="#synthesize" class="headerlink" title="@synthesize"></a>@synthesize</h3><p>@synthesize表示如果属性没有手动实现setter和getter方法，编译器会自动加上这两个方法。</p>
-<h3 id="dynamic"><a href="#dynamic" class="headerlink" title="@dynamic"></a>@dynamic</h3><p>@dynamic 告诉编译器：属性的 setter 与 getter 方法由用户自己实现，不自动生成。假如一个属性被声明为 @dynamic var，而且你没有提供 @setter方法和 @getter 方法，编译的时候没问题，但是当程序运行到 instance.var = someVar，由于缺 setter 方法会导致程序崩溃；或者当运行到 someVar = var 时，由于缺 getter 方法同样会导致崩溃。编译时没问题，运行时才执行相应的方法，这就是所谓的动态绑定。</p>
+<h3 id="dynamic"><a href="#dynamic" class="headerlink" title="@dynamic"></a>@dynamic</h3><p>@dynamic 告诉编译器：属性的 setter 与 getter 方法由用户自己实现，不自动生成。假如一个属性被声明为 @dynamic var，而且你没有提供 @setter方法和 @getter 方法，编译的时候没问题，但是当程序运行到 instance.var &#x3D; someVar，由于缺 setter 方法会导致程序崩溃；或者当运行到 someVar &#x3D; var 时，由于缺 getter 方法同样会导致崩溃。编译时没问题，运行时才执行相应的方法，这就是所谓的动态绑定。</p>
 <p>例如：</p>
         
           <p class="article-more-link">
@@ -104,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/07/14/@synthesize%E5%92%8C@dynamic/" data-id="cmvkxtw5q0009cn1yazow37m5" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/07/14/@synthesize%E5%92%8C@dynamic/" data-id="cuidARttO1SD2pAvA5C_1dGp9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li></ul>
@@ -144,13 +144,14 @@
       
         <p>injection 注入方式</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> DEBUG</span></span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@&quot;/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle&quot;</span>] load];</span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@&quot;/Applications/InjectionIII.app/Contents/Resources/tvOSInjection.bundle&quot;</span>] load];</span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@&quot;/Applications/InjectionIII.app/Contents/Resources/macOSInjection.bundle&quot;</span>] load];</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>然后在需要调整的类中实现injected方法</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">void</span>)injected &#123;</span><br><span class="line"><span class="string">    [self setNeedsLayout]</span>;</span><br><span class="line"><span class="string">    [self layoutIfNeeded]</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/07/02/injection/" data-id="cmvkxtw5u0014cn1y12fib9w5" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/07/02/injection/" data-id="cuidi52wUqom0fxKNEWqM4tjH" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AF%95%E4%B8%9A/" rel="tag">毕业</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag">记录</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
@@ -195,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/06/22/lint%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" data-id="cmvkxtw5u001ccn1yezpnalm0" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/06/22/lint%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" data-id="cuidOQ-ZxddMVULZ8nUUWOIUv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/06/18/iOS%E8%AE%BE%E5%A4%87%E7%9A%84CPU%E6%9E%B6%E6%9E%84/" data-id="cmvkxtw5t0010cn1y3zymghns" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/06/18/iOS%E8%AE%BE%E5%A4%87%E7%9A%84CPU%E6%9E%B6%E6%9E%84/" data-id="cuidEkwlUj3DrHbZmUshzlgcH" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag">命令</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li></ul>
@@ -279,12 +280,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>博客已经有快三年没有更新过了，这三年是我找到第一份工作，到成为一个工作两年的职场人转变的三年，也是我最为放飞自我的三年~从今往后，希望自己能一直坚持下去，把这份坚持作为送给未来自己最好的礼物~</p>
+        <p>博客已经有快三年没有更新过了，这三年是我找到第一份工作，到成为一个工作两年的职场人转变的三年，也是我最为放飞自我的三年<del>从今往后，希望自己能一直坚持下去，把这份坚持作为送给未来自己最好的礼物</del></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2018/03/05/%E5%86%8D%E6%AC%A1%E5%9B%9E%E5%88%B0%E8%BF%99%E4%B8%AA%E4%B8%96%E7%95%8C/" data-id="cmvkxtw5v001tcn1y1f1t67cd" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2018/03/05/%E5%86%8D%E6%AC%A1%E5%9B%9E%E5%88%B0%E8%BF%99%E4%B8%AA%E4%B8%96%E7%95%8C/" data-id="cuidQ8MD7uSX_JJ5DAZu-uWDG" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/milestone/" rel="tag">milestone</a></li></ul>
@@ -334,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/08/21/%E5%B0%8F%E8%B0%88%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cmvkxtw5y003ycn1y4rv15df5" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/08/21/%E5%B0%8F%E8%B0%88%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cuidT1jiJ6MqqpPFwAAIbArvM" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BF%83%E5%BE%97/" rel="tag">心得</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
@@ -372,7 +373,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>扯扯闲话，就从这研究生生活说起，学生生活固然是丰富多彩的，然而跟本科有所不同的是，我们已经成长为一个专业的人，或者终极目标是一名专业的人，专业的计算机人，慢慢的开始接触高级算法，机器学习，自然语言处理的一些相关模型，并用这些模型去解决一些实际问题，遇到问题不再会想着老师给你一套详细的解决办法，取而代之的是自己的思考，对学术的敬畏和对未知世界的探索，现实当中却又是举步维艰，虽然还没有参加9月份的正式校招，但在内推工作的时候就已经能感受到，只有爱你所做的，才能真正用心把它做好并得到大家的认可。这篇博文的名字叫做《漫谈毕业论文》，感觉有点扯远了，现在回归正题，扯一扯我这毕业论文的种种经过，写的比较随性，纯粹是个人闲扯。<br>
+        <p>扯扯闲话，就从这研究生生活说起，学生生活固然是丰富多彩的，然而跟本科有所不同的是，我们已经成长为一个专业的人，或者终极目标是一名专业的人，专业的计算机人，慢慢的开始接触高级算法，机器学习，自然语言处理的一些相关模型，并用这些模型去解决一些实际问题，遇到问题不再会想着老师给你一套详细的解决办法，取而代之的是自己的思考，对学术的敬畏和对未知世界的探索，现实当中却又是举步维艰，虽然还没有参加9月份的正式校招，但在内推工作的时候就已经能感受到，只有爱你所做的，才能真正用心把它做好并得到大家的认可。这篇博文的名字叫做《漫谈毕业论文》，感觉有点扯远了，现在回归正题，扯一扯我这毕业论文的种种经过，写的比较随性，纯粹是个人闲扯。</p>
         
           <p class="article-more-link">
             <a href="/2015/08/02/%E6%BC%AB%E8%B0%88%E6%AF%95%E4%B8%9A%E8%AE%BA%E6%96%87/#more">Read More</a>
@@ -381,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/08/02/%E6%BC%AB%E8%B0%88%E6%AF%95%E4%B8%9A%E8%AE%BA%E6%96%87/" data-id="cmvkxtw5y003xcn1y8lft07xq" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/08/02/%E6%BC%AB%E8%B0%88%E6%AF%95%E4%B8%9A%E8%AE%BA%E6%96%87/" data-id="cuidyoKQ2WVVP2a5Bw-tsuinj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AF%95%E4%B8%9A/" rel="tag">毕业</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag">记录</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
@@ -427,7 +428,8 @@
 <li>协议和分类</li>
 <li>内存管理</li>
 <li>块与大中枢派发（block和GCD）</li>
-<li>系统框架<br>下面开始本书的阅读。
+<li>系统框架<br>下面开始本书的阅读。</li>
+</ol>
         
           <p class="article-more-link">
             <a href="/2015/07/28/%E3%80%8AEffective-Objective-C-2-0%E3%80%8B%E7%AC%94%E8%AE%B0/#more">Read More</a>
@@ -436,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/28/%E3%80%8AEffective-Objective-C-2-0%E3%80%8B%E7%AC%94%E8%AE%B0/" data-id="cmvkxtw5v001jcn1y314nap6g" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/28/%E3%80%8AEffective-Objective-C-2-0%E3%80%8B%E7%AC%94%E8%AE%B0/" data-id="cuidTP7UmXY7Od8Re1lFEEAfW" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matt-Galloway/" rel="tag">Matt Galloway</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6/" rel="tag">进阶</a></li></ul>
@@ -474,7 +476,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>实验室的imac电脑坏掉好几天了，自己电脑装的是Linux，这下写OC代码就成了麻烦事，脑袋里就一个念头，得赶紧解决，08年款的mac，好重，抱到苹果维修点，简单的检查了一下说是硬盘坏掉了，而这个型号的硬盘已经没有生产了，当时就惊到了，其实心中窃喜，盼着老师购买新mac，被老师直接驳回，好伤心。。。<br>
+        <p>实验室的imac电脑坏掉好几天了，自己电脑装的是Linux，这下写OC代码就成了麻烦事，脑袋里就一个念头，得赶紧解决，08年款的mac，好重，抱到苹果维修点，简单的检查了一下说是硬盘坏掉了，而这个型号的硬盘已经没有生产了，当时就惊到了，其实心中窃喜，盼着老师购买新mac，被老师直接驳回，好伤心。。。</p>
         
           <p class="article-more-link">
             <a href="/2015/07/25/imac%E6%8D%A2%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98/#more">Read More</a>
@@ -483,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/25/imac%E6%8D%A2%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98/" data-id="cmvkxtw5u001acn1yb3iqhgzm" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/25/imac%E6%8D%A2%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98/" data-id="cuidA4xcxGHcFBEFNcPSET__O" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8D%A3%E6%8B%BE/" rel="tag">捣拾</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li></ul>
@@ -526,7 +528,8 @@
 <li>Objective-C的基本知识和重要的语言元素</li>
 <li>Objective-C的运行时系统</li>
 <li>Foundation框架API</li>
-<li>Objective-C语言的高级特性<br>正是我现在需要了解和梳理的，下面就开始这本书的阅读。
+<li>Objective-C语言的高级特性<br>正是我现在需要了解和梳理的，下面就开始这本书的阅读。</li>
+</ul>
         
           <p class="article-more-link">
             <a href="/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/#more">Read More</a>
@@ -535,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huangzhemin.github.io/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/" data-id="cmvkxtw5v001qcn1y20h91bdi" class="article-share-link">Share</a>
+      <a data-url="http://huangzhemin.github.io/2015/07/24/%E3%80%8Apro-Objective-C%E3%80%8B%E7%AC%94%E8%AE%B0/" data-id="cuidR4q9vAIAQOPBcXWq-iXla" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6/" rel="tag">进阶</a></li></ul>
