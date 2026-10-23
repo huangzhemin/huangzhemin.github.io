@@ -27,7 +27,9 @@
       <% if (post.comments && config.disqus_shortname){ %>
         <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
       <% } %>
+      <% if (!index && (post.layout === 'post' || post.layout === 'page')){ %>
       <span id="busuanzi_container_page_pv">&nbsp;|&nbsp;阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+      <% } %>
       <%- partial('post/tag') %>
     </footer>
   </div>
