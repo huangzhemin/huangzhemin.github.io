@@ -1,11 +1,13 @@
-title: About me  
+---
+title: 关于我
 date: 2015-07-17 19:56:14
--------------------------
+---
 
-##Name
+## Name
 
-CN:黄哲敏(HuangZheMin) | EN:patrick  
-##I Am
+CN:黄哲敏(HuangZheMin) | EN:patrick
+
+## I Am
 
 原北京某互联网企业一线开发者  
 现在是热爱生活的小城市打工人  
@@ -18,10 +20,11 @@ CN:黄哲敏(HuangZheMin) | EN:patrick
 > 用博客记录心路历程  
 > 愿路上有你同行。
 
-##Contact  
-<span class="icon-weibo"> [黄哲敏Patrick](http://weibo.com/2630577054/profile?topnav=1\&wvr=6)  
-<span class="icon-github"> [Patrick Huang](https://github.com/huangzhemin)  
-<span class="icon-email"> [huang\_zhe\_min@163.com](http://huang_zhe_min@163.com)  
-<span class="icon-email"> [huangzhemin.patrick@gmail.com](http://huangzhemin.patrick@gmail.com)  
-<span class="icon-twitter"> [@patrickDuang](https://twitter.com/patrickHuang)  
-<span class="icon-facebook">  [@Patrick Huang](https://www.facebook.com/patrick.huang.1460)
+## Contact
+
+- <i class="fab fa-github"></i> [Patrick Huang](https://github.com/huangzhemin)
+- <i class="fas fa-envelope"></i> [huang\_zhe\_min@163.com](mailto:huang_zhe_min@163.com)
+- <i class="fas fa-envelope"></i> [huangzhemin.patrick@gmail.com](mailto:huangzhemin.patrick@gmail.com)
+- <i class="fab fa-twitter"></i> [@patrickDuang](https://twitter.com/patrickHuang)
+- <i class="fab fa-facebook"></i> [@Patrick Huang](https://www.facebook.com/patrick.huang.1460)
+- <i class="fas fa-link"></i> [黄哲敏Patrick](http://weibo.com/2630577054/profile?topnav=1&wvr=6)
