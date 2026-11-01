@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>线下会议录音系统的开发复盘：八条可复用的工程实践 | 小蜗牛的壳</title><meta name="author" content="Patrick Huang"><meta name="copyright" content="Patrick Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前段时间做完了一个线下会议录音系统：把一屋子人的现场讨论录下来，实时出带发言人的字幕，会后自动生成带发言人标签的逐字稿和纪要。私有化部署，数据不出内网，纯 CPU 也能跑，全程不依赖外网。 拆开是三个服务：Java 的业务服务、Python 的推理服务、Vue 的前端，加上一整套 PowerShell 部署脚本，合计不到一万行。开发节奏很紧——同一天里 29 次提交，基本是”发现问题 → 定位 →">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线下会议录音系统的开发复盘：八条可复用的工程实践">
+<meta property="og:url" content="http://huangzhemin.github.io/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/index.html">
+<meta property="og:site_name" content="小蜗牛的壳">
+<meta property="og:description" content="前段时间做完了一个线下会议录音系统：把一屋子人的现场讨论录下来，实时出带发言人的字幕，会后自动生成带发言人标签的逐字稿和纪要。私有化部署，数据不出内网，纯 CPU 也能跑，全程不依赖外网。 拆开是三个服务：Java 的业务服务、Python 的推理服务、Vue 的前端，加上一整套 PowerShell 部署脚本，合计不到一万行。开发节奏很紧——同一天里 29 次提交，基本是”发现问题 → 定位 →">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://huangzhemin.github.io/images/avatar.png">
+<meta property="article:published_time" content="2026-11-01T03:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-01T02:15:19.074Z">
+<meta property="article:author" content="Patrick Huang">
+<meta property="article:tag" content="会议">
+<meta property="article:tag" content="复盘">
+<meta property="article:tag" content="工程实践">
+<meta property="article:tag" content="架构设计">
+<meta property="article:tag" content="私有化部署">
+<meta property="article:tag" content="语音识别">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://huangzhemin.github.io/images/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "线下会议录音系统的开发复盘：八条可复用的工程实践",
+  "url": "http://huangzhemin.github.io/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/",
+  "image": "http://huangzhemin.github.io/images/avatar.png",
+  "datePublished": "2026-11-01T03:00:00.000Z",
+  "dateModified": "2026-11-01T02:15:19.074Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Patrick Huang",
+      "url": "https://github.com/huangzhemin"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://huangzhemin.github.io/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=5.7.1.260810"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        try {
+          const data = { value }
+
+          if (ttl != null) {
+            data.expiry = Date.now() + ttl * 86400000
+          }
+
+          localStorage.setItem(key, JSON.stringify(data))
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '线下会议录音系统的开发复盘：八条可复用的工程实践',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/hero-nebula.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">小蜗牛的壳</span></a><a class="nav-page-title" href="/"><span class="site-name">线下会议录音系统的开发复盘：八条可复用的工程实践</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">线下会议录音系统的开发复盘：八条可复用的工程实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-11-01T03:00:00.000Z" title="发表于 2026-11-01 11:00:00">2026-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-01T02:15:19.074Z" title="更新于 2026-11-01 10:15:19">2026-11-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/">通用技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>前段时间做完了一个线下会议录音系统：把一屋子人的现场讨论录下来，实时出带发言人的字幕，会后自动生成带发言人标签的逐字稿和纪要。私有化部署，数据不出内网，纯 CPU 也能跑，全程不依赖外网。</p>
+<p>拆开是三个服务：Java 的业务服务、Python 的推理服务、Vue 的前端，加上一整套 PowerShell 部署脚本，合计不到一万行。开发节奏很紧——同一天里 29 次提交，基本是”发现问题 → 定位 → 改一处 → 立刻实测”。</p>
+<p>这篇文章不复述功能，也不贴架构图讲得多漂亮。我想写的是这一个项目里真正沉淀下来的东西：<strong>那些下次做类似系统时，能直接少走一遍弯路的判断方法。</strong></p>
+<span id="more"></span>
+
+<p><img src="/images/meeting-rec-cover.jpg" alt="线下会议录音：从声音到纪要"></p>
+<h2 id="一、先把约束钉死，再谈选型"><a href="#一、先把约束钉死，再谈选型" class="headerlink" title="一、先把约束钉死，再谈选型"></a>一、先把约束钉死，再谈选型</h2><p>这个项目最省时间的一步，是在写第一行代码之前，把三条硬约束写清楚了：</p>
+<p><strong>约束一：客户内网不通外网。</strong> 所有模型必须能离线下载、离线加载。推论很直接——<strong>模型体积和依赖体积不是开发体验问题，是产品指标。</strong></p>
+<p><strong>约束二：数据不出内网，包括录音。</strong> 录音可能是经营决策、人事、法务内容，这是最敏感的资产。这条直接决定了两个设计：删除会议不删录音（误删不可再生），AI 服务不落业务库（少一个数据出口）。</p>
+<p><strong>约束三：to B 交付，现场装不上就是失败。</strong> 客户的机器往往是 Windows、无管理员权限、杀毒软件拦安装、只有内网镜像。”依赖能不能装上”的优先级高于”技术先不先进”。</p>
+<p>有了这三条，80% 的选型就不用纠结了。比如：</p>
+<ul>
+<li><strong>为什么放弃 FunASR？</strong> 它依赖 torch 全套，700MB+、几十个包，国内网络装一次可能几十分钟甚至失败——对”U 盘 30 分钟装完”这个交付指标是致命的。</li>
+<li><strong>为什么 sherpa-onnx 是关键？</strong> 它一个运行时同时提供 ASR、VAD、说话人分割、声纹四个能力，官方还维护了这些模型的 ONNX 版本。没有它，这四个能力要拼四个框架，依赖体积和版本冲突会直接毁掉约束三。</li>
+<li><strong>为什么不用 Whisper？</strong> 中文会议场景基准上明显弱于同代中文模型（会议场景 CER 19.11 对 5.88 量级），而且体积大、CPU 上更慢。这条不是偏好，是被数字否掉的。</li>
+</ul>
+<p><strong>方法</strong>：先写”尺子”，再量每个候选。我的尺子按权重排是：许可证能商用 → 能离线、能 CPU → 中文效果好 → 依赖体积小 → 有官方 ONNX 导出（避免自己转模型，那是无穷坑的开始）→ 单一运行时。</p>
+<p>先挑技术再找理由的人，最后都会在交付现场还债。</p>
+<h2 id="二、先让全链路通，再逐段换真的"><a href="#二、先让全链路通，再逐段换真的" class="headerlink" title="二、先让全链路通，再逐段换真的"></a>二、先让全链路通，再逐段换真的</h2><p>我见过太多项目死在”每个模块都要做到完美再拼起来”。这个项目走的是另一条路：<strong>先让全链路用假数据跑通，再一段一段换成真的，每换一段都用真实数据验证。</strong></p>
+<p>支撑这件事的是把 <strong>Mock 当成一等公民</strong>，而不是临时脚手架：</p>
+<ul>
+<li>Java 侧 <code>AiClient</code> 接口有两个实现：<code>MockAiClient</code> 和 <code>HttpAiClient</code></li>
+<li>Python 侧有 <code>AI_MODE=mock</code></li>
+<li>前端、后端、联调、演示，没有 AI 服务也全都能跑</li>
+</ul>
+<p>三个收益，都是真金白银：</p>
+<p><strong>前端不用等模型下载完</strong>。模型几个 G，下载要几十分钟，前端不可能干等。</p>
+<p><strong>演示不依赖现场机器有没有 GPU 或模型</strong>。演示前一天晚上模型加载失败这种事，遇到一次就够了。</p>
+<p><strong>出问题能一刀切开</strong>。换成 mock 还错，说明是 Java 或前端的问题，不用在 AI 侧瞎找。</p>
+<p>代价也要说清楚：<strong>Mock 的数据形状必须跟着契约改</strong>，否则它就成了”能跑但假”的陷阱。所以每次改 DTO 都要同步 Mock，这条已经写进提交习惯。</p>
+<p>实际的落地顺序是十六个阶段：骨架 → 换真模型 → 补摘要降级 → 上传闭环 → 说话人分离 → 实时判人 → 指定人数 → 录音回放 → 换声纹模型 → 性能优化 → 方言 → 真实进度 → Word 导出 → 设置页 → 续录 → 声纹注册。每一步都有明确的验收标准，而不是”大概能用了”。</p>
+<p><img src="/images/meeting-rec-arch.jpg" alt="三个服务，各自独立演进"></p>
+<h2 id="三、性能优化：先定位，再动手"><a href="#三、性能优化：先定位，再动手" class="headerlink" title="三、性能优化：先定位，再动手"></a>三、性能优化：先定位，再动手</h2><p>这是整个项目里方法论最值得复述的一次。</p>
+<p>现象：5 分钟音频要处理 68.9 秒。直觉一定是”ASR 太慢了，换个更快的模型”。</p>
+<p>但加了分阶段计时之后，数字是这样的：<strong>说话人分离独占 61.4 秒，占 89%</strong>。ASR 根本不是瓶颈。</p>
+<p>如果当时凭直觉去换 ASR 引擎，可能花两天时间，最后整体只快了两三秒。</p>
+<p>定位准了，优化就变得很具体：</p>
+<table>
+<thead>
+<tr>
+<th>手段</th>
+<th>依据</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>离线分离换回 CAM++</td>
+<td>与 ERes2Net 结果完全一致，快 2.2 倍</td>
+<td>时间 ÷2.2</td>
+</tr>
+<tr>
+<td>分割窗口步长 0.1 → 0.25</td>
+<td>一致性 Rand&#x3D;1.00、切点漂移 0.02s</td>
+<td>时间 ÷2.4</td>
+</tr>
+<tr>
+<td>线程按核数分配（ASR 8 &#x2F; 分割 8 &#x2F; 声纹 4）</td>
+<td>12&#x2F;12 比 8&#x2F;4 慢 50%（过度订阅）</td>
+<td>显著</td>
+</tr>
+<tr>
+<td>合并同人段改为”记区间、最后一次切片”</td>
+<td>去掉 O(n²) 的数组拼接</td>
+<td>显著</td>
+</tr>
+<tr>
+<td>启动预热 + Ollama <code>keep_alive=30m</code></td>
+<td>把 20.6 秒冷加载挪出关键路径</td>
+<td>约 20 秒</td>
+</tr>
+</tbody></table>
+<p>结果：<strong>5 分钟音频从 68.9 秒降到 14–16 秒</strong>（实时倍率 4.4x → 18–21x），57 秒四人会议从 15.5 秒降到 5.7 秒，而且<strong>句数、发言人、文本逐句完全一致</strong>，只有切点漂移 ≤0.2 秒。</p>
+<p>这里有个细节值得单独说：Ollama 默认空闲 5 分钟就卸载模型。会议是间歇性的——录完一场、过半小时再点”生成纪要”，就要再付一次 4.9GB 模型的加载成本。实测同一个请求：首次 24.5 秒（其中 20.6 秒在加载），常驻后只要 5.2 秒。<strong>一个 <code>keep_alive</code> 参数，省掉的是用户以为”卡住了”的 20 秒。</strong></p>
+<p><img src="/images/meeting-rec-perf.jpg" alt="89% 的时间花在一个不显眼的环节上"></p>
+<h2 id="四、被否决的方案，比成功经验更值钱"><a href="#四、被否决的方案，比成功经验更值钱" class="headerlink" title="四、被否决的方案，比成功经验更值钱"></a>四、被否决的方案，比成功经验更值钱</h2><p>优化过程里有四个”看起来应该更快”的想法，实测全是否定的：</p>
+<ul>
+<li><strong>ASR 批量解码</strong>：1661ms，比逐条 1109ms 更慢。</li>
+<li><strong>多开识别器实例 + 线程池并行</strong>：2&#x2F;3&#x2F;4&#x2F;6 实例分别 8.1&#x2F;9.7&#x2F;10.0&#x2F;11.7 秒，全都比单实例的 5.8 秒慢——因为 onnxruntime 内部已经是多线程，再叠一层只会互相抢核。</li>
+<li><strong>Ollama 并行请求</strong>：只快 12%，不值得增加复杂度。</li>
+<li><strong>分割窗口步长调到 0.5</strong>：确实快，但切点漂移最大 1.22 秒，只能取 0.25。</li>
+</ul>
+<p>这些结论我全部写进了代码注释，而不是写在文档或会议纪要里。</p>
+<p>原因很实际：<strong>下一个想”优化”的人（很可能就是三个月后的我）会先看到代码</strong>。写在别处的否决结论，等于没写。</p>
+<h2 id="五、阈值必须标定，不能拍脑袋"><a href="#五、阈值必须标定，不能拍脑袋" class="headerlink" title="五、阈值必须标定，不能拍脑袋"></a>五、阈值必须标定，不能拍脑袋</h2><p>这个项目里最”不工程”、也最容易翻车的部分，是声纹阈值。</p>
+<p>所有阈值——在线判人 0.45&#x2F;0.62、离线聚类 0.65&#x2F;0.85、注册匹配 0.45——<strong>都不是拍脑袋定的</strong>，而是用两段”已知真相”的音频交叉标定出来的：一段真实 4 人会议，一段真实单人独白。</p>
+<p>标定出来的两条结论，反直觉但很重要：</p>
+<p><strong>第一，不同模型的相似度刻度不能共用。</strong> 同样是 0.65–0.78 这个区间，CAM++ 能把 4 人分对、单人识别成 1 人；换 ERes2Net，同一个区间会把单人拆成两人。CAM++ 同人相似度 0.60–0.78，ERes2Net 同人在 0.79 左右——照搬旧阈值只会更差。</p>
+<p><strong>第二，阈值绑定步长。</strong> 分割窗口步长从 0.1 改成 0.25 之后，切出来的段变了，早前在 0.1 下标出的 0.88–0.97 直接失效，会把人数认错。<strong>改步长必须重标定，这不是建议，是硬依赖。</strong></p>
+<p>还有个取舍值得记：注册匹配阈值取 0.45 偏严，因为 ERes2Net 同人最低约 0.598、异人最高约 0.230。为什么不取中间值？因为<strong>把张三标成李四，比显示”发言人 2”糟糕得多</strong>。错误的方向决定了阈值该往哪边偏。</p>
+<p>所以标定脚本（<code>speaker_calib.py</code>、<code>bench_model_compare.py</code>）在这个项目里是交付物，不是一次性工具——换模型、改步长、换采样参数，都要能重跑一遍。</p>
+<h2 id="六、做了又拆掉的功能，也要留档"><a href="#六、做了又拆掉的功能，也要留档" class="headerlink" title="六、做了又拆掉的功能，也要留档"></a>六、做了又拆掉的功能，也要留档</h2><p>这是整个项目里唯一一个”实现了又被撤回”的功能，我觉得它的价值比很多成功经验都大。</p>
+<p><strong>为什么做</strong>：<code>auto</code> 模式默认走方言引擎，1 分钟会议要 30 多秒。用户的抱怨很具体：”逐句识别挺慢的”。于是设计了两遍方案——第一遍用快引擎 9 秒出稿（可看、可改、可导出），后台再用慢引擎精修并覆盖，精修失败也不影响第一稿。</p>
+<p><strong>为什么撤</strong>：同一轮改造里加了”续录时间轴偏移”，为了简化链路、避免”精修把用户刚改过的稿子覆盖掉”这类冲突，把精修移除了，恢复单遍。</p>
+<p><strong>留下的后果</strong>：<code>auto</code> 变慢了（现在等于单遍慢引擎），而 README 和运行指南还写着”两遍转写”——<strong>文档与行为不一致，这是最该被记录的那类债。</strong></p>
+<p>如果将来要恢复，我记下的建议是：不要”精修后整段覆盖”，而是<strong>生成一份可对比的新版本让用户选择合并</strong>。用户的手工修改，不能被任何后台任务静默吞掉——这大概就是当初撤回的真实原因。</p>
+<p><strong>方法</strong>：功能撤回不是”没发生过”。它留下了残留字段、过期的依赖文件、和一份撒谎的文档，都必须显式记下来。</p>
+<h2 id="七、契约与降级：两个不起眼但高频的坑"><a href="#七、契约与降级：两个不起眼但高频的坑" class="headerlink" title="七、契约与降级：两个不起眼但高频的坑"></a>七、契约与降级：两个不起眼但高频的坑</h2><p><strong>第一个坑：契约是三处同步，不是一处。</strong></p>
+<p>改一次请求体加个字段，Java 的 record、Python 的 pydantic 模型、<code>MockAiClient</code> 三处必须同时改。漏一处就是运行时 500——这个坑踩过至少两次。</p>
+<p>如果重来一次，我会在第一版就把契约定义成 JSON Schema，两侧生成代码，而不是手写。</p>
+<p>还有一个更隐蔽的版本：WebSocket 的包装层只透传了 <code>meetingId</code>，新增的 <code>asrEngine</code>、<code>seqOffset</code> 参数<strong>从来没有生效过</strong>。因为不报错，这个 bug 藏了整整一天——前端调参数、后端没收到、行为不变，所有日志都”正常”。</p>
+<p><strong>第二个坑：内存态必须有降级路径。</strong></p>
+<p>任务进度用 SSE + 内存注册表实现，没有引入 Redis 或消息队列。理由很实在：一期是单机单实例，多一个必装组件就违反”现场装得上”的约束；而且进度是易失数据，服务重启后任务本来就没了，持久化没有意义。</p>
+<p>代价是：服务重启后，正在跑的任务会丢，前端查不到。处理方式不是报错，而是<strong>降级</strong>——详情页发现任务 ID 查不到，就当没有精修，直接显示已完成的稿子。</p>
+<p>这个”内存态要有降级路径”的模式，后来在项目里复用了好几次。</p>
+<p>顺便说一个相关决定：设置（比如用哪个 ASR 引擎）<strong>按请求下发</strong>，不让 AI 服务记住。好处是无状态、多实例不会不一致；代价是设置变更”下一场会议才生效”。所以 UI 上就照实写”下一场会议生效”——<strong>文案跟着架构走，不承诺做不到的事。</strong></p>
+<h2 id="八、验证纪律，和一份”诚实清单”"><a href="#八、验证纪律，和一份”诚实清单”" class="headerlink" title="八、验证纪律，和一份”诚实清单”"></a>八、验证纪律，和一份”诚实清单”</h2><p>这个项目有一条验证习惯，我觉得值得所有做 AI 应用的团队抄走：</p>
+<p><strong>改完必须起真实服务 + 用真实音频跑一遍，并记录数字。只看编译通过就交付，上面那种”参数从未生效”的 bug 会一直藏着。</strong></p>
+<p>配套的还有几个工程细节：<code>spring-boot:run</code> 被终止后 fork 的 java 子进程会残留，锁住 H2 文件（错误 90028）；验证脚本每轮换端口，Java 还连着旧端口，表现为”莫名超时”。这些都不是技术难题，但每一条都能吃掉半天。</p>
+<p>最后，我给这个项目写了一份”已知不一致与遗留问题”，明确标注它不是待办承诺，而是<strong>给后来者的地图</strong>：</p>
+<ul>
+<li><code>auto</code> 现在很慢，而文档还在承诺两遍转写（优先级最高）</li>
+<li><code>requirements-real.txt</code> 已过期，还列着 700MB 用不上的 torch 依赖</li>
+<li>两遍转写的残留字段还在实体里，已无写入方</li>
+<li>声纹库只有增删查，缺同名覆盖审计、声纹更新、异常注册纠正</li>
+<li>任务状态不持久，长会议跑一半重启就白跑</li>
+<li>长会议没有分段，只有真实进度，没有断点续跑</li>
+</ul>
+<p>写这份清单的时候我有个体会：<strong>一个项目的成熟度，不取决于它有多少功能，而取决于它敢不敢把自己的窟窿列出来。</strong> 藏着的问题不会消失，只会在下一个人手里爆炸。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>回头看，这个项目真正的收获不是那套语音链路，而是几条可以迁移到任何项目上的方法：</p>
+<p><strong>先钉约束，再谈选型；先通链路，再换真的；先测再优化，别凭直觉；阈值靠标定，不靠手感；否决要写进注释；撤回要写进文档；契约要三处同步；内存态要有降级；最后，把所有不一致诚实地列出来。</strong></p>
+<p>技术栈会过时，这几条不会。</p>
+<p>而且在 AI 项目里，还有一条隐含的优先级：<strong>最贵的成本不是模型推理，是验证成本。</strong> 任何能让”验证一次”变便宜的设计——Mock、分阶段计时、可重跑的标定脚本、真实数据回归——都值得优先投入，因为它们决定了你敢不敢改代码。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/huangzhemin">Patrick Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://huangzhemin.github.io/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/">http://huangzhemin.github.io/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://huangzhemin.github.io" target="_blank">小蜗牛的壳</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BC%9A%E8%AE%AE/">会议</a><a class="post-meta__tags" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a><a class="post-meta__tags" href="/tags/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB/">语音识别</a><a class="post-meta__tags" href="/tags/%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/">私有化部署</a><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E7%9B%98/">复盘</a></div><div class="post-share"><div class="social-share" data-image="/images/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E4%B8%8E%E7%BA%AA%E8%A6%81%E6%95%B4%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="从录音到纪要：线下会议音频记录与整理的最佳实践"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">从录音到纪要：线下会议音频记录与整理的最佳实践</div></div><div class="info-2"><div class="info-item-1">线上会议其实是被”宠坏”的场景：平台自带录音，机器人能自动入会，会后十分钟就有一份带发言人标签的逐字稿。而线下会议什么都没有——只有一屋子人、一张桌子，和一台随手放在桌角的手机。 我在这上面栽过两次跟头。第一次是把手机放在长桌一头，坐在对角的人整场”消失”，纪要里只有三个人的发言；第二次是录音本身没大问题，但转写准确率只有八成多，光校对错别字和错人名花的时间，比开会本身还长。 后来我把整个链路拆成四段——会前准备、现场录音、转写处理、纪要成稿——一段一段地抠，才算把这件事跑顺。这篇文章就是这套流程的完整复盘。   一、先认清一个事实：准确率的真相在聊方法之前，必须先戳破一个幻觉。 各家工具的宣传页上写着”准确率 98%”，但那是标准普通话、单人朗读、安静环境下的字级准确率。到了真实的会议室里——有人带口音、有人抢话、空调在响、投影仪风扇在转、术语和英文缩写密集出现——实测数据普遍落在 85%–93% 这个区间。 还有两个更硬的约束：  说话人分离在 6 个人以上会明显掉链子。不是随机挑的门槛，而是声纹聚类的效果拐点；十来个人的会，实际开口的通常也就六七个，刚好卡在这条线上。 重叠...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E4%B8%8E%E7%BA%AA%E8%A6%81%E6%95%B4%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="从录音到纪要：线下会议音频记录与整理的最佳实践"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-01</div><div class="info-item-2">从录音到纪要：线下会议音频记录与整理的最佳实践</div></div><div class="info-2"><div class="info-item-1">线上会议其实是被”宠坏”的场景：平台自带录音，机器人能自动入会，会后十分钟就有一份带发言人标签的逐字稿。而线下会议什么都没有——只有一屋子人、一张桌子，和一台随手放在桌角的手机。 我在这上面栽过两次跟头。第一次是把手机放在长桌一头，坐在对角的人整场”消失”，纪要里只有三个人的发言；第二次是录音本身没大问题，但转写准确率只有八成多，光校对错别字和错人名花的时间，比开会本身还长。 后来我把整个链路拆成四段——会前准备、现场录音、转写处理、纪要成稿——一段一段地抠，才算把这件事跑顺。这篇文章就是这套流程的完整复盘。   一、先认清一个事实：准确率的真相在聊方法之前，必须先戳破一个幻觉。 各家工具的宣传页上写着”准确率 98%”，但那是标准普通话、单人朗读、安静环境下的字级准确率。到了真实的会议室里——有人带口音、有人抢话、空调在响、投影仪风扇在转、术语和英文缩写密集出现——实测数据普遍落在 85%–93% 这个区间。 还有两个更硬的约束：  说话人分离在 6 个人以上会明显掉链子。不是随机挑的门槛，而是声纹聚类的效果拐点；十来个人的会，实际开口的通常也就六七个，刚好卡在这条线上。 重叠...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Patrick Huang</div><div class="author-info-description">记录自己作为程序员的每一点进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/huangzhemin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/huangzhemin" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">因为慢，所以能欣赏一路的风景</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%88%E6%8A%8A%E7%BA%A6%E6%9D%9F%E9%92%89%E6%AD%BB%EF%BC%8C%E5%86%8D%E8%B0%88%E9%80%89%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">一、先把约束钉死，再谈选型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%85%88%E8%AE%A9%E5%85%A8%E9%93%BE%E8%B7%AF%E9%80%9A%EF%BC%8C%E5%86%8D%E9%80%90%E6%AE%B5%E6%8D%A2%E7%9C%9F%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">二、先让全链路通，再逐段换真的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%85%88%E5%AE%9A%E4%BD%8D%EF%BC%8C%E5%86%8D%E5%8A%A8%E6%89%8B"><span class="toc-number">3.</span> <span class="toc-text">三、性能优化：先定位，再动手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%A2%AB%E5%90%A6%E5%86%B3%E7%9A%84%E6%96%B9%E6%A1%88%EF%BC%8C%E6%AF%94%E6%88%90%E5%8A%9F%E7%BB%8F%E9%AA%8C%E6%9B%B4%E5%80%BC%E9%92%B1"><span class="toc-number">4.</span> <span class="toc-text">四、被否决的方案，比成功经验更值钱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%98%88%E5%80%BC%E5%BF%85%E9%A1%BB%E6%A0%87%E5%AE%9A%EF%BC%8C%E4%B8%8D%E8%83%BD%E6%8B%8D%E8%84%91%E8%A2%8B"><span class="toc-number">5.</span> <span class="toc-text">五、阈值必须标定，不能拍脑袋</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%81%9A%E4%BA%86%E5%8F%88%E6%8B%86%E6%8E%89%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%8C%E4%B9%9F%E8%A6%81%E7%95%99%E6%A1%A3"><span class="toc-number">6.</span> <span class="toc-text">六、做了又拆掉的功能，也要留档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%A5%91%E7%BA%A6%E4%B8%8E%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%A4%E4%B8%AA%E4%B8%8D%E8%B5%B7%E7%9C%BC%E4%BD%86%E9%AB%98%E9%A2%91%E7%9A%84%E5%9D%91"><span class="toc-number">7.</span> <span class="toc-text">七、契约与降级：两个不起眼但高频的坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E9%AA%8C%E8%AF%81%E7%BA%AA%E5%BE%8B%EF%BC%8C%E5%92%8C%E4%B8%80%E4%BB%BD%E2%80%9D%E8%AF%9A%E5%AE%9E%E6%B8%85%E5%8D%95%E2%80%9D"><span class="toc-number">8.</span> <span class="toc-text">八、验证纪律，和一份”诚实清单”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">9.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/" title="线下会议录音系统的开发复盘：八条可复用的工程实践">线下会议录音系统的开发复盘：八条可复用的工程实践</a><time datetime="2026-11-01T03:00:00.000Z" title="发表于 2026-11-01 11:00:00">2026-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E4%B8%8E%E7%BA%AA%E8%A6%81%E6%95%B4%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="从录音到纪要：线下会议音频记录与整理的最佳实践">从录音到纪要：线下会议音频记录与整理的最佳实践</a><time datetime="2026-11-01T02:00:00.000Z" title="发表于 2026-11-01 10:00:00">2026-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/28/2026-10-28-%E5%A6%82%E4%BD%95%E5%85%8B%E6%9C%8DAI%E6%97%B6%E4%BB%A3%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98/" title="AI时代的生存手册：如何克服这个时代带来的问题">AI时代的生存手册：如何克服这个时代带来的问题</a><time datetime="2026-10-28T13:30:00.000Z" title="发表于 2026-10-28 21:30:00">2026-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/24/2026-10-24-AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2/" title="AI编程工具的进化史：从代码补全到智能体开发">AI编程工具的进化史：从代码补全到智能体开发</a><time datetime="2026-10-24T06:00:00.000Z" title="发表于 2026-10-24 14:00:00">2026-10-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/23/AI%E6%97%B6%E4%BB%A3%E5%8F%91%E5%B1%95%E5%8F%B2/" title="AI时代发展史：从符号主义到通用智能的七十年">AI时代发展史：从符号主义到通用智能的七十年</a><time datetime="2026-10-23T12:00:00.000Z" title="发表于 2026-10-23 20:00:00">2026-10-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Patrick Huang</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.1.260810</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.1.260810"></script><script src="/js/main.js?v=5.7.1.260810"></script><div class="js-pjax"></div><script async data-pjax src="https://events.vercount.one/js"></script></div></body></html>
