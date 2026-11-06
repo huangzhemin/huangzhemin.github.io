@@ -1,0 +1,496 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产 | 小蜗牛的壳</title><meta name="author" content="Patrick Huang"><meta name="copyright" content="Patrick Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="先说结论：DeepSeek Harness（下称 DSH）最值得学的不是「一切皆插件」这句口号，而是它把 Agent 的内核决策权从源码搬到了配置树，并且让模型看得到的输入可以从日志完整重建。这两件事对做工程的人比对刷榜的人有用得多。 但另一个结论同样明确：它现在不该进生产。官方 SAFETY.md 自己写着「未经安全审计、不得视为安全或生产可用」；我在本机照官方 README 敲第一行命令就卡住">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产">
+<meta property="og:url" content="http://huangzhemin.github.io/2026/11/06/2026-11-06-DeepSeek-Harness%E8%B0%83%E7%A0%94%E4%B8%8E%E4%B8%8A%E6%89%8B%E5%BF%83%E5%BE%97/index.html">
+<meta property="og:site_name" content="小蜗牛的壳">
+<meta property="og:description" content="先说结论：DeepSeek Harness（下称 DSH）最值得学的不是「一切皆插件」这句口号，而是它把 Agent 的内核决策权从源码搬到了配置树，并且让模型看得到的输入可以从日志完整重建。这两件事对做工程的人比对刷榜的人有用得多。 但另一个结论同样明确：它现在不该进生产。官方 SAFETY.md 自己写着「未经安全审计、不得视为安全或生产可用」；我在本机照官方 README 敲第一行命令就卡住">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://huangzhemin.github.io/images/avatar.png">
+<meta property="article:published_time" content="2026-11-06T13:30:00.000Z">
+<meta property="article:modified_time" content="2026-11-06T13:28:36.619Z">
+<meta property="article:author" content="Patrick Huang">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="DeepSeek">
+<meta property="article:tag" content="Harness">
+<meta property="article:tag" content="工程实践">
+<meta property="article:tag" content="私有化部署">
+<meta property="article:tag" content="调研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://huangzhemin.github.io/images/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产",
+  "url": "http://huangzhemin.github.io/2026/11/06/2026-11-06-DeepSeek-Harness%E8%B0%83%E7%A0%94%E4%B8%8E%E4%B8%8A%E6%89%8B%E5%BF%83%E5%BE%97/",
+  "image": "http://huangzhemin.github.io/images/avatar.png",
+  "datePublished": "2026-11-06T13:30:00.000Z",
+  "dateModified": "2026-11-06T13:28:36.619Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Patrick Huang",
+      "url": "https://github.com/huangzhemin"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://huangzhemin.github.io/2026/11/06/2026-11-06-DeepSeek-Harness%E8%B0%83%E7%A0%94%E4%B8%8E%E4%B8%8A%E6%89%8B%E5%BF%83%E5%BE%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=5.7.1.260810"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        try {
+          const data = { value }
+
+          if (ttl != null) {
+            data.expiry = Date.now() + ttl * 86400000
+          }
+
+          localStorage.setItem(key, JSON.stringify(data))
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="小蜗牛的壳" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/hero-nebula.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">小蜗牛的壳</span></a><a class="nav-page-title" href="/"><span class="site-name">DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-11-06T13:30:00.000Z" title="发表于 2026-11-06 21:30:00">2026-11-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-06T13:28:36.619Z" title="更新于 2026-11-06 21:28:36">2026-11-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/">通用技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>先说结论：DeepSeek Harness（下称 DSH）最值得学的不是「一切皆插件」这句口号，而是它把 Agent 的内核决策权从源码搬到了配置树，并且让<strong>模型看得到的输入可以从日志完整重建</strong>。这两件事对做工程的人比对刷榜的人有用得多。</p>
+<p>但另一个结论同样明确：<strong>它现在不该进生产</strong>。官方 SAFETY.md 自己写着「未经安全审计、不得视为安全或生产可用」；我在本机照官方 README 敲第一行命令就卡住了，一路查下来发现的是整个项目当前状态的缩影——42 个 npm 版本全是预发布版，零个稳定版。</p>
+<p>这篇分两部分：前半是调研分析，后半是上手实测与使用心得。数字我按来源分了层级：<strong>官方一手</strong>、<strong>第三方评测</strong>、<strong>社区实测</strong>、<strong>本机实测</strong>，不混着用。尤其要提醒一句：Agent 领域几乎所有分数都是「模型 × Harness × 任务集」共同作用的结果，脱离这三要素谈「谁更强」没有意义。</p>
+<span id="more"></span>
+
+<p><img src="/images/dsh-cover.png" alt="DeepSeek Harness 调研：Agent &#x3D; Model + Harness，42 个 npm 版本全是预发布版、0 个稳定版"></p>
+<h2 id="一、先厘清：Harness-不是模型，也不是评测框架"><a href="#一、先厘清：Harness-不是模型，也不是评测框架" class="headerlink" title="一、先厘清：Harness 不是模型，也不是评测框架"></a>一、先厘清：Harness 不是模型，也不是评测框架</h2><p>「Harness」这个词在 LLM 语境里至少指两样东西，混了会闹笑话：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>干什么的</th>
+<th>典型例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Agent Harness（运行时）</strong></td>
+<td>包在模型外面，负责 Agent 循环、工具调用、上下文管理、会话状态、失败恢复、权限与沙箱</td>
+<td>DSH、Claude Code、OpenHands、Codex</td>
+</tr>
+<tr>
+<td><strong>Evaluation Harness（评测框架）</strong></td>
+<td>提供测试集、打分器、重复运行与报告</td>
+<td>lm-evaluation-harness</td>
+</tr>
+</tbody></table>
+<p>DSH 是前者。官方给的等式很干净：<strong>Agent &#x3D; Model + Harness</strong>——模型是「灵魂」，Harness 让 Agent 能理解环境、使用工具、在真实场景里持续工作。换个更工程师的说法：模型负责推理，Harness 负责把推理变成可交付的动作，并决定什么时候算「做完了」。</p>
+<p>几个基本事实（官方一手 + 公开报道）：</p>
+<ul>
+<li>2026 年 8 月 13 日以 <strong>MIT 协议</strong>开源，v0.1 开发者预览版；底层是 <strong>Cordis</strong> 插件系统，设计参考论文 <em>A Programming Paradigm for Spatiotemporal Composability</em>。</li>
+<li>专项团队独立于模型团队运作，负责人崔添翼；最初方向被描述为对标 Claude Code 的「DeepSeek Code Harness」。</li>
+<li>截至 11 月 4 日，按<strong>使用官方 API 的用户</strong>统计：日活 <strong>154 万</strong>、日消耗 Token 约 <strong>92 万亿</strong>、第三方插件约 <strong>3.5 万个</strong>、约 <strong>60%</strong> 的活跃用户制作或安装过至少一个第三方插件。这是官方口径，只覆盖官方 API 用户，别当成全量用户数。</li>
+<li>10 月 31 日团队发过一篇《Super-agent 设计探索》，想解决的是 Agent 与「单次手动会话」解绑，成为能跨会话保持上下文、并行推进多项任务的连续实体。</li>
+</ul>
+<p>一个容易忽略的定位差异：<strong>DSH 不是面向普通用户的开箱即用产品，而是开发者工具与基础设施</strong>。它把模型、工具、界面甚至内置功能的选择权都交给使用者，连内置功能都允许第三方插件替换。这既是它最大的吸引力，也是后面所有麻烦的源头。</p>
+<h2 id="二、架构：把内核决策权从源码搬到配置树"><a href="#二、架构：把内核决策权从源码搬到配置树" class="headerlink" title="二、架构：把内核决策权从源码搬到配置树"></a>二、架构：把内核决策权从源码搬到配置树</h2><p><img src="/images/dsh-arch.png" alt="Cordis 微内核只管加载与依赖，九类能力全是插件；Profile 到 Patch 四层叠加，会话日志为仅追加事件流"></p>
+<h3 id="微内核与「一切皆插件」"><a href="#微内核与「一切皆插件」" class="headerlink" title="微内核与「一切皆插件」"></a>微内核与「一切皆插件」</h3><p>Cordis 元框架只做三件事：<strong>插件加载、插件卸载、依赖解析</strong>，不含任何 Agent 业务逻辑。模型适配器、工具、技能、会话、沙箱、存储、Agent 主循环、调度、UI 全是独立插件，通过 Cordis 的**服务（Service）与事件（Event）**协作，在配置层自由组合。</p>
+<p>这带来两个别的框架少有同时具备的性质：</p>
+<ul>
+<li><strong>时间可组合</strong>：插件注册的副作用是可逆的，卸载时完整回滚，所以敢在运行时动态装卸，不需要「打补丁的特权内核」。</li>
+<li><strong>空间可组合</strong>：依赖关系可随配置变化动态重建。</li>
+</ul>
+<p>更有意思的是<strong>能力接缝（Capability Seam）</strong>：每项能力拆成固定三角色——<code>Service Definition</code>（稳定接口）→ <code>Service Provider</code>（具体实现）→ <code>Consumer</code>（通常是面向模型的工具）。消费者不知道背后挂的是谁。所以把 filesystem 与 process 两个 provider 同时指向远程沙箱，Bash、PTY、LSP 会一起迁移，不必为每个工具单独 fork。</p>
+<h3 id="配置是一棵可覆盖的插件树"><a href="#配置是一棵可覆盖的插件树" class="headerlink" title="配置是一棵可覆盖的插件树"></a>配置是一棵可覆盖的插件树</h3><p>运行中的 DSH 是一棵插件树，启动时按层叠加（来自 npm 包内中文 README 与官方架构文档）：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Profile</strong></td>
+<td>Harness home 里的具名装配方案，记录叠加哪些 bundle、树外插件、用户的 <code>cordis.patch.yml</code></td>
+</tr>
+<tr>
+<td><strong>Bundle</strong></td>
+<td>Cordis 配置项及其挂载代码的分发格式（npm 包），如 <code>dsh-base</code>、<code>dsh-web-app</code>、<code>dsh-headless</code></td>
+</tr>
+<tr>
+<td><strong>Patch</strong></td>
+<td>覆盖层，按行 ID 插入、替换或删除插件树条目，后层生效</td>
+</tr>
+</tbody></table>
+<p>叠加顺序是：profile 的各 bundle → profile 的 <code>cordis.patch.yml</code> → home 级 patch → 命令行 <code>--patch</code>。<code>dsh --profile web --dump-config</code> 可以<strong>不启动</strong>、直接打印本机实际会启动的配置树，任何一行都能被自己的 patch 替换。官方内置 <code>web</code>、<code>headless</code>、<code>tui</code> 等 profile；<code>dsh --profile acp</code> 走 ACP stdio，<code>dsh --profile headless &quot;job&quot;</code> 跑一次性任务。</p>
+<p>我读包内 README 时最欣赏的一句是：<strong>SDK 与 ACP 都是 profile，而不是独立的公开可执行命令</strong>。也就是说，「同一套运行时驱动 Web UI、ACP 自动化服务、无头 CLI」不是三份代码，是三套插件装配方案。这才是「平台」和「工具」的分界。</p>
+<h3 id="四种模式与事件溯源日志"><a href="#四种模式与事件溯源日志" class="headerlink" title="四种模式与事件溯源日志"></a>四种模式与事件溯源日志</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>默认加载</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Standard</strong></td>
+<td>完整工具集：文件编辑、Shell、检索、Skills、计划、子 Agent、工作流</td>
+<td>通用任务</td>
+</tr>
+<tr>
+<td><strong>PTC</strong></td>
+<td>在 Standard 之上，用模型生成的一段 TypeScript 程序组合多轮工具调用</td>
+<td>批量、结构化任务，减少往返</td>
+</tr>
+<tr>
+<td><strong>Minimal</strong></td>
+<td>仅一个持久 Bash + 一个 <code>str_replace_editor</code></td>
+<td><strong>最小环境下的模型基准测试</strong></td>
+</tr>
+<tr>
+<td><strong>Creative</strong></td>
+<td>检查运行时、在内存中试插件、组合新 preset</td>
+<td>原型与插件开发</td>
+</tr>
+</tbody></table>
+<p>模式切换本质是加载不同插件集合，不是四套代码。</p>
+<p>会话日志是架构里信息量最高的一层：它不是消息数组，而是<strong>带类型的、仅追加的 SessionEvent 日志</strong>，是 Agent 全部交互历史的唯一事实来源。系统提示词、思维链、工具调用与结果、子 Agent 派发、每一次上下文注入都写进去；<code>session/event</code> 存持久事实，<code>agent/*</code> 负责运行时协调，<code>fs/* · tools/* · telemetry/*</code> 承载能力与策略。官方运行时不变式是：<strong>模型看得到的输入必须能从会话日志重建</strong>——所以 resume、fork、检索、回放、Trajectory 视图、快照回归测试都收敛到同一条事件流。</p>
+<p>安全侧：跨平台沙箱（Linux Landlock、macOS Seatbelt、bwrap）、分层文件权限、fail-closed 设计、权限 + 审批 + 沙箱三层控制；异构子 Agent 走 ACP 与 dsh-sdk，还能把 Claude Code &#x2F; Codex 当子 Agent 接进来；模型侧支持 DeepSeek 原生及 Anthropic、OpenAI、Bedrock、Gemini、Kimi 等 40 多家 provider。</p>
+<h2 id="三、数字：换一个-Harness，排名和账单都会变"><a href="#三、数字：换一个-Harness，排名和账单都会变" class="headerlink" title="三、数字：换一个 Harness，排名和账单都会变"></a>三、数字：换一个 Harness，排名和账单都会变</h2><p><img src="/images/dsh-bench.png" alt="六份第三方评测的关键数字：单位成本得分 +106%、同样答案 8 倍上下文、$3.28 对 $18.34，以及只换 Harness 就反转的排名"></p>
+<p>这一节的所有数字都要连同「模型 × Harness × 任务集」一起读。我先给最反直觉的一条：<strong>在 66 种配置、6204 条计分轨迹的研究里，只换 Harness 就能把同一个模型的排名翻过来</strong>（arXiv:2610.00917）。</p>
+<p><strong>表 1：几份口径不同的第三方评测（均为公开报告，非我实测）</strong></p>
+<table>
+<thead>
+<tr>
+<th>评测</th>
+<th>设置</th>
+<th>关键结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>司南 WildClawBench</td>
+<td>60 项真实长程任务，Score &#x2F; Cost &#x2F; Time 三维</td>
+<td>V4 Pro + DSH 得 <strong>45.0</strong>，7 个价格稳定的 DSH 配置排第 3；定性「中上能力、低成本、较高耗时」。GPT-5.4 + DSH 最佳 <strong>53.8</strong>、$0.30&#x2F;任务、3.98 分钟</td>
+</tr>
+<tr>
+<td>同模型换 Harness 对照</td>
+<td>同上，V4 Pro 配 OpenClaw vs DSH</td>
+<td>成本 <strong>6 vs 12 美元</strong>（-50%），耗时 630 vs 605 分钟（+4.2%），单位成本得分 <strong>218 → 450 分&#x2F;美元（+106%）</strong></td>
+</tr>
+<tr>
+<td>Composio 30 任务</td>
+<td>统一 V4 Pro 0813、6 个 harness、900 秒上限、10 类真实应用</td>
+<td>DSH <code>0.1.0-rc.7</code> <strong>20&#x2F;30</strong>、88,562 tokens&#x2F;任务、14.2 次工具调用、$0.028 每次共享成功；Claude Code 19&#x2F;30、649,900 tokens、11.7 次、$0.074</td>
+</tr>
+<tr>
+<td>Runta 代码 Agent</td>
+<td>第三方统一网关、Kimi K3、每题每配置仅一次</td>
+<td>Codex 66.7%&#x2F;$3.47；<strong>DSH Creator 63.3%&#x2F;$3.28</strong>；Claude Code 63.3%&#x2F;$18.34；DSH Standard 60.0%&#x2F;$3.46；DSH Minimal 56.7%&#x2F;$4.72</td>
+</tr>
+<tr>
+<td>Bug Hunt Bench</td>
+<td>105 个隐藏 bug、两个生产代码库、离线、抹 Git 历史、盲评</td>
+<td>Max 档 DSH <strong>42.7</strong> vs Claude Code 39.1；代价是单任务账单 $1.01 → <strong>$1.84（+82.2%）</strong>，另多修 92.1% 的非计分历史缺陷</td>
+</tr>
+<tr>
+<td>Maka Terminal-Bench 2.1</td>
+<td>89 题、统一 V4 Flash、9 个 harness</td>
+<td>Codex 82.0% &gt; Pi 74.2% &gt; <strong>DSH 73.0%</strong> &gt; Claude Code 55.1%</td>
+</tr>
+</tbody></table>
+<p><strong>三条我认为最值得带走的结论：</strong></p>
+<ol>
+<li><strong>成本优势是真的，但来自调度效率，不是模型变强了。</strong> Composio 里那个 PostHog 聚合案例最能说明问题：两个 harness 都通过全部 8 项检查，Claude Code 用了 428,677 tokens，dsh 只用 53,243——<strong>同样的模型、同样的答案，8 倍的上下文</strong>。而且 Claude Code 工具调用次数更少（11.7 vs 14.2），所以不是「干得更多」，是每一步都背着更重的上下文。作者还指出 Claude Code 的缓存经济性依赖 Anthropic 自家的 <code>cache_control</code> 断点，换到第三方网关上这套机制就不跟着走了。</li>
+<li><strong>Harness 不是对谁都免费加成。</strong> 66 配置研究里，V4 Pro 在 Terminal-Bench 4 上 DSH 得 9.52（四种 harness 最高），但 TUA-Bench 上只有 51.93（垫底之一），ALE-CLI 上 40.94 也是最低。GPT-6 Astra 在 Terminal-Bench 4 上用 PI 得 60.32%、单任务模型成本 $4.66，用 DSH 是 52.38%、$19.94——PI 走 2560 次模型调用 &#x2F; 1.1 亿未缓存输入 token，DSH 走 11879 次 &#x2F; 6.73 亿。司南报告里 GLM 5、MiniMax M2.7 配 DSH 也没有明确综合优势。</li>
+<li><strong>「降本」和「攻坚」是两种相反的用法，别混着谈。</strong> 司南的同模型对照是成本 -50%、耗时 +4.2%；Bug Hunt Bench 则是多花 82% 的钱换 +3.6 分和翻倍的非计分修复量，原因是 DSH 默认开 Subagents、跑在全权限模式，遇到硬 bug 会派生子任务、反复重试，而 Claude Code 走克制、单线程、保守早停的路线。同一个工具，Profile 不同，账单结构完全不同。</li>
+</ol>
+<p><strong>必须标出的口径局限</strong>：Composio 那组里 dsh 走 DeepSeek 原生端点、其余五个走 OpenRouter，且比其他 arm 晚 5 天执行；Claude Code 有 2 次超时没留下用量记录，只按 28 题计量；作者说只有基于 14 个共享成功任务的 paired 成本指标算得上干净。Runta 每题每配置只跑一次。Maka 的 DSH 是在原批次之后、基础设施修复后重跑的。评测里按的 <code>$0.14/$0.28</code> 也已是历史价——V4 Flash 从 8 月 16 日起改峰谷计费，off-peak $0.22&#x2F;$0.66 per MTok、peak $0.44&#x2F;$1.32。</p>
+<p>还有个数字值得单独记：Composio 测试集里 10 个「像同事随口交代、没有 schema、没有成功契约」的多应用工作流任务，跨所有测过的 harness、两个模型、两轮运行，<strong>总共 80 次只过了 2 次</strong>。作者的评语是「Nobody has solved that yet」。这比任何榜首分数都更能说明当前 Agent 的真实边界。</p>
+<h2 id="四、上手实测：第一行命令就卡住了"><a href="#四、上手实测：第一行命令就卡住了" class="headerlink" title="四、上手实测：第一行命令就卡住了"></a>四、上手实测：第一行命令就卡住了</h2><p><img src="/images/dsh-setup.png" alt="本机实测三个门槛：npx 报 ETARGET、42 个版本全是 rc&#x2F;alpha、engines 要求 Node 24.9 以上；包体 0.1MB 却是 338 个包的薄壳"></p>
+<p>这一节全是<strong>本机实测</strong>，环境：macOS、Node <strong>v22.22.2</strong>、npm <strong>10.9.7</strong>、默认 registry 指向 <code>https://registry.npmmirror.com/</code>。我把过程写下来，因为它比任何宣传页都更能说明「开发者预览版」这五个字的分量。</p>
+<p><strong>第一步，照官方 README 敲：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx -y @deepseek-ai/dsh --<span class="built_in">help</span></span><br><span class="line"><span class="comment"># npm error code ETARGET</span></span><br><span class="line"><span class="comment"># npm error notarget No matching version found for @deepseek-ai/dsh@*.</span></span><br></pre></td></tr></table></figure>
+
+<p>我起初以为是国内镜像同步滞后，于是显式指定官方 registry：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx -y --registry=https://registry.npmjs.org @deepseek-ai/dsh --<span class="built_in">help</span></span><br><span class="line"><span class="comment"># 同样的 ETARGET</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>查 registry 元数据找到了真正原因</strong>：<code>@deepseek-ai/dsh</code> 一共发布过 <strong>42 个版本</strong>，从 <code>0.0.1-rc.1</code> 到最新的 <code>0.2.2-rc.1</code>，<strong>全部带 <code>-rc</code> 或 <code>-alpha</code> 后缀，稳定版数量为 0</strong>。npm 的 <code>*</code> 范围默认不匹配预发布版本，所以不带版本号的官方一行命令，在今天这个 npm 上必然解析不到任何版本。正确写法是显式带版本或标签：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @deepseek-ai/dsh@0.2.2-rc.1 web   <span class="comment"># 或 @next</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第二步，版本与运行时要求</strong>（<code>npm view @deepseek-ai/dsh@0.2.2-rc.1 --json</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>实测值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>version</td>
+<td><code>0.2.2-rc.1</code>（发布于 2026-11-04）</td>
+</tr>
+<tr>
+<td>license</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><code>engines.node</code></td>
+<td><strong><code>&gt;=24.9.0</code></strong>（本机 22.22.2，不满足）</td>
+</tr>
+<tr>
+<td>bin</td>
+<td><code>dsh -&gt; lib/bin.js</code></td>
+</tr>
+<tr>
+<td>解包体积</td>
+<td><strong>0.1 MB</strong></td>
+</tr>
+<tr>
+<td>dependencies</td>
+<td><strong>90</strong></td>
+</tr>
+</tbody></table>
+<p><strong>第三步，把包解出来看结构</strong>。<code>npm pack</code> 下载后直接跑入口，得到：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error </span>[ERR_MODULE_NOT_FOUND]: Cannot find package &#x27;@deepseek-ai/dsh-app-boot&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这恰恰印证了架构：CLI 包只是个 0.1 MB 的<strong>薄壳</strong>，能力全在插件包里。我又做了一次完整依赖安装（隔离在 <code>/tmp</code>、<code>--ignore-scripts</code>），拉到 <strong>338 个 <code>@deepseek-ai/*</code> 包、232 MB</strong>，安装过程中断；换 Node <strong>24.22.2</strong> 再跑入口，仍因 <code>dsh-app-boot</code> 入口缺失失败。</p>
+<p><strong>所以：我没有在本机跑通 Web UI，也没有跑过任何一个真实 Agent 任务。</strong> 下面第五节的心得，来自三样东西——官方一手文档与包内源码说明、上面这些可核验的第三方评测、以及我自己做私有化系统时踩过的坑。我不打算把没跑过的东西写成「实测体验」，这也是这篇文章想守的一条线。</p>
+<p>即便没跑起来，光读官方 SAFETY.md 和 Web UI 指南，就已经能得出几条硬约束：</p>
+<ul>
+<li>SAFETY.md 原文：<strong>「experimental developer-preview software. It has not undergone a security audit and must not be treated as secure or production-ready.」</strong> 它明确列出可以执行模型生成的代码与命令、加载第三方插件、访问网络&#x2F;进程&#x2F;凭据&#x2F;文件；沙箱、审批、权限控制「能降低风险，但不保证隔离」；建议最小权限、<strong>优先用一次性虚拟机或容器</strong>、给可访问文件做备份、运行前审插件与命令；MIT 协议、无担保。</li>
+<li>Web UI 首次使用顺序是：Settings → Models 填 key → <strong>Choose workspace 选工作区</strong> → 才能发任务（没选工作区时输入框是不可用的）。模型配置写入 <code>$DSH_HOME/profiles/web/cordis.patch.yml</code>，密钥写入 <code>$DSH_HOME/.credentials.yaml</code>，密钥 <strong>write-only</strong>、界面只保留 credential reference，改动下个请求生效、无需重启。</li>
+<li>自定义 OpenAI 兼容端点要走 <code>Custom model API</code>，填 provider id（小写、永久不可改名）、baseURL、协议（三选一：<code>openai-completions</code> &#x2F; <code>openai-responses</code> &#x2F; <code>anthropic-messages</code>）、credential、至少一个 model；<strong>一个 provider 只能说一种协议</strong>，网关提供两种就得建两个 provider。常见兼容坑是 <code>compat.supportsDeveloperRole: false</code>、<code>compat.maxTokensField: max_tokens</code>、<code>compat.thinkingFormat: deepseek</code>。<code>GET /models</code> 发现失败时手填 model id 一样能用。</li>
+</ul>
+<h2 id="五、使用心得：七条我认为真正有用的判断"><a href="#五、使用心得：七条我认为真正有用的判断" class="headerlink" title="五、使用心得：七条我认为真正有用的判断"></a>五、使用心得：七条我认为真正有用的判断</h2><p><strong>1. 评测单元要从「模型」改成「模型 × Harness × Profile × 任务」。</strong> 这是整份调研里最改变我工作方式的一条。以前做技术选型，问的是「哪个模型强」；现在得先问「哪个组合在<strong>我的任务</strong>上强」。66 配置研究里同一个 V4 Pro 在不同任务集上的最佳 harness 从 openJiuwen 换到 OpenHands 再换到 DSH，就是最直接的证据。以后看到任何 Agent 分数，我都会先找这三要素，找不到就先存疑。</p>
+<p><strong>2. 插件不是越多越好，它是要还的上下文债。</strong> 11 月 5 日有开发者分享，装到 15 个以上插件后系统出现无限循环、上下文溢出、Token 消耗上升——每多一个插件，模型就得多理解一份说明、规则和约束。另有用户反馈做一个小项目时 Token 消耗超 OpenCode 20 倍、单任务 30–40 分钟对 30 秒（<strong>个别社区实测，仅示意</strong>）。反方观点也有道理：有人直言「想要省 token 就别装活跃气氛的插件，不能怪开发商卖毛坯房」。我的做法会是：<strong>默认最小插件集，每加一个都记一次通过率与单任务成本的变化</strong>，加不出收益就删掉。官方从 10 月开始补的 <code>/compact</code>、长对话自动压缩、AGENTS.md 独立字节预算，其实都是在还这笔债。</p>
+<p><strong>3. 版本治理要自己兜底，别指望预览版给你兜。</strong> 11 月 5 日一位 Windows 用户从 <code>v0.2.1-rc.5</code> 升到 <code>v0.2.2-rc.1</code>，配置文件里插件条目从 <strong>34 项变成 2 项</strong>，加上一个本地化插件不兼容导致启动失败；由于没有自动备份、客户端不支持回滚，手动恢复花了约 <strong>5 小时</strong>。这对个人是折腾，对 to B 交付是事故。我的习惯会照搬过来：<strong>锁版本、升级前备份 <code>cordis.patch.yml</code> 与 profile 目录、升级后先跑一遍主流程再继续用</strong>；不追新 rc，除非新版本恰好修了我踩到的那个 bug。</p>
+<p><strong>4. 成本治理的杠杆在调用方式，不在换模型。</strong> 缓存命中与正常输入的价格差很大，峰谷定价又是另一层变量；长程 Agent 里把系统提示、知识片段、历史上下文固定成可缓存前缀，账单会完全不同。社区实测缓存命中率多在 99%、偶尔掉到 60–70%（<strong>个别实测，不能当 SLA</strong>）。更实用的是把 Profile 当预算档位用：<strong>Minimal 做纯模型基线、Standard 做产品验证、Creator &#x2F; Subagents 攻坚硬问题</strong>——Bug Hunt Bench 已经证明这几档的账单能差将近一倍，而收益方向完全不同。</p>
+<p><strong>5. 私有化场景：「模型无关」很诱人，但安全声明把它挡在门外。</strong> 我做线下会议录音系统时，数据不出内网是硬约束，客户机器常常不通外网、没有管理员权限。DSH 的 <code>Custom model API</code> 能把 baseURL 指向自托管推理服务，40 多家 provider、可换沙箱、可换存储、可全链路留痕，从架构上简直是为此设计的。但 SAFETY.md 白纸黑字「未经安全审计、不可视为生产可用」「不要把它当作不可信工作负载的唯一安全控制」。所以我的结论很明确：<strong>现阶段它在私有化项目里只适合当离线评测与编排底座，不适合直接进客户内网的业务链路</strong>。真要试，就放在一次性容器里，工作目录单独划一块，凭据用环境变量名引用而不是写进配置，重要文件先备份。这和我之前写 Hy4 时的判断一致：「承诺开源」和「已开源 &#x2F; 可上生产」之间，差的是整个方案的可行性。</p>
+<p><strong>6. 可追溯日志是被低估的那部分价值。</strong> 仅追加事件流 + 「模型可见输入可重建」这条不变式，意味着出问题时可以归因到具体层：provider 故障、循环故障、工具被拒、会话事件缺失，而不用甩一句「模型今天不行」。对需要审计留痕、代码评审、带新人的团队，这比多两分榜单成绩有用。它和我一贯的判断也对得上：<strong>验证能力比生成能力更重要</strong>，而可验证的前提是过程可回放。</p>
+<p><strong>7. Agent 说「做完了」，不等于做完了。</strong> 2&#x2F;80 的多应用任务通过率之外，社区还出现过「20 秒报成功、一个文件都没动」的情况。66 配置研究的轨迹分析给了个很妙的解释：192 次可操作的失败信号里模型响应了 180 次，133 次诊断&#x2F;定向修复事件里 116 次能解决；<strong>决定成败的往往是失败信号有没有被送回模型</strong>——shell 没有默认超时会把挂起的命令变成沉默，输出截断会剥夺继续的机会，过早的 stuck 检测会丢掉本来可行的计划。所以验收必须外面再套一层确定性校验：文件是否真的改了、测试是否真的跑了、产物是否符合预期。别把「完成判定」也交给模型。</p>
+<h2 id="六、给不同角色的建议，以及一份验收清单"><a href="#六、给不同角色的建议，以及一份验收清单" class="headerlink" title="六、给不同角色的建议，以及一份验收清单"></a>六、给不同角色的建议，以及一份验收清单</h2><p><img src="/images/dsh-decision.png" alt="四类角色的落地建议，以及通过率、实账单、token 与缓存、墙钟时间、失败轨迹五列验收指标"></p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>我的建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>想试的开发者</strong></td>
+<td>先解决版本与运行时：<code>@0.2.2-rc.1</code> &#x2F; <code>@next</code>、Node ≥24.9；在一次性容器或 VM 里跑，工作区只给一个目录；从 Standard 起步，别一上手用 Creator；先跑「读文件 + 一次工具调用」的冒烟任务</td>
+</tr>
+<tr>
+<td><strong>做技术选型的团队</strong></td>
+<td>别看单一榜单。用 20–50 个自己的代表性任务，在 2–3 个候选模型 × Minimal&#x2F;Standard&#x2F;自定义 Profile 上跑，保留每条轨迹</td>
+</tr>
+<tr>
+<td><strong>企业生产</strong></td>
+<td>短期不承载生产负载。更现实的位置是：Minimal 模式做模型回归、事件日志做合规留痕、能力接缝把执行环境切到自己的远程沙箱</td>
+</tr>
+<tr>
+<td><strong>私有化 &#x2F; 内网交付</strong></td>
+<td>只做离线评测与编排底座；等插件市场、API 稳定性、版本回滚与安全审计落地后再评估进业务链路</td>
+</tr>
+</tbody></table>
+<p>无论哪个角色，我都建议把下面五列记全——聚合分数只说明「有差距」，轨迹才说明差距来自工具使用、错误恢复还是完成判定：</p>
+<ul>
+<li><input disabled="" type="checkbox"> <strong>通过率</strong>（按自己的成功判据，不用 Agent 自报）</li>
+<li><input disabled="" type="checkbox"> <strong>单任务实账单</strong>（记录时段，峰谷价差要写进备注）</li>
+<li><input disabled="" type="checkbox"> <strong>总 token 与缓存命中率</strong></li>
+<li><input disabled="" type="checkbox"> <strong>墙钟时间与交互轮次</strong></li>
+<li><input disabled="" type="checkbox"> <strong>失败轨迹</strong>（保留原始事件流，标注是超时、工具被拒、截断还是早停）</li>
+</ul>
+<h2 id="七、还没解决的问题"><a href="#七、还没解决的问题" class="headerlink" title="七、还没解决的问题"></a>七、还没解决的问题</h2><p>诚实列一下，免得这篇显得什么都解决了：</p>
+<ol>
+<li><strong>插件治理远未结束</strong>——插件市场、审核、质量评级、版本兼容、权限管理、安全提示都还在筹备；插件越多，筛选和维护负担越重。</li>
+<li><strong>Creator 模式自生成的插件只存在于易失内存</strong>，重启即消失，持久化还没解决。</li>
+<li><strong>配置保护与回滚缺失</strong>——上面那个 5 小时恢复的案例不是孤例风险，而是预览版的常态。</li>
+<li><strong>跨平台与静默失败</strong>——原生 Windows 支持不稳；有后端约 1 秒返回空响应且无错误无日志，内置检索未接免费后端时可能返回 402 却以 0 退出。</li>
+<li><strong>模型选择仍比 Harness 更重要</strong>——同一个 dsh、同一个任务，不同模型耗时从 43 秒到 900 秒超时不等；把 Harness 当成万能放大器会失望。</li>
+<li><strong>我自己的实测缺口</strong>——没有跑通 Web UI、没有真实任务的账单数据。等 Node 24 环境与依赖装完整，我会补一篇纯实测的后续。</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>调研下来最大的收获，不是「DSH 排第几」，而是确认了一件事：<strong>Agent 的能力已经不再由模型单独决定</strong>。同一模型换个壳，单位成本得分可以翻倍、排名可以反转、账单可以差 5 倍；也可以什么都没变，甚至把上下文撑爆。</p>
+<p>这对做工程的人其实是好消息——它意味着除了等下一代模型，我们手上多了一层可以自己调的东西：工具、超时、压缩、失败反馈、完成判定、以及插件该装几个。但代价是责任也跟着过来了：<strong>以前选错模型是选错一个供应商，现在选错 Harness 是选错一整套执行系统</strong>，而这套系统目前连一个稳定版都还没有。</p>
+<p>所以我的落点很朴素：架构值得认真学，事件日志和 Profile 那套思路甚至可以直接搬到自己的系统里；工具本身，先在容器里玩，别急着上生产。模型负责把活干完，人负责确认这活干对了——这条分界线，换了个更花哨的 Harness 也不会自动消失。</p>
+<hr>
+<p><strong>资料来源</strong>（按层级标注）</p>
+<p><em>官方一手</em></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.deepseek.com/harness/zh/">DeepSeek Harness 官方页（中文）</a> &#x2F; <a target="_blank" rel="noopener" href="https://deepseek.com/harness/en">English: Everything is a plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/deepseek-harness">GitHub: deepseek-ai&#x2F;deepseek-harness</a> — README、<a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/deepseek-harness/blob/master/SAFETY.md">SAFETY.md</a>、架构文档</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/index.md">官方 Web UI 指南</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/providers.md">模型配置指南</a></li>
+<li>npm 包 <code>@deepseek-ai/dsh@0.2.2-rc.1</code> 的 registry 元数据、包内 <code>README.zh.md</code>（本机实测读取）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cordiverse/cordis">Cordis</a> &#x2F; <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2608.25512">A Programming Paradigm for Spatiotemporal Composability</a></li>
+</ul>
+<p><em>第三方评测</em></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dshbase.com/zh/blog/wx-dsh-60task-bench">司南 WildClawBench 60 任务评测解读</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.00917">Finding the Right Fit: Model–Harness Interactions across Agent Tasks（arXiv:2610.00917）</a> &#x2F; <a target="_blank" rel="noopener" href="https://deepseekagent.io/guides/model-harness-interactions-benchmark">66 配置解读</a></li>
+<li><a target="_blank" rel="noopener" href="https://landing.composio.dev/content/deepseek-harness-vs-claude-code">Composio：DSH vs Claude Code 30 任务实测</a></li>
+<li><a target="_blank" rel="noopener" href="https://theseguysknow.io/best-ai-coding-harnesses">Runta &#x2F; TGK：代码 Agent 通过率与成本</a> &#x2F; <a target="_blank" rel="noopener" href="https://www.besthub.dev/articles/deepseek-harness-outperforms-claude-code-on-bug-hunt-bench-with-v4-1-flash-1017-7656a8d7e1d0">Bug Hunt Bench 解读</a></li>
+<li><a target="_blank" rel="noopener" href="https://finance.sina.com.cn/wm/2026-10-19/doc-inivtiqs0710313.shtml">中信证券：DeepSeek Harness 从模型供给走向平台生态（2026-10-19）</a></li>
+</ul>
+<p><em>社区与媒体实测</em></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://finance.sina.cn/2026-11-06/detail-inixuiza8899769.d.html">InfoQ：日活 154 万、插件生态与升级配置丢失案例（2026-11-06）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnenergynews.cn/article/4Tuh6Z9oRdh">中国能源网：Harness 团队与 Super-agent 文章</a></li>
+<li><a target="_blank" rel="noopener" href="https://m.163.com/news/article/LB2HGC4400097U7T.html">网易：154 万人玩出花，创造模式实测</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.hqwc.cn/a/1649705.html">DeepSeek Harness 深度评测：权限分级与实跑场景</a></li>
+</ul>
+<p><em>本机实测</em>：本文第四节全部命令与输出，2026-11-06 于 macOS &#x2F; Node 22.22.2 &#x2F; npm 10.9.7 环境执行。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/huangzhemin">Patrick Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://huangzhemin.github.io/2026/11/06/2026-11-06-DeepSeek-Harness%E8%B0%83%E7%A0%94%E4%B8%8E%E4%B8%8A%E6%89%8B%E5%BF%83%E5%BE%97/">http://huangzhemin.github.io/2026/11/06/2026-11-06-DeepSeek-Harness%E8%B0%83%E7%A0%94%E4%B8%8E%E4%B8%8A%E6%89%8B%E5%BF%83%E5%BE%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://huangzhemin.github.io" target="_blank">小蜗牛的壳</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a><a class="post-meta__tags" href="/tags/%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/">私有化部署</a><a class="post-meta__tags" href="/tags/Agent/">Agent</a><a class="post-meta__tags" href="/tags/DeepSeek/">DeepSeek</a><a class="post-meta__tags" href="/tags/Harness/">Harness</a><a class="post-meta__tags" href="/tags/%E8%B0%83%E7%A0%94/">调研</a></div><div class="post-share"><div class="social-share" data-image="/images/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/11/05/2026-11-05-%E6%96%B9%E8%A8%80ASR%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A/" title="方言 ASR 调研报告：从 5% 到 31% 的错字率，以及选型时真正该问的问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">方言 ASR 调研报告：从 5% 到 31% 的错字率，以及选型时真正该问的问题</div></div><div class="info-2"><div class="info-item-1">会议室里，一位同事用四川话插了一句，转写稿上变成一串读音相近的普通话字。人听着能猜出原意，检索、纪要、待办抽取全在这句上断掉。 我因为做线下会议录音系统，最近把 2026 年能找到的方言 ASR 资料系统梳理了一遍。越看越觉得，「支持多少种方言」是这个问题里最不重要的一个数字——同一个模型在不同方言上的错字率能差六倍，而绝大多数选型文章只给你一个平均值。 这篇是调研报告，不是模型推荐清单。重点放在三件事：差距到底有多大、差距从哪来、以及拿到一套方案该怎么验收。文中的数字我按来源分了层级：挑战赛&#x2F;论文、厂商自报、社区实测，不混在一起用。    一、先给赶时间的人：五条结论 「方言 ASR」不是一个任务，是十几个难度完全不同的任务。 ChinaVoices Challenge 2026 的官方评测里，最容易的陕西话平均 CER 4.95%、武汉话 5.09%、东北话 5.24%，最难的客家话 31.01%、潮汕话 21.89%——差了六倍多。 平均数字没有意义。 该挑战赛基线（Qwen3-ASR-1.7B + LoRA）的 16 方言 macro CER 是 18.10%，...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/11/05/2026-11-05-%E6%96%B9%E8%A8%80ASR%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A/" title="方言 ASR 调研报告：从 5% 到 31% 的错字率，以及选型时真正该问的问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-05</div><div class="info-item-2">方言 ASR 调研报告：从 5% 到 31% 的错字率，以及选型时真正该问的问题</div></div><div class="info-2"><div class="info-item-1">会议室里，一位同事用四川话插了一句，转写稿上变成一串读音相近的普通话字。人听着能猜出原意，检索、纪要、待办抽取全在这句上断掉。 我因为做线下会议录音系统，最近把 2026 年能找到的方言 ASR 资料系统梳理了一遍。越看越觉得，「支持多少种方言」是这个问题里最不重要的一个数字——同一个模型在不同方言上的错字率能差六倍，而绝大多数选型文章只给你一个平均值。 这篇是调研报告，不是模型推荐清单。重点放在三件事：差距到底有多大、差距从哪来、以及拿到一套方案该怎么验收。文中的数字我按来源分了层级：挑战赛&#x2F;论文、厂商自报、社区实测，不混在一起用。    一、先给赶时间的人：五条结论 「方言 ASR」不是一个任务，是十几个难度完全不同的任务。 ChinaVoices Challenge 2026 的官方评测里，最容易的陕西话平均 CER 4.95%、武汉话 5.09%、东北话 5.24%，最难的客家话 31.01%、潮汕话 21.89%——差了六倍多。 平均数字没有意义。 该挑战赛基线（Qwen3-ASR-1.7B + LoRA）的 16 方言 macro CER 是 18.10%，...</div></div></div></a><a class="pagination-related" href="/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/" title="线下会议录音系统的开发复盘：八条可复用的工程实践"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-01</div><div class="info-item-2">线下会议录音系统的开发复盘：八条可复用的工程实践</div></div><div class="info-2"><div class="info-item-1">前段时间做完了一个线下会议录音系统：把一屋子人的现场讨论录下来，实时出带发言人的字幕，会后自动生成带发言人标签的逐字稿和纪要。私有化部署，数据不出内网，纯 CPU 也能跑，全程不依赖外网。 拆开是三个服务：Java 的业务服务、Python 的推理服务、Vue 的前端，加上一整套 PowerShell 部署脚本，合计不到一万行。开发节奏很紧——同一天里 29 次提交，基本是”发现问题 → 定位 → 改一处 → 立刻实测”。 这篇文章不复述功能，也不贴架构图讲得多漂亮。我想写的是这一个项目里真正沉淀下来的东西：那些下次做类似系统时，能直接少走一遍弯路的判断方法。    一、先把约束钉死，再谈选型这个项目最省时间的一步，是在写第一行代码之前，把三条硬约束写清楚了： 约束一：客户内网不通外网。 所有模型必须能离线下载、离线加载。推论很直接——模型体积和依赖体积不是开发体验问题，是产品指标。 约束二：数据不出内网，包括录音。 录音可能是经营决策、人事、法务内容，这是最敏感的资产。这条直接决定了两个设计：删除会议不删录音（误删不可再生），AI 服务不落业务库（少一个数据出口）。 约束三：t...</div></div></div></a><a class="pagination-related" href="/2026/10/23/AI%E6%97%B6%E4%BB%A3%E5%8F%91%E5%B1%95%E5%8F%B2/" title="AI时代发展史：从符号主义到通用智能的七十年"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-23</div><div class="info-item-2">AI时代发展史：从符号主义到通用智能的七十年</div></div><div class="info-2"><div class="info-item-1">七十年前，几个年轻的学者在达特茅斯的校园里争论着一个词能否成立；七十年后，人手一台设备里住着能写诗、画图、聊天的”智能”。人工智能这段历史，从来不是一条笔直向上的技术曲线，而是由无数次豪赌、寒冬与复兴交织而成的潮起潮落。作为一个亲历了这波大模型浪潮的程序员，想借这篇文章，把这七十年的故事认真梳理一遍。    一、孕育期：机器能否思考（1943–1955）故事的种子比”人工智能”这个名字还要早。 1943 年，麦卡洛克（McCulloch）和皮茨（Pitts）提出了第一个人工神经元数学模型，证明简单的阈值单元连成网络原则上可以完成计算——神经网络的思想由此诞生。同一时期，维纳的控制论、香农的信息论相继问世，”用机器模拟智能”在哲学和工程两个层面都做好了准备。 1950 年，图灵在《计算机器与智能》一文中提出了著名的图灵测试：如果一台机器在对话中让人无法分辨它是人还是机器，我们是否有理由称它”会思考”？这篇文章没有给出答案，却立起了此后七十多年整个领域的总靶子。 二、第一次黄金时代：符号主义的豪情（1956–1974）1956 年的达特茅斯会议被公认为人工智能的诞生日。麦卡锡、明斯基...</div></div></div></a><a class="pagination-related" href="/2026/11/01/2026-11-01-%E4%BB%8EPC%E5%88%B0%E7%A7%BB%E5%8A%A8%E4%BA%92%E8%81%94%E7%BD%91%E5%86%8D%E5%88%B0AI%E6%97%B6%E4%BB%A3/" title="从 PC 时代到移动互联网，再到 AI 时代：硬件与技术如何改变我们的生活"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-01</div><div class="info-item-2">从 PC 时代到移动互联网，再到 AI 时代：硬件与技术如何改变我们的生活</div></div><div class="info-2"><div class="info-item-1">回头看过去三十多年，技术浪潮并不是简单地把设备做得越来越快，而是在不断改变“计算发生在哪里”“我们如何使用软件”以及“普通人能做什么”。PC 时代把计算能力带到桌面，移动互联网时代把网络装进了口袋，AI 时代则开始把理解、生成和行动能力放进每一个软件界面。 这三段历史彼此相连：PC 时代建立了软件和芯片产业，移动互联网把连接、传感器和云基础设施推向大众，AI 时代又站在算力、数据和网络的积累之上。硬件每一次变化，最终都会在交互方式和社会分工上留下痕迹。    一、PC 时代：计算机从实验室走到每张桌子1. 从大型机到个人电脑早期计算机属于政府、大学和大型企业。大型机昂贵、占地、需要专门人员维护，普通人只能通过终端间接使用计算资源。个人电脑的意义，首先不是“更快”，而是让一个人第一次拥有了完整的输入、计算、存储和输出闭环。 从 1970 年代的微处理器，到 1981 年 IBM PC，再到 1984 年 Macintosh，计算机逐渐形成了今天熟悉的基本形态：显示器、键盘、鼠标、操作系统和应用软件。硬件从分立元件走向高度集成，芯片上的晶体管数量持续增加，价格则逐步下降。 2. 软件...</div></div></div></a><a class="pagination-related" href="/2026/10/24/2026-10-24-AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2/" title="AI编程工具的进化史：从代码补全到智能体开发"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-24</div><div class="info-item-2">AI编程工具的进化史：从代码补全到智能体开发</div></div><div class="info-2"><div class="info-item-1">每天打开终端，敲下一句自然语言描述，然后看着 AI 自己读代码、改文件、跑测试、修 bug——这已经成为我这一年多来最熟悉的工作方式。但偶尔还是会愣一下：八年前，我们还在为”自动补全猜中了下一行”而惊喜。从补全到副驾，从对话到智能体，AI 编程工具的进化速度快到每隔几个月，”AI 写代码”的含义就要被改写一次。作为一个亲历了整条曲线的程序员，想把这八年的故事认真梳理一遍。    一、前史：编辑器里的”规则智能”在 AI 登场之前，编辑器里的”智能”其实已经存在了几十年，只不过它们背后是一套人工编写的规则，而不是学习出来的模型。 1978 年，贝尔实验室的 Stephen C. Johnson 写出了第一个 lint 工具，用来检查 C 代码里的可疑写法；此后几十年，静态分析、类型推断、代码提示逐渐成为 IDE 的标配。IntelliJ 的类型推断能猜到你方法返回什么，Visual Assist 能补全庞大的 Windows API，但这些能力的本质都一样：人把规则写好，机器照着执行。它们不会”创造”，只会”提醒”。 这个时代留给我们的遗产其实比想象中深远——今天 AI 编程工具依...</div></div></div></a><a class="pagination-related" href="/2026/11/05/2026-11-05-Hy4%E7%82%B9%E8%AF%84/" title="Hy4 点评：一份「最强开源」发布稿里，最值得读的是那句「仍有差距」"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-05</div><div class="info-item-2">Hy4 点评：一份「最强开源」发布稿里，最值得读的是那句「仍有差距」</div></div><div class="info-2"><div class="info-item-1">11 月 4 日，腾讯混元发布了 Hy4 正式版。通稿的标题是「首次跻身最强开源模型之列」，但把发布页拉到《局限性和未来展望》那一节，还有另一句话：  尽管 Hy4 已经是目前最强的开源模型之一，其与顶尖闭源模型仍然存在较大差距。  两句话相隔不到一屏。一边宣布进入第一梯队，一边写清楚离天花板还有多远，还具体点名了差在哪几个方向：内部构建的前沿数学、长程开发、模型迭代、视觉问答。 在「全网第一」「史诗级超越」几乎成了发布模板的当下，这种克制反而少见。所以这篇不复述功能清单，我想写的是：作为一个要把模型用进真实项目的人，从这份发布稿里能拿走什么、哪些数字要打折看、以及现在该不该切换。    一、先把「混元 4」这个词说清楚 先纠正一个容易含混的地方：官方名称是 Hy4，不是「混元 4.0」这样的软件版本号。它是腾讯混元第四代大语言模型，海外品牌在 2025 年底简化成了 Tencent HY。 更值得分清楚的是发布节奏——今年 2 月重建数据和训练基础设施之后，混元大致按每两个月一个大版本推进，而且固定是「先放 Preview 收集反馈，再发正式版」：    时间 版本 规格 权重...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Patrick Huang</div><div class="author-info-description">记录自己作为程序员的每一点进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/huangzhemin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/huangzhemin" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">因为慢，所以能欣赏一路的风景</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%88%E5%8E%98%E6%B8%85%EF%BC%9AHarness-%E4%B8%8D%E6%98%AF%E6%A8%A1%E5%9E%8B%EF%BC%8C%E4%B9%9F%E4%B8%8D%E6%98%AF%E8%AF%84%E6%B5%8B%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">一、先厘清：Harness 不是模型，也不是评测框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9E%B6%E6%9E%84%EF%BC%9A%E6%8A%8A%E5%86%85%E6%A0%B8%E5%86%B3%E7%AD%96%E6%9D%83%E4%BB%8E%E6%BA%90%E7%A0%81%E6%90%AC%E5%88%B0%E9%85%8D%E7%BD%AE%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">二、架构：把内核决策权从源码搬到配置树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%E4%B8%8E%E3%80%8C%E4%B8%80%E5%88%87%E7%9A%86%E6%8F%92%E4%BB%B6%E3%80%8D"><span class="toc-number">2.1.</span> <span class="toc-text">微内核与「一切皆插件」</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%98%AF%E4%B8%80%E6%A3%B5%E5%8F%AF%E8%A6%86%E7%9B%96%E7%9A%84%E6%8F%92%E4%BB%B6%E6%A0%91"><span class="toc-number">2.2.</span> <span class="toc-text">配置是一棵可覆盖的插件树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%BA%8B%E4%BB%B6%E6%BA%AF%E6%BA%90%E6%97%A5%E5%BF%97"><span class="toc-number">2.3.</span> <span class="toc-text">四种模式与事件溯源日志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%95%B0%E5%AD%97%EF%BC%9A%E6%8D%A2%E4%B8%80%E4%B8%AA-Harness%EF%BC%8C%E6%8E%92%E5%90%8D%E5%92%8C%E8%B4%A6%E5%8D%95%E9%83%BD%E4%BC%9A%E5%8F%98"><span class="toc-number">3.</span> <span class="toc-text">三、数字：换一个 Harness，排名和账单都会变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%8A%E6%89%8B%E5%AE%9E%E6%B5%8B%EF%BC%9A%E7%AC%AC%E4%B8%80%E8%A1%8C%E5%91%BD%E4%BB%A4%E5%B0%B1%E5%8D%A1%E4%BD%8F%E4%BA%86"><span class="toc-number">4.</span> <span class="toc-text">四、上手实测：第一行命令就卡住了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97%EF%BC%9A%E4%B8%83%E6%9D%A1%E6%88%91%E8%AE%A4%E4%B8%BA%E7%9C%9F%E6%AD%A3%E6%9C%89%E7%94%A8%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-number">5.</span> <span class="toc-text">五、使用心得：七条我认为真正有用的判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%BB%99%E4%B8%8D%E5%90%8C%E8%A7%92%E8%89%B2%E7%9A%84%E5%BB%BA%E8%AE%AE%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%80%E4%BB%BD%E9%AA%8C%E6%94%B6%E6%B8%85%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">六、给不同角色的建议，以及一份验收清单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E8%BF%98%E6%B2%A1%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">七、还没解决的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">8.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/06/2026-11-06-DeepSeek-Harness%E8%B0%83%E7%A0%94%E4%B8%8E%E4%B8%8A%E6%89%8B%E5%BF%83%E5%BE%97/" title="DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产">DeepSeek Harness 调研与上手心得：架构值得学，工具别急着上生产</a><time datetime="2026-11-06T13:30:00.000Z" title="发表于 2026-11-06 21:30:00">2026-11-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/05/2026-11-05-%E6%96%B9%E8%A8%80ASR%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A/" title="方言 ASR 调研报告：从 5% 到 31% 的错字率，以及选型时真正该问的问题">方言 ASR 调研报告：从 5% 到 31% 的错字率，以及选型时真正该问的问题</a><time datetime="2026-11-05T13:10:00.000Z" title="发表于 2026-11-05 21:10:00">2026-11-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/05/2026-11-05-Hy4%E7%82%B9%E8%AF%84/" title="Hy4 点评：一份「最强开源」发布稿里，最值得读的是那句「仍有差距」">Hy4 点评：一份「最强开源」发布稿里，最值得读的是那句「仍有差距」</a><time datetime="2026-11-05T13:00:00.000Z" title="发表于 2026-11-05 21:00:00">2026-11-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/01/2026-11-01-%E4%BB%8EPC%E5%88%B0%E7%A7%BB%E5%8A%A8%E4%BA%92%E8%81%94%E7%BD%91%E5%86%8D%E5%88%B0AI%E6%97%B6%E4%BB%A3/" title="从 PC 时代到移动互联网，再到 AI 时代：硬件与技术如何改变我们的生活">从 PC 时代到移动互联网，再到 AI 时代：硬件与技术如何改变我们的生活</a><time datetime="2026-11-01T05:30:00.000Z" title="发表于 2026-11-01 13:30:00">2026-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/11/01/2026-11-01-%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%E5%BD%95%E9%9F%B3%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98/" title="线下会议录音系统的开发复盘：八条可复用的工程实践">线下会议录音系统的开发复盘：八条可复用的工程实践</a><time datetime="2026-11-01T03:00:00.000Z" title="发表于 2026-11-01 11:00:00">2026-11-01</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Patrick Huang</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.1.260810</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.1.260810"></script><script src="/js/main.js?v=5.7.1.260810"></script><div class="js-pjax"></div><script async data-pjax src="https://events.vercount.one/js"></script></div></body></html>
